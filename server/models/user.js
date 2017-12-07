@@ -9,6 +9,7 @@ var schema = new mongoose.Schema({
     email: { type: String, required: true, dropDups: true },
     password: { type: String, required: true },
     created: { type: Number, required: true, default: Date.now() }
+    // in this schema we will need some parameters that will allow us to keep track of how they 
 })
 
 schema.pre('save', function (next) {
