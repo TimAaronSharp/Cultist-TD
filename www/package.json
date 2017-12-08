@@ -1,0 +1,14 @@
+{
+  "name": "cultist_www",
+  "version": "1.0.0",
+  "description": "Tower Defense Game with Extras",
+  "main": "assets/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Cam, Tim, and Sean",
+  "license": "ISC",
+  "dependencies": {
+    "phaser": "^2.6.2"
+  }
+}
