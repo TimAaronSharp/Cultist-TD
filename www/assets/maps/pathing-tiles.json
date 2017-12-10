@@ -1,0 +1,12 @@
+{ "columns":10,
+ "image":"tiles.bmp",
+ "imageheight":132,
+ "imagewidth":330,
+ "margin":0,
+ "name":"tiles",
+ "spacing":1,
+ "tilecount":40,
+ "tileheight":32,
+ "tilewidth":32,
+ "type":"tileset"
+}
