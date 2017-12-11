@@ -7,14 +7,10 @@ function AuthController() {
             email: event.target.email.value,
             password: event.target.password.value
         }
-        authService.login(loginData, drawNav)
+        authService.login(loginData)
     }
 
-    function drawNav(res) {
-        if(res.data) {
-            
-        }
-    }
+   
 
     this.registration = function registation(event) {
         event.preventDefault()
@@ -26,13 +22,13 @@ function AuthController() {
                 username: event.target.username.value,
                 password: event.target.password.value
             }
-            authService.registration(registerData, drawNav)
+            authService.registration(registerData)
         }
     }
 
     this.logout = function logout() {
-        authService.logout(drawNav)
+        authService.logout
     }
 
-    authService.authenticate(drawNav)
+    // authService.authenticate
 }
