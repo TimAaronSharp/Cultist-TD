@@ -1,13 +1,13 @@
-var game = new Phaser.Game(1024, 768, Phaser.AUTO, '');
+var game = new Phaser.Game(1024, 768, Phaser.AUTO, 'game-area');
 
 //gameData will be what's stored in the database. We will need to call down the data for the appropriate level
 var gameData = {
     level: {
         name: 'The fall of rivendale',
-        map: 'assets/maps/level2.json',
-        mapKey: 'level2',
+        map: 'assets/maps/level1.json',
+        mapKey: 'level1',
         tilesetImage: 'assets/images/tiles.bmp',
-        tilesetImageName: 'level2-tileset',
+        tilesetImageName: 'tiles',
         tilesetImageKey: 'tiles',
         tilemapLayer: 'Ground',
         buildableTileId: 3,
@@ -118,8 +118,8 @@ PhaserGame.prototype = {
         this.bmd.addToWorld();
 
         activeEnemiesGroup = game.add.group();
-        activeEnemiesGroup.enableBody = true;
-        activeEnemiesGroup.physicsBodyType = Phaser.Physics.ARCADE
+        // activeEnemiesGroup.enableBody = true;
+        // activeEnemiesGroup.physicsBodyType = Phaser.Physics.ARCADE
 
 
         this.stage.backgroundColor = '#787878';
@@ -155,6 +155,9 @@ PhaserGame.prototype = {
             enemy.spawnTime = gameData.level.spawnRate * (i + 1)
             enemy.gameObject = this.add.sprite(0, 0, enemy.type)
             enemy.gameObject.anchor.set(1, 1)
+            enemy.gameObject.enableBody = true;
+            enemy.gameObject.physicsBodyType = Phaser.Physics.ARCADE
+
             gameState.spawnableEnemies.push(enemy)
         }
     },
@@ -234,7 +237,7 @@ PhaserGame.prototype = {
         enemy.i = 0
         gameState.spawnableEnemies.shift()
         gameState.activeEnemies.push(enemy)
-        // activeEnemiesGroup.add(enemy.gameObject) currently testing game object group. Delete if not utilized.
+        // activeEnemiesGroup.add(enemy.gameObject) //currently testing game object group. Delete if not utilized.
     },
     moveEnemies() {
         for (let i = 0; i < gameState.activeEnemies.length; i++) {
