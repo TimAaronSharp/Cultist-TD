@@ -1,7 +1,8 @@
 function AuthController() {
-    var authService = new authService()
+    var authService = new AuthService()
 
     this.login = function login(event) {
+        debugger
         event.preventDefault()
         var loginData = {
             email: event.target.email.value,
@@ -13,6 +14,7 @@ function AuthController() {
    
 
     this.registration = function registation(event) {
+        debugger
         event.preventDefault()
         if(event.target.password.value != event.target.reEnterPassword.value) {
             console.log('please re-enter password')

@@ -1,5 +1,5 @@
 var app = {
     controllers: {
-        authcontroller: new AuthController()
+        authController: new AuthController()
     }
 }
