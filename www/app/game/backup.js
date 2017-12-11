@@ -128,8 +128,8 @@ PhaserGame.prototype = {
         bullets.createMultiple(6, 'star')
         bullets.setAll('anchor.x', 1)
         bullets.setAll('anchor.y', 1)
-        // bullets.setAll('position.x', 220)
-        // bullets.setAll('position.y', 580)
+        bullets.x = 220
+        bullets.y = 580
         game.physics.enable(bullets, Phaser.Physics.ARCADE)
 
         // colTest.enableBody = true;
@@ -210,10 +210,10 @@ PhaserGame.prototype = {
         this.moveEnemies()
     },
     bulletOverlap() {
-        game.physics.arcade.overlap(bullets, activeEnemiesGroup, this.bulletOverlapHandler, null, this)
+        game.physics.arcade.overlap(bullets, activeEnemiesGroup, this.bulletOverlap, null, this)
 
     },
-    bulletOverlapHandler(bullet, thisEnemy) {
+    bulletOverlap(bullet, thisEnemy) {
         // console.log(bullets, thisEnemy)
         bullet.kill()
         thisEnemy.kill()
@@ -232,7 +232,6 @@ PhaserGame.prototype = {
         gameState.spawnableEnemies.shift()
         gameState.activeEnemies.push(enemy)
         activeEnemiesGroup.add(enemy.gameObject) //currently testing game object group. Delete if not utilized.
-        console.log(activeEnemiesGroup)
     },
     moveEnemies() {
         for (let i = 0; i < gameState.activeEnemies.length; i++) {
