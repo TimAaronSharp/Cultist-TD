@@ -45,6 +45,7 @@ var gameData = {
         towers: [{
             type: 'tesla',
             bullet: 'bullet',
+            fireRate: 2000,
             bulletSprite: 'assets/images/arrow.png',
             sprite: 'assets/images/Tesla-Orb-Anim.gif'
         }],
@@ -60,6 +61,7 @@ var gameData = {
 
 var map, layer, selectedTile
 var currentTileProperties = ''
+var numOfTowers = 1
 //gameState is where we'll locally keep the data that we pulled down from the database and manipulate it here.
 var gameState = {
     spawnableEnemies: [], //spawnableEnemies is where the enemies from the database will be stored when they first get pulled down. Shifted out when spawned.
@@ -122,14 +124,16 @@ PhaserGame.prototype = {
         activeEnemiesGroup.physicsBodyType = Phaser.Physics.ARCADE
         game.physics.enable(activeEnemiesGroup, Phaser.Physics.ARCADE)
 
+        towers = game.add.group();
+
         bullets = game.add.group();
         bullets.enableBody = true;
         bullets.physicsBodyType = Phaser.Physics.ARCADE
         bullets.createMultiple(6, 'star')
         bullets.setAll('anchor.x', 1)
         bullets.setAll('anchor.y', 1)
-        bullets.x = 220
-        bullets.y = 580
+        // bullets.setAll('position.x', 220)
+        // bullets.setAll('position.y', 580)
         game.physics.enable(bullets, Phaser.Physics.ARCADE)
 
         // colTest.enableBody = true;
@@ -162,11 +166,12 @@ PhaserGame.prototype = {
             console.log("no go bro")
         } else {
             tile.properties.hasTower = true
-            game.add.sprite(tile.x * 32, tile.y * 32, gameData.level.towers[0].type)
+            new Tower(tile.x, tile.y, gameData.level.towers[0].type)
+            numOfTowers++
+            // game.add.sprite(tile.x * 32, tile.y * 32, gameData.level.towers[0].type)
         }
         currentTileProperties = JSON.stringify(tile.properties)
     },
-
     moveTileCursor() {
         selectedTile.x = layer.getTileX(game.input.activePointer.worldX) * 32;
         selectedTile.y = layer.getTileY(game.input.activePointer.worldY) * 32;
@@ -197,6 +202,9 @@ PhaserGame.prototype = {
     update: function () {
         this.handleEnemies()
         this.bulletOverlap()
+        towers.forEach(function(tower) {
+            tower.fire(tower)
+        });
         // game.physics.arcade.overlap(colTest, activeEnemiesGroup, this.colHandler, null, this)
         // this.collisionCheck()
 
@@ -210,10 +218,10 @@ PhaserGame.prototype = {
         this.moveEnemies()
     },
     bulletOverlap() {
-        game.physics.arcade.overlap(bullets, activeEnemiesGroup, this.bulletOverlap, null, this)
+        game.physics.arcade.overlap(bullets, activeEnemiesGroup, this.bulletOverlapHandler, null, this)
 
     },
-    bulletOverlap(bullet, thisEnemy) {
+    bulletOverlapHandler(bullet, thisEnemy) {
         // console.log(bullets, thisEnemy)
         bullet.kill()
         thisEnemy.kill()
@@ -231,7 +239,8 @@ PhaserGame.prototype = {
         enemy.i = 0
         gameState.spawnableEnemies.shift()
         gameState.activeEnemies.push(enemy)
-        activeEnemiesGroup.add(enemy.gameObject) //currently testing game object group. Delete if not utilized.
+        activeEnemiesGroup.add(enemy.gameObjec) //currently testing game object group. Delete if not utilized.
+        console.log(activeEnemiesGroup)
     },
     moveEnemies() {
         for (let i = 0; i < gameState.activeEnemies.length; i++) {
