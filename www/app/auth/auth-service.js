@@ -27,6 +27,7 @@ function AuthService() {
 
     this.authenticate = function authenicate(cb) {
         $.get(baseUrl + 'authenticate')
+        
             .then(res => {
                 console.log('authenticated: ', res)
                 cb(res)

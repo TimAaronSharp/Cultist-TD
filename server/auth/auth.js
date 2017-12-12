@@ -57,19 +57,18 @@ router.delete('/logout', (req, res) => {
 })
 
 
-router.get('/authenticate', (req, res) => {
-  Users.findById(req.session.uid)
-    .then(user => {
-      user.password = null
-      delete user.password
-      return res.send({
-        data: user
-      })
-    }).catch(err => {
-      return res.send({
-        error: err
-      })
+router.get('/authenticate', (req,res) => {
+  Users.findById(req.session.uid).then(user => {
+    user.password = null
+    delete user.password
+    return res.send ({
+      data: user
     })
+  }).catch(err=>{
+    return res.send({
+      error:err
+    })
+  })
 })
 
 

@@ -7,6 +7,7 @@ var corsOptions = require('./handlers').corsOptions
 var DBConnect = require('./config/mlab-config')
 var sessions = require('./auth/sessions')
 var Auth = require('./auth/auth')
+var gamedataRoutes = require('./routes/gamedata-routes')
 var port = 3000
 
 //route variables
@@ -30,6 +31,8 @@ app.use('/', Auth)
 app.use(userRoutes)
 app.use(Validate)
 app.use('/', defaultErrorHandler)
+
+app.use(gamedataRoutes)
 
 function Validate(req, res, next) {
     // ONLY ALLOW GET METHOD IF NOT LOGGED IN 
