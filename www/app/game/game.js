@@ -21,7 +21,8 @@ var gameData = {
             health: 100,
             sprite: 'assets/images/star.png',
             name: 'star 2'
-        }, {
+        },
+        {
             type: 'star',
             health: 100,
             sprite: 'assets/images/star.png',
@@ -41,11 +42,12 @@ var gameData = {
             health: 100,
             sprite: 'assets/images/star.png',
             name: 'star 6'
-        }],
+        }
+        ],
         towers: [{
             type: 'tesla',
             bullet: 'bullet',
-            fireRate: 2000,
+            fireRate: 500,
             bulletSprite: 'assets/images/arrow.png',
             sprite: 'assets/images/Tesla-Orb-Anim.gif'
         }],
@@ -119,6 +121,10 @@ PhaserGame.prototype = {
 
         game.input.onDown.add(this.placeTower, this)
 
+        spawnableEnemiesGroup = game.add.group();
+        spawnableEnemiesGroup.enableBody = true;
+        spawnableEnemiesGroup.physicsBodyType = Phaser.Physics.ARCADE
+
         activeEnemiesGroup = game.add.group();
         activeEnemiesGroup.enableBody = true;
         activeEnemiesGroup.physicsBodyType = Phaser.Physics.ARCADE
@@ -145,11 +151,15 @@ PhaserGame.prototype = {
     },
     //Generates enemies and their sprites from gamedata and pushes them into the spawnableEnemies array.
     generateEnemies() {
+        // spawnableEnemiesGroup.forEach(function(enemy){
+        //     new Enemy(0,0)
+        //     gameState.spawnableEnemies.push(enemy)
+        // })
         for (let i = 0; i < gameData.level.enemies.length; i++) {
             const enemy = gameData.level.enemies[i];
-            // enemy.spawnTime = gameData.level.spawnRate * (i + 1)
-            // enemy.gameObject = this.add.sprite(0, 0, enemy.type)
-            // enemy.gameObject.anchor.set(1, 1)
+            enemy.spawnTime = gameData.level.spawnRate * (i + 1)
+            enemy.gameObject = this.add.sprite(0, 0, enemy.type)
+            enemy.gameObject.anchor.set(1, 1)
             gameState.spawnableEnemies.push(enemy)
         }
     },
@@ -202,8 +212,8 @@ PhaserGame.prototype = {
     update: function () {
         this.handleEnemies()
         this.bulletOverlap()
-        towers.forEach(function(tower) {
-            tower.fire(tower)
+        towers.forEach(function (tower) {
+            tower.aquireTarget(tower)
         });
         // game.physics.arcade.overlap(colTest, activeEnemiesGroup, this.colHandler, null, this)
         // this.collisionCheck()
