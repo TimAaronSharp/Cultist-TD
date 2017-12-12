@@ -19,7 +19,9 @@ function AuthService() {
 
     this.registration = function registration(form, cb) {
         $.post(baseUrl + 'register', form)
-            .then(this.authenticate(cb))
+            .then(res => {
+                this.authenticate(cb)
+            })
             .fail(logError)
     }
 

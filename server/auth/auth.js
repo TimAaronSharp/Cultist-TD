@@ -20,6 +20,7 @@ router.post('/register', (req, res) => {
 
 
 router.post('/login', (req, res) => {
+  // debugger
   Users.findOne({ email: req.body.email })
     .then(user => {
       user.validatePassword(req.body.password)
@@ -57,6 +58,7 @@ router.delete('/logout', (req, res) => {
 
 
 router.get('/authenticate', (req, res) => {
+  debugger
   Users.findById(req.session.uid)
     .then(user => {
       user.password = null
