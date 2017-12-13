@@ -145,6 +145,7 @@ PhaserGame.prototype = {
 
         towers = game.add.group();
 
+        //lookup how to kill sprites when they leave visible world bounds
         bullets = game.add.group();
         bullets.enableBody = true;
         bullets.physicsBodyType = Phaser.Physics.ARCADE
