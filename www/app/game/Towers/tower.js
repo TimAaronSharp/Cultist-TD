@@ -7,6 +7,12 @@ var Tower = function (tileX, tileY, type) {
     this.tower.prevShot = game.time.now + gameData.level.towers[0].fireRate
     this.tower.towerInstance = numOfTowers
     this.tower.target = null
+    this.tower.bullets = game.add.group()
+    this.tower.bullets.enableBody = true;
+    this.tower.bullets.physicsBodyType = Phaser.Physics.ARCADE
+    this.tower.bullets.setAll('anchor.x', 0.5)
+    this.tower.bullets.setAll('anchor.y', 0.5)
+    game.physics.enable(this.tower.bullets, Phaser.Physics.ARCADE)
     this.tower.aquireTarget = function (tower) { //Phaser.Math.Distance
 
         if (tower.target) {//Check if tower has target
@@ -39,8 +45,16 @@ var Tower = function (tileX, tileY, type) {
     this.tower.fire = function (tower, enemy) {
         // bullets.createMultiple(5, gameData.level.towers[0].bullet, 0, false)
         if (game.time.now > tower.prevShot) {
+            tower.bullets.createMultiple(1, 'star')
+            
+            var bullet = tower.bullets.getFirstExists(false);
             console.log('Tower ' + tower.towerInstance + " shot " + enemy.name + "! KABOOOOOOOM!!!")
             tower.prevShot = game.time.now + tower.fireRate
+            bullet.reset(tower.x, tower.y);
+            // bullet.body.collideWorldBounds = true;
+
+
+            game.physics.arcade.moveToObject(bullet, enemy, 500)
         }
 
     }
