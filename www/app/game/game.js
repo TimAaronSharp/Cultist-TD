@@ -65,11 +65,12 @@ var gameData = {
             'x': [0, 110, 220, 220, 220, 220, 330, 440, 550, 660, 770, 880, 990, 1100],
             'y': [700, 700, 700, 590, 480, 380, 380, 380, 380, 380, 380, 380, 380, 380]
         },
-        spawnRate: 1000,
+        spawnRate: 60,
     }
 }
 
-var map, layer, selectedTile, winLoseText
+var map, layer, selectedTile, winLoseText, pauseText
+var gameClock = 0;
 var currentTileProperties = ''
 var numOfTowers = 1
 //gameState is where we'll locally keep the data that we pulled down from the database and manipulate it here.
@@ -151,22 +152,24 @@ PhaserGame.prototype = {
         bullets.setAll('anchor.y', 0.5)
         game.physics.enable(bullets, Phaser.Physics.ARCADE)
 
-        // winLoseText
+        //text
+
+        // winLose
         winLoseText = game.add.text(game.world.centerX, game.world.centerY, ' ', { font: '100px Arial', fill: '#ffffff' });
         winLoseText.anchor.setTo(0.5, 0.5);
         winLoseText.visible = false;
 
-        // bullets = game.add.group();
+        //pause
+        pauseText = game.add.text(game.world.centerX, game.world.centerY, ' ', { font: '50px Arial', fill: '#ffffff' });
+        pauseText.anchor.setTo(0.5, 0.5);
+        pauseText.visible = false;
+
+        //buttons
+        pauseButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
+
+        pauseButton.onDown.add(this.togglePause);
 
 
-        // bullets.setAll('position.x', 220)
-        // bullets.setAll('position.y', 580)
-        // game.physics.enable(bullets, Phaser.Physics.ARCADE)
-
-        // colTest.enableBody = true;
-        // colTest.physicsBodyType = Phaser.Physics.ARCADE
-
-        // console.log(colTest)
         this.generateEnemies()
         this.plot();
     },
@@ -233,14 +236,22 @@ PhaserGame.prototype = {
         }
     },
     update: function () {
+        gameClock++;
         this.handleEnemies()
         this.bulletOverlap()
         towers.forEach(function (tower) {
             tower.aquireTarget(tower)
         });
-        // game.physics.arcade.overlap(colTest, activeEnemiesGroup, this.colHandler, null, this)
-        // this.collisionCheck()
 
+    },
+    togglePause() {
+        game.paused = !game.paused
+        if (game.paused) {
+            pauseText.text = "Press SPACE to resume"
+            pauseText.visible = true;
+        } else {
+            pauseText.visible = false;
+        }
     },
     render() {
         game.debug.text("Tile Properties: " + currentTileProperties, 500, 50)
@@ -276,7 +287,7 @@ PhaserGame.prototype = {
     checkEnemySpawn() {
         var nextEnemy = gameState.spawnableEnemies[0]
         // console.log('UPDATE:', game.time.now, gameState.spawnableEnemies[0])
-        if (nextEnemy && game.time.now >= nextEnemy.spawnTime) {
+        if (nextEnemy && gameClock >= nextEnemy.spawnTime) {
             this.spawnEnemy(nextEnemy)
         }
     },
