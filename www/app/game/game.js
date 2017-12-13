@@ -11,7 +11,7 @@ var gameData = {
         tilesetImageKey: 'tiles',
         tilemapLayer: 'Ground',
         buildableTileId: 3,
-        playerLevelHealth: 2,
+        playerLevelHealth: 7,
         enemies: [{ //will need to make sure the schema has all the properties that we are adding below, such as spawnTime and gameObject.
             type: 'star',
             health: 100,
@@ -243,6 +243,11 @@ PhaserGame.prototype = {
         towers.forEach(function (tower) {
             tower.aquireTarget(tower)
         });
+        if (gameState.enemiesOutOfPlay == gameData.level.enemies.length) {
+            winLoseText.text = "A winner is YOU!"
+            winLoseText.visible = true;
+            // console.log(winLoseText)
+        }
 
     },
     togglePause() {
@@ -277,11 +282,7 @@ PhaserGame.prototype = {
             shotEnemy.kill()
             gameState.enemiesOutOfPlay++;
             console.log(gameState.enemiesOutOfPlay)
-        }
-        if (gameState.enemiesOutOfPlay == gameData.level.enemies.length) {
-            winLoseText.text = "A winner is YOU!"
-            winLoseText.visible = true;
-            console.log(winLoseText)
+            console.log(gameData.level.enemies.length)
         }
     },
     //checkEnemySpawn - checks if there is still an enemy in the spawnableEnemies array and checks the current game time vs the spawn time for the enemy.
@@ -317,11 +318,13 @@ PhaserGame.prototype = {
             gameState.playerHealth -= enemy.playerDamageValue
             console.log("Player health: " + gameState.playerHealth)
             gameState.enemiesOutOfPlay++;
+            console.log(gameState.enemiesOutOfPlay)
         }
         gameState.successfulEnemies.push(gameState.activeEnemies.splice(gameState.activeEnemies.indexOf(enemy), 1)[0])
         //deduct player healh
         enemy.gameObject.kill()
         console.log(gameState.enemiesOutOfPlay)
+        console.log(gameData.level.enemies.length)
         if (gameState.playerHealth <= 0) {
             winLoseText.text = "Game Over";
             winLoseText.visible = true;
