@@ -47,6 +47,7 @@ var gameData = {
         towers: [{
             type: 'tesla',
             bullet: 'bullet',
+            bulletDamage: 50,
             fireRate: 2000,
             bulletSprite: 'assets/images/bullet.png',
             sprite: 'assets/images/Tesla-Orb-Anim.gif'
@@ -124,9 +125,9 @@ PhaserGame.prototype = {
         game.input.onDown.add(this.placeTower, this)
         // game.add.sprite(0, 0, 'bullet')
 
-        spawnableEnemiesGroup = game.add.group();
-        spawnableEnemiesGroup.enableBody = true;
-        spawnableEnemiesGroup.physicsBodyType = Phaser.Physics.ARCADE
+        // spawnableEnemiesGroup = game.add.group();
+        // spawnableEnemiesGroup.enableBody = true;
+        // spawnableEnemiesGroup.physicsBodyType = Phaser.Physics.ARCADE
 
         activeEnemiesGroup = game.add.group();
         activeEnemiesGroup.enableBody = true;
@@ -134,6 +135,13 @@ PhaserGame.prototype = {
         game.physics.enable(activeEnemiesGroup, Phaser.Physics.ARCADE)
 
         towers = game.add.group();
+
+        bullets = game.add.group();
+        bullets.enableBody = true;
+        bullets.physicsBodyType = Phaser.Physics.ARCADE
+        bullets.setAll('anchor.x', 0.5)
+        bullets.setAll('anchor.y', 0.5)
+        game.physics.enable(bullets, Phaser.Physics.ARCADE)
 
         // bullets = game.add.group();
 
@@ -159,6 +167,8 @@ PhaserGame.prototype = {
             const enemy = gameData.level.enemies[i];
             enemy.spawnTime = gameData.level.spawnRate * (i + 1)
             enemy.gameObject = this.add.sprite(0, 0, enemy.type)
+            enemy.gameObject.originalIndex = i
+            enemy.gameObject.health = enemy.health
             enemy.gameObject.anchor.set(1, 1)
             gameState.spawnableEnemies.push(enemy)
         }
@@ -211,7 +221,7 @@ PhaserGame.prototype = {
     },
     update: function () {
         this.handleEnemies()
-        // this.bulletOverlap()
+        this.bulletOverlap()
         towers.forEach(function (tower) {
             tower.aquireTarget(tower)
         });
@@ -227,14 +237,20 @@ PhaserGame.prototype = {
         this.checkEnemySpawn()
         this.moveEnemies()
     },
-    // bulletOverlap() {
-    //     game.physics.arcade.overlap(bullets, activeEnemiesGroup, this.bulletOverlapHandler, null, this)
+    bulletOverlap() {
+        game.physics.arcade.overlap(bullets, activeEnemiesGroup, this.bulletOverlapHandler, null, this)
 
-    // },
-    bulletOverlapHandler(bullet, thisEnemy) {
+    },
+    bulletOverlapHandler(bullet, shotEnemy) {
         // console.log(bullets, thisEnemy)
         bullet.kill()
-        thisEnemy.kill()
+        shotEnemy.health -= gameData.level.towers[0].bulletDamage;
+        // console.log(shotEnemy.health)
+        if (shotEnemy.health <= 0) {
+            gameState.killedEnemies.push(shotEnemy)
+            // gameState.killedEnemies.push(gameState.activeEnemies.splice(shotEnemy.originalIndex, 1)[0])
+            shotEnemy.kill()
+        }
     },
     //checkEnemySpawn - checks if there is still an enemy in the spawnableEnemies array and checks the current game time vs the spawn time for the enemy.
     checkEnemySpawn() {
@@ -250,7 +266,7 @@ PhaserGame.prototype = {
         gameState.spawnableEnemies.shift()
         gameState.activeEnemies.push(enemy)
         activeEnemiesGroup.add(enemy.gameObject) //currently testing game object group. Delete if not utilized.
-        console.log(activeEnemiesGroup)
+        // console.log(activeEnemiesGroup)
     },
     moveEnemies() {
         for (let i = 0; i < gameState.activeEnemies.length; i++) {
