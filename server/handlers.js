@@ -28,6 +28,7 @@ var corsOptions = {
 		var originIsWhitelisted = whitelist.indexOf(origin) !== -1;
 		callback(null, originIsWhitelisted);
 	},
+	methods: ['GET', 'POST', 'PUT', 'DELETE'],
 	credentials: true
 };
 

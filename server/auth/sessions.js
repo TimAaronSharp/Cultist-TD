@@ -15,10 +15,10 @@ store.on('error', function (error) {
 
 module.exports = session({
 	secret: 'I drink your milkshake!',
-	cookie: {
-		maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week 
-	},
+	// cookie: {
+	// 	maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week 
+	// },
 	store: store,
-	resave: true,
-	saveUninitialized: true
+	resave: false,
+	saveUninitialized: false
 })

@@ -8,14 +8,40 @@ function AuthController() {
                 <h3> Welcome ${res.data.username} </h3>
             `
             document.getElementById('welcome').innerHTML = template
+            var template2 = ''
+            template2 = `
+                <button type="button" class="btn btn-default btn-lg" onclick="app.controllers.authController.logout()">Logout </button>
+            `
+            document.getElementById('login').innerHTML = template2
         } else {
             var template = ''
             template = `
                 <h3> Welcome </h3>
             `
             document.getElementById('welcome').innerHTML = template
+            var template2 = ''
+            template2 = `
+                <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#loginModal">Login</button>
+            `
+            document.getElementById('login').innerHTMl = template2
         }
     }
+
+    // function drawLogin(res) {
+    //     if(res.data) {
+    //         var template2 = ''
+    //         template2 = `
+    //             <button type="button" class="btn btn-default btn-lg" onclick="app.controllers.authController.logout()">Logout </button>
+    //         `
+    //         document.getElementById('login').innerHTML = template2
+    //     } else {
+    //         var template2 = ''
+    //         template2 = `
+    //             <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#loginModal">Login</button>
+    //         `
+    //         document.getElementById('login').innerHTMl = template2
+    //     }
+    // }
 
     this.login = function login(event) {
         // debugger
@@ -37,7 +63,7 @@ function AuthController() {
    
 
     this.registration = function registration(event) {
-        debugger
+        // debugger
         event.preventDefault()
         if(event.target.password.value != event.target.reEnterPassword.value) {
             console.log('please re-enter password')
@@ -62,9 +88,10 @@ function AuthController() {
         }
     }
 
-    this.logout = function logout() {
+    this.logout = function logout(cb) {
         authService.logout(drawWelcome)
     }
 
     authService.authenticate(drawWelcome)
+    
 }
