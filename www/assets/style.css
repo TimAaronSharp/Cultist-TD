@@ -6,10 +6,7 @@
 .form{
     font-family: 'Inconsolata', monospace;
 }
-#toggleMe{
-    display: none;
-}
-.game{
-    display: block;
-    margin: auto;
+
+body{
+    background-color: #000000;
 }
