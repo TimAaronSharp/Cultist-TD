@@ -45,8 +45,8 @@ var Tower = function (tileX, tileY, type) {
     this.tower.fire = function (tower, enemy) {
         // bullets.createMultiple(5, gameData.level.towers[0].bullet, 0, false)
         if (game.time.now > tower.prevShot) {
-            tower.bullets.createMultiple(1, 'star')
-            
+            tower.bullets.createMultiple(1, 'bullet')
+
             var bullet = tower.bullets.getFirstExists(false);
             console.log('Tower ' + tower.towerInstance + " shot " + enemy.name + "! KABOOOOOOOM!!!")
             tower.prevShot = game.time.now + tower.fireRate

@@ -87,8 +87,9 @@ PhaserGame.prototype = {
         for (let i = 0; i < gameData.level.towers.length; i++) {
             const tower = gameData.level.towers[i];
             game.load.image(tower.type, tower.sprite)
-            // game.load.image(tower.bullet, tower.bulletSprite)
+            game.load.image(tower.bullet, tower.bulletSprite)
         }
+        game.load.image(gameData.level.towers[0].bullet, gameData.level.towers[0].bulletSprite)
         // game.load.image('bullet', 'assets/images/bullet.png')
         game.load.tilemap(gameData.level.mapKey, gameData.level.map, null, Phaser.Tilemap.TILED_JSON);
         game.load.image(gameData.level.tilesetImageKey, gameData.level.tilesetImage);
@@ -121,6 +122,7 @@ PhaserGame.prototype = {
         game.input.addMoveCallback(this.moveTileCursor, this); //runs this callback everytime you move the cursor.
 
         game.input.onDown.add(this.placeTower, this)
+        // game.add.sprite(0, 0, 'bullet')
 
         spawnableEnemiesGroup = game.add.group();
         spawnableEnemiesGroup.enableBody = true;
@@ -132,9 +134,9 @@ PhaserGame.prototype = {
         game.physics.enable(activeEnemiesGroup, Phaser.Physics.ARCADE)
 
         towers = game.add.group();
-        
+
         // bullets = game.add.group();
-        
+
 
         // bullets.setAll('position.x', 220)
         // bullets.setAll('position.y', 580)
