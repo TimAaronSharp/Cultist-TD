@@ -113,6 +113,8 @@ PhaserGame.prototype = {
 
     //create - function that creates the game world and everything in it.
     create: function () {
+        this.game.scale.pageAlignHorizontally = true;this.game.scale.pageAlignVertically = true;this.game.scale.refresh();
+
         game.physics.startSystem(Phaser.Physics.ARCADE) //starts the physics system.
         //bmd code allows for the plot to draw the plot points if you don't have the map loaded. Useful when making paths and for debugging.
         this.bmd = this.add.bitmapData(this.game.width, this.game.height);
