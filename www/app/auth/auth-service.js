@@ -1,6 +1,12 @@
 function AuthService() {
     var baseUrl = 'http://localhost:3000/'
 
+    var auth = axios.create({
+        baseURL: 'http://localhost:3000/',
+        timeout: 2000,
+        withCredentials: true
+    })
+
     var user = {}
 
     function logError() {
@@ -25,14 +31,13 @@ function AuthService() {
             .fail(logError)
     }
 
-    this.authenticate = function authenicate(cb) {
-        $.get(baseUrl + 'authenticate')
-        
+    this.authenticate = function authenticate(cb) {
+        auth('authenticate', )
             .then(res => {
                 console.log('authenticated: ', res)
                 cb(res)
             })
-            .fail(logError)
+            .catch(logError)
     }
 
     this.logout = function logout(cb) {
