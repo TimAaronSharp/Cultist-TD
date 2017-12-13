@@ -11,35 +11,42 @@ var gameData = {
         tilesetImageKey: 'tiles',
         tilemapLayer: 'Ground',
         buildableTileId: 3,
+        playerLevelHealth: 2,
         enemies: [{ //will need to make sure the schema has all the properties that we are adding below, such as spawnTime and gameObject.
             type: 'star',
             health: 100,
+            playerDamageValue: 1,
             sprite: 'assets/images/star.png',
             name: 'star 1'
         }, {
             type: 'star',
             health: 100,
+            playerDamageValue: 1,
             sprite: 'assets/images/star.png',
             name: 'star 2'
         },
         {
             type: 'star',
             health: 100,
+            playerDamageValue: 1,
             sprite: 'assets/images/star.png',
             name: 'star 3'
         }, {
             type: 'star',
             health: 100,
+            playerDamageValue: 1,
             sprite: 'assets/images/star.png',
             name: 'star 4'
         }, {
             type: 'star',
             health: 100,
+            playerDamageValue: 1,
             sprite: 'assets/images/star.png',
             name: 'star 5'
         }, {
             type: 'star',
             health: 100,
+            playerDamageValue: 1,
             sprite: 'assets/images/star.png',
             name: 'star 6'
         }
@@ -47,6 +54,7 @@ var gameData = {
         towers: [{
             type: 'tesla',
             bullet: 'bullet',
+            bulletDamage: 50,
             fireRate: 2000,
             bulletSprite: 'assets/images/bullet.png',
             sprite: 'assets/images/Tesla-Orb-Anim.gif'
@@ -61,7 +69,7 @@ var gameData = {
     }
 }
 
-var map, layer, selectedTile
+var map, layer, selectedTile, winLoseText
 var currentTileProperties = ''
 var numOfTowers = 1
 //gameState is where we'll locally keep the data that we pulled down from the database and manipulate it here.
@@ -70,7 +78,8 @@ var gameState = {
     activeEnemies: [], //activeEnemies are the enemies that have spawned and are still in play. Spliced out when killed or make it to the player.
     killedEnemies: [], //killedEnemies - enemies will be pushed here when killed.
     successfulEnemies: [], //successfulEnemies - enemies will be pushed here when they make it to the player and are no longer in play.
-    enemySprites: []
+    playerHealth: gameData.level.playerLevelHealth,
+    enemiesOutOfPlay: 0
 }
 
 var PhaserGame = function () {
@@ -87,8 +96,9 @@ PhaserGame.prototype = {
         for (let i = 0; i < gameData.level.towers.length; i++) {
             const tower = gameData.level.towers[i];
             game.load.image(tower.type, tower.sprite)
-            // game.load.image(tower.bullet, tower.bulletSprite)
+            game.load.image(tower.bullet, tower.bulletSprite)
         }
+        game.load.image(gameData.level.towers[0].bullet, gameData.level.towers[0].bulletSprite)
         // game.load.image('bullet', 'assets/images/bullet.png')
         game.load.tilemap(gameData.level.mapKey, gameData.level.map, null, Phaser.Tilemap.TILED_JSON);
         game.load.image(gameData.level.tilesetImageKey, gameData.level.tilesetImage);
@@ -121,10 +131,11 @@ PhaserGame.prototype = {
         game.input.addMoveCallback(this.moveTileCursor, this); //runs this callback everytime you move the cursor.
 
         game.input.onDown.add(this.placeTower, this)
+        // game.add.sprite(0, 0, 'bullet')
 
-        spawnableEnemiesGroup = game.add.group();
-        spawnableEnemiesGroup.enableBody = true;
-        spawnableEnemiesGroup.physicsBodyType = Phaser.Physics.ARCADE
+        // spawnableEnemiesGroup = game.add.group();
+        // spawnableEnemiesGroup.enableBody = true;
+        // spawnableEnemiesGroup.physicsBodyType = Phaser.Physics.ARCADE
 
         activeEnemiesGroup = game.add.group();
         activeEnemiesGroup.enableBody = true;
@@ -132,9 +143,21 @@ PhaserGame.prototype = {
         game.physics.enable(activeEnemiesGroup, Phaser.Physics.ARCADE)
 
         towers = game.add.group();
-        
+
+        bullets = game.add.group();
+        bullets.enableBody = true;
+        bullets.physicsBodyType = Phaser.Physics.ARCADE
+        bullets.setAll('anchor.x', 0.5)
+        bullets.setAll('anchor.y', 0.5)
+        game.physics.enable(bullets, Phaser.Physics.ARCADE)
+
+        // winLoseText
+        winLoseText = game.add.text(game.world.centerX, game.world.centerY, ' ', { font: '100px Arial', fill: '#ffffff' });
+        winLoseText.anchor.setTo(0.5, 0.5);
+        winLoseText.visible = false;
+
         // bullets = game.add.group();
-        
+
 
         // bullets.setAll('position.x', 220)
         // bullets.setAll('position.y', 580)
@@ -157,6 +180,8 @@ PhaserGame.prototype = {
             const enemy = gameData.level.enemies[i];
             enemy.spawnTime = gameData.level.spawnRate * (i + 1)
             enemy.gameObject = this.add.sprite(0, 0, enemy.type)
+            enemy.gameObject.originalIndex = i
+            enemy.gameObject.health = enemy.health
             enemy.gameObject.anchor.set(1, 1)
             gameState.spawnableEnemies.push(enemy)
         }
@@ -209,7 +234,7 @@ PhaserGame.prototype = {
     },
     update: function () {
         this.handleEnemies()
-        // this.bulletOverlap()
+        this.bulletOverlap()
         towers.forEach(function (tower) {
             tower.aquireTarget(tower)
         });
@@ -225,14 +250,27 @@ PhaserGame.prototype = {
         this.checkEnemySpawn()
         this.moveEnemies()
     },
-    // bulletOverlap() {
-    //     game.physics.arcade.overlap(bullets, activeEnemiesGroup, this.bulletOverlapHandler, null, this)
+    bulletOverlap() {
+        game.physics.arcade.overlap(bullets, activeEnemiesGroup, this.bulletOverlapHandler, null, this)
 
-    // },
-    bulletOverlapHandler(bullet, thisEnemy) {
+    },
+    bulletOverlapHandler(bullet, shotEnemy) {
         // console.log(bullets, thisEnemy)
         bullet.kill()
-        thisEnemy.kill()
+        shotEnemy.health -= gameData.level.towers[0].bulletDamage;
+        // console.log(shotEnemy.health)
+        if (shotEnemy.health <= 0) {
+            gameState.killedEnemies.push(shotEnemy)
+            // gameState.killedEnemies.push(gameState.activeEnemies.splice(shotEnemy.originalIndex, 1)[0])
+            shotEnemy.kill()
+            gameState.enemiesOutOfPlay++;
+            console.log(gameState.enemiesOutOfPlay)
+        }
+        if (gameState.enemiesOutOfPlay == gameData.level.enemies.length) {
+            winLoseText.text = "A winner is YOU!"
+            winLoseText.visible = true;
+            console.log(winLoseText)
+        }
     },
     //checkEnemySpawn - checks if there is still an enemy in the spawnableEnemies array and checks the current game time vs the spawn time for the enemy.
     checkEnemySpawn() {
@@ -248,7 +286,7 @@ PhaserGame.prototype = {
         gameState.spawnableEnemies.shift()
         gameState.activeEnemies.push(enemy)
         activeEnemiesGroup.add(enemy.gameObject) //currently testing game object group. Delete if not utilized.
-        console.log(activeEnemiesGroup)
+        // console.log(activeEnemiesGroup)
     },
     moveEnemies() {
         for (let i = 0; i < gameState.activeEnemies.length; i++) {
@@ -263,10 +301,19 @@ PhaserGame.prototype = {
         }
     },
     enemyHitPlayer(enemy) {
-        gameState.activeEnemies.splice(gameState.activeEnemies.indexOf(enemy), 1)
-        gameState.successfulEnemies.push(enemy)
+        if (enemy.gameObject.alive) {
+            gameState.playerHealth -= enemy.playerDamageValue
+            console.log("Player health: " + gameState.playerHealth)
+            gameState.enemiesOutOfPlay++;
+        }
+        gameState.successfulEnemies.push(gameState.activeEnemies.splice(gameState.activeEnemies.indexOf(enemy), 1)[0])
         //deduct player healh
         enemy.gameObject.kill()
+        console.log(gameState.enemiesOutOfPlay)
+        if (gameState.playerHealth <= 0) {
+            winLoseText.text = "Game Over";
+            winLoseText.visible = true;
+        }
     }
 };
 
