@@ -11,35 +11,42 @@ var gameData = {
         tilesetImageKey: 'tiles',
         tilemapLayer: 'Ground',
         buildableTileId: 3,
+        playerLevelHealth: 2,
         enemies: [{ //will need to make sure the schema has all the properties that we are adding below, such as spawnTime and gameObject.
             type: 'star',
             health: 100,
+            playerDamageValue: 1,
             sprite: 'assets/images/star.png',
             name: 'star 1'
         }, {
             type: 'star',
             health: 100,
+            playerDamageValue: 1,
             sprite: 'assets/images/star.png',
             name: 'star 2'
         },
         {
             type: 'star',
             health: 100,
+            playerDamageValue: 1,
             sprite: 'assets/images/star.png',
             name: 'star 3'
         }, {
             type: 'star',
             health: 100,
+            playerDamageValue: 1,
             sprite: 'assets/images/star.png',
             name: 'star 4'
         }, {
             type: 'star',
             health: 100,
+            playerDamageValue: 1,
             sprite: 'assets/images/star.png',
             name: 'star 5'
         }, {
             type: 'star',
             health: 100,
+            playerDamageValue: 1,
             sprite: 'assets/images/star.png',
             name: 'star 6'
         }
@@ -62,7 +69,7 @@ var gameData = {
     }
 }
 
-var map, layer, selectedTile
+var map, layer, selectedTile, winLoseText
 var currentTileProperties = ''
 var numOfTowers = 1
 //gameState is where we'll locally keep the data that we pulled down from the database and manipulate it here.
@@ -71,7 +78,8 @@ var gameState = {
     activeEnemies: [], //activeEnemies are the enemies that have spawned and are still in play. Spliced out when killed or make it to the player.
     killedEnemies: [], //killedEnemies - enemies will be pushed here when killed.
     successfulEnemies: [], //successfulEnemies - enemies will be pushed here when they make it to the player and are no longer in play.
-    enemySprites: []
+    playerHealth: gameData.level.playerLevelHealth,
+    enemiesOutOfPlay: 0
 }
 
 var PhaserGame = function () {
@@ -142,6 +150,11 @@ PhaserGame.prototype = {
         bullets.setAll('anchor.x', 0.5)
         bullets.setAll('anchor.y', 0.5)
         game.physics.enable(bullets, Phaser.Physics.ARCADE)
+
+        // winLoseText
+        winLoseText = game.add.text(game.world.centerX, game.world.centerY, ' ', { font: '100px Arial', fill: '#ffffff' });
+        winLoseText.anchor.setTo(0.5, 0.5);
+        winLoseText.visible = false;
 
         // bullets = game.add.group();
 
@@ -250,6 +263,13 @@ PhaserGame.prototype = {
             gameState.killedEnemies.push(shotEnemy)
             // gameState.killedEnemies.push(gameState.activeEnemies.splice(shotEnemy.originalIndex, 1)[0])
             shotEnemy.kill()
+            gameState.enemiesOutOfPlay++;
+            console.log(gameState.enemiesOutOfPlay)
+        }
+        if (gameState.enemiesOutOfPlay == gameData.level.enemies.length) {
+            winLoseText.text = "A winner is YOU!"
+            winLoseText.visible = true;
+            console.log(winLoseText)
         }
     },
     //checkEnemySpawn - checks if there is still an enemy in the spawnableEnemies array and checks the current game time vs the spawn time for the enemy.
@@ -281,10 +301,19 @@ PhaserGame.prototype = {
         }
     },
     enemyHitPlayer(enemy) {
-        gameState.activeEnemies.splice(gameState.activeEnemies.indexOf(enemy), 1)
-        gameState.successfulEnemies.push(enemy)
+        if (enemy.gameObject.alive) {
+            gameState.playerHealth -= enemy.playerDamageValue
+            console.log("Player health: " + gameState.playerHealth)
+            gameState.enemiesOutOfPlay++;
+        }
+        gameState.successfulEnemies.push(gameState.activeEnemies.splice(gameState.activeEnemies.indexOf(enemy), 1)[0])
         //deduct player healh
         enemy.gameObject.kill()
+        console.log(gameState.enemiesOutOfPlay)
+        if (gameState.playerHealth <= 0) {
+            winLoseText.text = "Game Over";
+            winLoseText.visible = true;
+        }
     }
 };
 
