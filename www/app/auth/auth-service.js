@@ -18,7 +18,12 @@ function AuthService() {
         $.post(baseUrl + 'login', user)
             .then(res => {
                 console.log(res)
-                this.authenticate(cb)
+                cb(res)
+                // user = res
+                // console.log(user)
+                
+                // return res
+                
             })
             .fail(logError)
     }
@@ -26,19 +31,20 @@ function AuthService() {
     this.registration = function registration(form, cb) {
         $.post(baseUrl + 'register', form)
             .then(res => {
-                this.authenticate(cb)
+                cd(res)
             })
             .fail(logError)
     }
 
     this.authenticate = function authenticate(cb) {
-        auth('authenticate', )
+        auth('authenticate')
             .then(res => {
                 console.log('authenticated: ', res)
                 cb(res)
             })
             .catch(logError)
     }
+
 
     this.logout = function logout(cb) {
         $.ajax({
