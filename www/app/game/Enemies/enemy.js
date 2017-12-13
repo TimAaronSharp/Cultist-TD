@@ -1,4 +1,4 @@
-var Enemy = function (type, health, worldX, worldY) {
+var Enemy = function (worldX, worldY, type, health) {
     this.enemy = game.add.sprite(0, 0, gameData.level.enemies[0].type)
     this.enemy.health = gameData.level.enemies[0].health
     this.enemy.anchor.x = 1
