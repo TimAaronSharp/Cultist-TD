@@ -16,7 +16,7 @@ function AuthService() {
     this.login = function login(user, cb) {
         auth.post('login', user)
             .then(res => {
-                console.log('login', res)
+                console.log('login', res.data)
                 cb(res)
             })
             .catch(logError)
@@ -28,6 +28,7 @@ function AuthService() {
         auth.post('register', form)
             .then(res => {
                 cb(res)
+                
             })
             .catch(logError)
     }
@@ -35,6 +36,7 @@ function AuthService() {
     this.authenticate = function authenticate(drawLogin, drawLogout) {
         auth('authenticate')
             .then(res => {
+                console.log('authenicate', res.data.data)
                 if (res.data.data.username) {
                     drawLogout(res)
                 } else {
