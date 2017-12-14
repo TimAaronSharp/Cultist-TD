@@ -2,64 +2,229 @@ var game = new Phaser.Game(1024, 768, Phaser.AUTO, 'game-area');
 
 //gameData will be what's stored in the database. We will need to call down the data for the appropriate level
 var gameData = {
-    level: {
-        name: 'The fall of rivendale',
-        map: 'assets/maps/level1.json',
-        mapKey: 'level1',
-        tilesetImage: 'assets/images/tiles.bmp',
-        tilesetImageName: 'tiles',
-        tilesetImageKey: 'tiles',
-        tilemapLayer: 'Ground',
-        buildableTileId: 3,
-        enemies: [{ //will need to make sure the schema has all the properties that we are adding below, such as spawnTime and gameObject.
-            type: 'star',
-            health: 100,
-            sprite: 'assets/images/star.png',
-            name: 'star 1'
-        }, {
-            type: 'star',
-            health: 100,
-            sprite: 'assets/images/star.png',
-            name: 'star 2'
-        }, {
-            type: 'star',
-            health: 100,
-            sprite: 'assets/images/star.png',
-            name: 'star 3'
-        }, {
-            type: 'star',
-            health: 100,
-            sprite: 'assets/images/star.png',
-            name: 'star 4'
-        }, {
-            type: 'star',
-            health: 100,
-            sprite: 'assets/images/star.png',
-            name: 'star 5'
-        }, {
-            type: 'star',
-            health: 100,
-            sprite: 'assets/images/star.png',
-            name: 'star 6'
-        }],
-        towers: [{
-            type: 'tesla',
-            bullet: 'bullet',
-            fireRate: 2000,
-            bulletSprite: 'assets/images/arrow.png',
-            sprite: 'assets/images/Tesla-Orb-Anim.gif'
-        }],
-        // 0,32,64,96,128,160,192,224,256,288,320,352,384,416,448,480,512,544,576,608,640,672,704,736,768,800,832,864,896,928,960,992,1024,1056
-        //points - an array that has the path for the enemies to follow. Coordinates in pixels from the top left of the screen.
-        points: {
-            'x': [0, 110, 220, 220, 220, 220, 330, 440, 550, 660, 770, 880, 990, 1100],
-            'y': [700, 700, 700, 590, 480, 380, 380, 380, 380, 380, 380, 380, 380, 380]
+    "level": {
+        "levelNumber": 1,
+        "name": "The fall of rivendale",
+        "startingCurrency": 400,
+        "passiveCurrency": 10,
+        "map": {
+            "height": 24,
+            "layers": [
+                {
+                    "data": [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 31, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 3, 3, 3, 3, 3, 3, 9, 9, 9, 9, 9, 9, 9, 9, 9, 32, 4, 4, 4, 31, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 15, 14, 14, 14, 16, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 2, 18, 18, 18, 18, 18, 18, 18, 18, 32, 4, 4, 4, 31, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 34, 34, 34, 34, 34, 34, 13, 34, 34, 34, 34, 34, 34, 34, 34, 34, 4, 4, 4, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 4, 4, 4, 4, 4, 4, 11, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 11, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 11, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 33, 33, 33, 33, 33, 33, 12, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 39, 2, 19, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 39, 2, 19, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 9, 9, 9, 9, 9, 2, 2, 19, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 2, 2, 2, 2, 2, 2, 2, 19, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 18, 18, 18, 18, 18, 18, 18, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4],
+                    "height": 24,
+                    "name": "Ground",
+                    "opacity": 1,
+                    "type": "tilelayer",
+                    "visible": true,
+                    "width": 32,
+                    "x": 0,
+                    "y": 0
+                }],
+            "nextobjectid": 1,
+            "orientation": "orthogonal",
+            "renderorder": "left-down",
+            "tiledversion": "1.0.3",
+            "tileheight": 32,
+            "tilesets": [
+                {
+                    "columns": 10,
+                    "firstgid": 1,
+                    "image": "tiles.bmp",
+                    "imageheight": 132,
+                    "imagewidth": 330,
+                    "margin": 0,
+                    "name": "tiles",
+                    "spacing": 1,
+                    "tilecount": 40,
+                    "tileheight": 32,
+                    "tileproperties":
+                        {
+                            "3":
+                                {
+                                    "canBuild": false
+                                }
+                        },
+                    "tilepropertytypes":
+                        {
+                            "3":
+                                {
+                                    "canBuild": "bool"
+                                }
+                        },
+                    "tilewidth": 32
+                }],
+            "tilewidth": 32,
+            "type": "map",
+            "version": 1,
+            "width": 32
         },
-        spawnRate: 1000,
+        "mapKey": "level1",
+        "tilesetImage": "assets/images/tiles.bmp",
+        "tilesetImageName": "tiles",
+        "tilesetImageKey": "tiles",
+        "tilemapLayer": "Ground",
+        "buildableTileId": 3,
+        "playerLevelHealth": 3,
+        "enemies": [
+            {
+                "type": "star",
+                "health": 100,
+                "playerDamageValue": 1,
+                "sprite": "assets/images/star.png",
+                "wave": 0,
+                "currencyValue": 10
+            }, {
+                "type": "star",
+                "health": 100,
+                "playerDamageValue": 1,
+                "sprite": "assets/images/star.png",
+                "wave": 0,
+                "currencyValue": 10
+            }, {
+                "type": "star",
+                "health": 100,
+                "playerDamageValue": 1,
+                "sprite": "assets/images/star.png",
+                "wave": 0,
+                "currencyValue": 10
+            }, {
+                "type": "star",
+                "health": 100,
+                "playerDamageValue": 1,
+                "sprite": "assets/images/star.png",
+                "wave": 0,
+                "currencyValue": 10
+            }, {
+                "type": "star",
+                "health": 100,
+                "playerDamageValue": 1,
+                "sprite": "assets/images/star.png",
+                "wave": 0,
+                "currencyValue": 10
+            }, {
+                "type": "star",
+                "health": 100,
+                "playerDamageValue": 1,
+                "sprite": "assets/images/star.png",
+                "wave": 0,
+                "currencyValue": 10
+            }, {
+                "type": "star",
+                "health": 100,
+                "playerDamageValue": 1,
+                "sprite": "assets/images/star.png",
+                "wave": 1,
+                "currencyValue": 10
+            }, {
+                "type": "star",
+                "health": 100,
+                "playerDamageValue": 1,
+                "sprite": "assets/images/star.png",
+                "wave": 1,
+                "currencyValue": 10
+            }, {
+                "type": "star",
+                "health": 100,
+                "playerDamageValue": 1,
+                "sprite": "assets/images/star.png",
+                "wave": 1,
+                "currencyValue": 10
+            }, {
+                "type": "star",
+                "health": 100,
+                "playerDamageValue": 1,
+                "sprite": "assets/images/star.png",
+                "wave": 1,
+                "currencyValue": 10
+            }, {
+                "type": "star",
+                "health": 100,
+                "playerDamageValue": 1,
+                "sprite": "assets/images/star.png",
+                "wave": 1,
+                "currencyValue": 10
+            }, {
+                "type": "star",
+                "health": 100,
+                "playerDamageValue": 1,
+                "sprite": "assets/images/star.png",
+                "wave": 1,
+                "currencyValue": 10
+            }, {
+                "type": "star",
+                "health": 100,
+                "playerDamageValue": 1,
+                "sprite": "assets/images/star.png",
+                "wave": 1,
+                "currencyValue": 10
+            }, {
+                "type": "fireball",
+                "health": 200,
+                "playerDamageValue": 1,
+                "sprite": "assets/images/fireball_1.png",
+                "wave": 2,
+                "currencyValue": 20
+            }, {
+                "type": "fireball",
+                "health": 200,
+                "playerDamageValue": 1,
+                "sprite": "assets/images/fireball_1.png",
+                "wave": 2,
+                "currencyValue": 20
+            }, {
+                "type": "fireball",
+                "health": 200,
+                "playerDamageValue": 1,
+                "sprite": "assets/images/fireball_1.png",
+                "wave": 2,
+                "currencyValue": 20
+            }, {
+                "type": "fireball",
+                "health": 200,
+                "playerDamageValue": 1,
+                "sprite": "assets/images/fireball_1.png",
+                "wave": 2,
+                "currencyValue": 20
+            }, {
+                "type": "fireball",
+                "health": 200,
+                "playerDamageValue": 1,
+                "sprite": "assets/images/fireball_1.png",
+                "wave": 2,
+                "currencyValue": 20
+            }, {
+                "type": "fireball",
+                "health": 200,
+                "playerDamageValue": 1,
+                "sprite": "assets/images/fireball_1.png",
+                "wave": 2,
+                "currencyValue": 20
+            }],
+
+        "towers": [{
+            "type": "tesla",
+            "bullet": "bullet",
+            "bulletDamage": 50,
+            "fireRate": 2000,
+            "cost": 100,
+            "buildTime": 120,
+            "bulletSprite": "assets/images/bullet.png",
+            "sprite": "assets/images/Tesla-Orb-Anim.gif"
+        }],
+        "points": {
+            "x": [0, 110, 220, 220, 220, 220, 330, 440, 550, 660, 770, 880, 990, 1100],
+            "y": [700, 700, 700, 590, 480, 380, 380, 380, 380, 380, 380, 380, 380, 380]
+        },
+        "spawnRate": 20
     }
 }
 
-var map, layer, selectedTile
+
+
+var map, layer, selectedTile, winLoseText, pauseText
+var gameOver = false
+var gameClock = 0;
 var currentTileProperties = ''
 var numOfTowers = 1
 //gameState is where we'll locally keep the data that we pulled down from the database and manipulate it here.
@@ -68,7 +233,9 @@ var gameState = {
     activeEnemies: [], //activeEnemies are the enemies that have spawned and are still in play. Spliced out when killed or make it to the player.
     killedEnemies: [], //killedEnemies - enemies will be pushed here when killed.
     successfulEnemies: [], //successfulEnemies - enemies will be pushed here when they make it to the player and are no longer in play.
-    enemySprites: []
+    playerHealth: gameData.level.playerLevelHealth,
+    enemiesOutOfPlay: 0,
+    wallet: gameData.level.startingCurrency
 }
 
 var PhaserGame = function () {
@@ -85,10 +252,11 @@ PhaserGame.prototype = {
         for (let i = 0; i < gameData.level.towers.length; i++) {
             const tower = gameData.level.towers[i];
             game.load.image(tower.type, tower.sprite)
-            // game.load.image(tower.bullet, tower.bulletSprite)
+            game.load.image(tower.bullet, tower.bulletSprite)
         }
-        game.load.image()
-        game.load.tilemap(gameData.level.mapKey, gameData.level.map, null, Phaser.Tilemap.TILED_JSON);
+        game.load.image(gameData.level.towers[0].bullet, gameData.level.towers[0].bulletSprite)
+        // game.load.image('bullet', 'assets/images/bullet.png')
+        game.load.tilemap(gameData.level.mapKey, null, gameData.level.map, Phaser.Tilemap.TILED_JSON);
         game.load.image(gameData.level.tilesetImageKey, gameData.level.tilesetImage);
 
         for (let i = 0; i < gameData.level.enemies.length; i++) {
@@ -97,8 +265,11 @@ PhaserGame.prototype = {
             game.load.image(enemy.type, enemy.sprite)
         }
     },
+
     //create - function that creates the game world and everything in it.
     create: function () {
+        this.game.scale.pageAlignHorizontally = true; this.game.scale.pageAlignVertically = true; this.game.scale.refresh();
+
         game.physics.startSystem(Phaser.Physics.ARCADE) //starts the physics system.
         //bmd code allows for the plot to draw the plot points if you don't have the map loaded. Useful when making paths and for debugging.
         this.bmd = this.add.bitmapData(this.game.width, this.game.height);
@@ -126,20 +297,31 @@ PhaserGame.prototype = {
 
         towers = game.add.group();
 
+        //lookup how to kill sprites when they leave visible world bounds
         bullets = game.add.group();
         bullets.enableBody = true;
         bullets.physicsBodyType = Phaser.Physics.ARCADE
-        bullets.createMultiple(6, 'star')
-        bullets.setAll('anchor.x', 1)
-        bullets.setAll('anchor.y', 1)
-        // bullets.setAll('position.x', 220)
-        // bullets.setAll('position.y', 580)
+        bullets.setAll('anchor.x', 0.5)
+        bullets.setAll('anchor.y', 0.5)
         game.physics.enable(bullets, Phaser.Physics.ARCADE)
 
-        // colTest.enableBody = true;
-        // colTest.physicsBodyType = Phaser.Physics.ARCADE
+        //text
 
-        // console.log(colTest)
+        // winLose
+        winLoseText = game.add.text(game.world.centerX, game.world.centerY, ' ', { font: '100px Arial', fill: '#ffffff' });
+        winLoseText.anchor.setTo(0.5, 0.5);
+        winLoseText.visible = false;
+
+        //pause
+        pauseText = game.add.text(game.world.centerX, game.world.centerY, ' ', { font: '50px Arial', fill: '#ffffff' });
+        pauseText.anchor.setTo(0.5, 0.5);
+        pauseText.visible = false;
+
+        //buttons
+        pauseButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
+
+        pauseButton.onDown.add(this.togglePause);
+
         this.generateEnemies()
         this.plot();
     },
@@ -147,8 +329,11 @@ PhaserGame.prototype = {
     generateEnemies() {
         for (let i = 0; i < gameData.level.enemies.length; i++) {
             const enemy = gameData.level.enemies[i];
-            enemy.spawnTime = gameData.level.spawnRate * (i + 1)
+            enemy.spawnTime = gameData.level.spawnRate * (i + 1) + (enemy.wave * 600)
             enemy.gameObject = this.add.sprite(0, 0, enemy.type)
+            enemy.gameObject.originalIndex = i
+            enemy.gameObject.health = enemy.health
+            enemy.gameObject.currencyValue = enemy.currencyValue
             enemy.gameObject.anchor.set(1, 1)
             gameState.spawnableEnemies.push(enemy)
         }
@@ -160,15 +345,21 @@ PhaserGame.prototype = {
 
         var tile = map.getTile(x, y, layer);
         //if else if else - checks to see if the tile already has a tower, and if the tile index(id/type) can be built on.
-        if (tile.properties.hasTower) {
-            console.log('Already have a tower bro!')
-        } else if (tile.index != gameData.level.buildableTileId) { //This is hardcoded for the current tileset. Stretch goal: 
-            console.log("no go bro")
+        if (gameState.wallet >= gameData.level.towers[0].cost) {
+            //if else if else - checks to see if the tile already has a tower, and if the tile index(id/type) can be built on.
+            if (tile.properties.hasTower) {
+                console.log('Already have a tower bro!')
+            } else if (tile.index != gameData.level.buildableTileId) { //This is hardcoded for the current tileset. Stretch goal: 
+                console.log("no go bro")
+            } else {
+                tile.properties.hasTower = true
+                new Tower(tile.x, tile.y, gameData.level.towers[0].type)
+                numOfTowers++
+                gameState.wallet -= gameData.level.towers[0].cost
+                // game.add.sprite(tile.x * 32, tile.y * 32, gameData.level.towers[0].type)
+            }
         } else {
-            tile.properties.hasTower = true
-            new Tower(tile.x, tile.y, gameData.level.towers[0].type)
-            numOfTowers++
-            // game.add.sprite(tile.x * 32, tile.y * 32, gameData.level.towers[0].type)
+            console.log("Not enough Minerals!")
         }
         currentTileProperties = JSON.stringify(tile.properties)
     },
@@ -200,17 +391,31 @@ PhaserGame.prototype = {
         }
     },
     update: function () {
+        gameClock++;
         this.handleEnemies()
         this.bulletOverlap()
-        towers.forEach(function(tower) {
-            tower.fire(tower)
+        towers.forEach(function (tower) {
+            tower.aquireTarget(tower)
         });
-        // game.physics.arcade.overlap(colTest, activeEnemiesGroup, this.colHandler, null, this)
-        // this.collisionCheck()
-
+        if (gameState.enemiesOutOfPlay == gameData.level.enemies.length && !gameOver) {
+            winLoseText.text = "A winner is YOU!"
+            winLoseText.visible = true;
+            // console.log(winLoseText)
+        }
+        if (gameClock % 300 == 0)
+            gameState.wallet += gameData.level.passiveCurrency;
+    },
+    togglePause() {
+        game.paused = !game.paused
+        if (game.paused) {
+            pauseText.text = "Press SPACE to resume"
+            pauseText.visible = true;
+        } else {
+            pauseText.visible = false;
+        }
     },
     render() {
-        game.debug.text("Tile Properties: " + currentTileProperties, 500, 50)
+        game.debug.text("Monies: " + gameState.wallet, 500, 50)
     },
     //function that runs these functions
     handleEnemies() {
@@ -221,16 +426,26 @@ PhaserGame.prototype = {
         game.physics.arcade.overlap(bullets, activeEnemiesGroup, this.bulletOverlapHandler, null, this)
 
     },
-    bulletOverlapHandler(bullet, thisEnemy) {
+    bulletOverlapHandler(bullet, shotEnemy) {
         // console.log(bullets, thisEnemy)
         bullet.kill()
-        thisEnemy.kill()
+        shotEnemy.health -= gameData.level.towers[0].bulletDamage;
+        // console.log(shotEnemy.health)
+        if (shotEnemy.health <= 0) {
+            gameState.killedEnemies.push(shotEnemy)
+            // gameState.killedEnemies.push(gameState.activeEnemies.splice(shotEnemy.originalIndex, 1)[0])
+            shotEnemy.kill()
+            gameState.wallet += shotEnemy.currencyValue
+            gameState.enemiesOutOfPlay++;
+            console.log(gameState.enemiesOutOfPlay)
+            console.log(gameData.level.enemies.length)
+        }
     },
     //checkEnemySpawn - checks if there is still an enemy in the spawnableEnemies array and checks the current game time vs the spawn time for the enemy.
     checkEnemySpawn() {
         var nextEnemy = gameState.spawnableEnemies[0]
         // console.log('UPDATE:', game.time.now, gameState.spawnableEnemies[0])
-        if (nextEnemy && game.time.now >= nextEnemy.spawnTime) {
+        if (nextEnemy && gameClock >= nextEnemy.spawnTime) {
             this.spawnEnemy(nextEnemy)
         }
     },
@@ -239,8 +454,8 @@ PhaserGame.prototype = {
         enemy.i = 0
         gameState.spawnableEnemies.shift()
         gameState.activeEnemies.push(enemy)
-        activeEnemiesGroup.add(enemy.gameObjec) //currently testing game object group. Delete if not utilized.
-        console.log(activeEnemiesGroup)
+        activeEnemiesGroup.add(enemy.gameObject) //currently testing game object group. Delete if not utilized.
+        // console.log(activeEnemiesGroup)
     },
     moveEnemies() {
         for (let i = 0; i < gameState.activeEnemies.length; i++) {
@@ -255,10 +470,23 @@ PhaserGame.prototype = {
         }
     },
     enemyHitPlayer(enemy) {
-        gameState.activeEnemies.splice(gameState.activeEnemies.indexOf(enemy), 1)
-        gameState.successfulEnemies.push(enemy)
+        if (enemy.gameObject.alive) {
+            gameState.playerHealth -= enemy.playerDamageValue
+            console.log("Player health: " + gameState.playerHealth)
+            gameState.enemiesOutOfPlay++;
+            console.log(gameState.enemiesOutOfPlay)
+        }
+        gameState.successfulEnemies.push(gameState.activeEnemies.splice(gameState.activeEnemies.indexOf(enemy), 1)[0])
         //deduct player healh
         enemy.gameObject.kill()
+        console.log(gameState.enemiesOutOfPlay)
+        console.log(gameData.level.enemies.length)
+        if (gameState.playerHealth <= 0) {
+            gameOver = true
+            console.log(gameOver)
+            winLoseText.text = "Game Over";
+            winLoseText.visible = true;
+        }
     }
 };
 
