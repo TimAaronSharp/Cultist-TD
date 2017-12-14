@@ -1,8 +1,8 @@
 var mongoose = require('mongoose')
 
 var schema = new mongoose.Schema({
-    gameData: { type: String },
-    description: { type: String }
+    level: { type: Object },
+    
 })
 
 module.exports = mongoose.model('Gamedata', schema)
