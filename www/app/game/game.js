@@ -1,151 +1,269 @@
-var game = new Phaser.Game(1024, 768, Phaser.AUTO, 'game-area');
+
 
 //gameData will be what's stored in the database. We will need to call down the data for the appropriate level
-var gameData = {
-    level: {
-        name: 'The fall of rivendale',
-        map: {
-            "height": 24,
-            "layers": [
-                {
-                    "data": [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 31, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 3, 3, 3, 3, 3, 3, 9, 9, 9, 9, 9, 9, 9, 9, 9, 32, 4, 4, 4, 31, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 15, 14, 14, 14, 16, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 2, 18, 18, 18, 18, 18, 18, 18, 18, 32, 4, 4, 4, 31, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 34, 34, 34, 34, 34, 34, 13, 34, 34, 34, 34, 34, 34, 34, 34, 34, 4, 4, 4, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 4, 4, 4, 4, 4, 4, 11, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 11, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 11, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 33, 33, 33, 33, 33, 33, 12, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 39, 2, 19, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 39, 2, 19, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 9, 9, 9, 9, 9, 2, 2, 19, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 2, 2, 2, 2, 2, 2, 2, 19, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 18, 18, 18, 18, 18, 18, 18, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4],
-                    "height": 24,
-                    "name": "Ground",
-                    "opacity": 1,
-                    "type": "tilelayer",
-                    "visible": true,
-                    "width": 32,
-                    "x": 0,
-                    "y": 0
-                }],
-            "nextobjectid": 1,
-            "orientation": "orthogonal",
-            "renderorder": "left-down",
-            "tiledversion": "1.0.3",
-            "tileheight": 32,
-            "tilesets": [
-                {
-                    "columns": 10,
-                    "firstgid": 1,
-                    "image": "tiles.bmp",
-                    "imageheight": 132,
-                    "imagewidth": 330,
-                    "margin": 0,
-                    "name": "tiles",
-                    "spacing": 1,
-                    "tilecount": 40,
-                    "tileheight": 32,
-                    "tileproperties":
-                        {
-                            "3":
-                                {
-                                    "canBuild": false
-                                }
-                        },
-                    "tilepropertytypes":
-                        {
-                            "3":
-                                {
-                                    "canBuild": "bool"
-                                }
-                        },
-                    "tilewidth": 32
-                }],
-            "tilewidth": 32,
-            "type": "map",
-            "version": 1,
-            "width": 32
-        },
-        mapKey: 'level1',
-        tilesetImage: 'assets/images/tiles.bmp',
-        tilesetImageName: 'tiles',
-        tilesetImageKey: 'tiles',
-        tilemapLayer: 'Ground',
-        buildableTileId: 3,
-        playerLevelHealth: 3,
-        enemies: [{ //will need to make sure the schema has all the properties that we are adding below, such as spawnTime and gameObject.
-            type: 'star',
-            health: 100,
-            playerDamageValue: 1,
-            sprite: 'assets/images/star.png',
-            name: 'star 1'
-        }, {
-            type: 'star',
-            health: 100,
-            playerDamageValue: 1,
-            sprite: 'assets/images/star.png',
-            name: 'star 2'
-        },
-        {
-            type: 'star',
-            health: 100,
-            playerDamageValue: 1,
-            sprite: 'assets/images/star.png',
-            name: 'star 3'
-        }, {
-            type: 'star',
-            health: 100,
-            playerDamageValue: 1,
-            sprite: 'assets/images/star.png',
-            name: 'star 4'
-        }, {
-            type: 'star',
-            health: 100,
-            playerDamageValue: 1,
-            sprite: 'assets/images/star.png',
-            name: 'star 5'
-        }, {
-            type: 'star',
-            health: 100,
-            playerDamageValue: 1,
-            sprite: 'assets/images/star.png',
-            name: 'star 6'
-        }
-        ],
-        towers: [{
-            type: 'tesla',
-            bullet: 'bullet',
-            bulletDamage: 50,
-            fireRate: 2000,
-            bulletSprite: 'assets/images/bullet.png',
-            sprite: 'assets/images/Tesla-Orb-Anim.gif'
-        }],
-        // 0,32,64,96,128,160,192,224,256,288,320,352,384,416,448,480,512,544,576,608,640,672,704,736,768,800,832,864,896,928,960,992,1024,1056
-        //points - an array that has the path for the enemies to follow. Coordinates in pixels from the top left of the screen.
-        points: {
-            'x': [0, 110, 220, 220, 220, 220, 330, 440, 550, 660, 770, 880, 990, 1100],
-            'y': [700, 700, 700, 590, 480, 380, 380, 380, 380, 380, 380, 380, 380, 380]
-        },
-        spawnRate: 60,
-    }
-}
+// var gameData = {
+//     "level": {
+//         "levelNumber": 1,
+//         "name": "The fall of rivendale",
+//         "startingCurrency": 400,
+//         "passiveCurrency": 10,
+//         "map": {
+//             "height": 24,
+//             "layers": [
+//                 {
+//                     "data": [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 31, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 3, 3, 3, 3, 3, 3, 9, 9, 9, 9, 9, 9, 9, 9, 9, 32, 4, 4, 4, 31, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 15, 14, 14, 14, 16, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 2, 18, 18, 18, 18, 18, 18, 18, 18, 32, 4, 4, 4, 31, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 18, 34, 34, 34, 34, 34, 34, 13, 34, 34, 34, 34, 34, 34, 34, 34, 34, 4, 4, 4, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 34, 4, 4, 4, 4, 4, 4, 11, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 11, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 11, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 33, 33, 33, 33, 33, 33, 12, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 39, 2, 19, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 39, 2, 19, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 9, 9, 9, 9, 9, 2, 2, 19, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 2, 2, 2, 2, 2, 2, 2, 19, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 18, 18, 18, 18, 18, 18, 18, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 32, 4, 4, 4, 4, 4],
+//                     "height": 24,
+//                     "name": "Ground",
+//                     "opacity": 1,
+//                     "type": "tilelayer",
+//                     "visible": true,
+//                     "width": 32,
+//                     "x": 0,
+//                     "y": 0
+//                 }],
+//             "nextobjectid": 1,
+//             "orientation": "orthogonal",
+//             "renderorder": "left-down",
+//             "tiledversion": "1.0.3",
+//             "tileheight": 32,
+//             "tilesets": [
+//                 {
+//                     "columns": 10,
+//                     "firstgid": 1,
+//                     "image": "tiles.bmp",
+//                     "imageheight": 132,
+//                     "imagewidth": 330,
+//                     "margin": 0,
+//                     "name": "tiles",
+//                     "spacing": 1,
+//                     "tilecount": 40,
+//                     "tileheight": 32,
+//                     "tileproperties":
+//                         {
+//                             "3":
+//                                 {
+//                                     "canBuild": false
+//                                 }
+//                         },
+//                     "tilepropertytypes":
+//                         {
+//                             "3":
+//                                 {
+//                                     "canBuild": "bool"
+//                                 }
+//                         },
+//                     "tilewidth": 32
+//                 }],
+//             "tilewidth": 32,
+//             "type": "map",
+//             "version": 1,
+//             "width": 32
+//         },
+//         "mapKey": "level1",
+//         "tilesetImage": "assets/images/tiles.bmp",
+//         "tilesetImageName": "tiles",
+//         "tilesetImageKey": "tiles",
+//         "tilemapLayer": "Ground",
+//         "buildableTileId": 3,
+//         "playerLevelHealth": 3,
+//         "enemies": [
+//             {
+//                 "type": "star",
+//                 "health": 100,
+//                 "playerDamageValue": 1,
+//                 "sprite": "assets/images/star.png",
+//                 "wave": 0,
+//                 "currencyValue": 10
+//             }, {
+//                 "type": "star",
+//                 "health": 100,
+//                 "playerDamageValue": 1,
+//                 "sprite": "assets/images/star.png",
+//                 "wave": 0,
+//                 "currencyValue": 10
+//             }, {
+//                 "type": "star",
+//                 "health": 100,
+//                 "playerDamageValue": 1,
+//                 "sprite": "assets/images/star.png",
+//                 "wave": 0,
+//                 "currencyValue": 10
+//             }, {
+//                 "type": "star",
+//                 "health": 100,
+//                 "playerDamageValue": 1,
+//                 "sprite": "assets/images/star.png",
+//                 "wave": 0,
+//                 "currencyValue": 10
+//             }, {
+//                 "type": "star",
+//                 "health": 100,
+//                 "playerDamageValue": 1,
+//                 "sprite": "assets/images/star.png",
+//                 "wave": 0,
+//                 "currencyValue": 10
+//             }, {
+//                 "type": "star",
+//                 "health": 100,
+//                 "playerDamageValue": 1,
+//                 "sprite": "assets/images/star.png",
+//                 "wave": 0,
+//                 "currencyValue": 10
+//             }, {
+//                 "type": "star",
+//                 "health": 100,
+//                 "playerDamageValue": 1,
+//                 "sprite": "assets/images/star.png",
+//                 "wave": 1,
+//                 "currencyValue": 10
+//             }, {
+//                 "type": "star",
+//                 "health": 100,
+//                 "playerDamageValue": 1,
+//                 "sprite": "assets/images/star.png",
+//                 "wave": 1,
+//                 "currencyValue": 10
+//             }, {
+//                 "type": "star",
+//                 "health": 100,
+//                 "playerDamageValue": 1,
+//                 "sprite": "assets/images/star.png",
+//                 "wave": 1,
+//                 "currencyValue": 10
+//             }, {
+//                 "type": "star",
+//                 "health": 100,
+//                 "playerDamageValue": 1,
+//                 "sprite": "assets/images/star.png",
+//                 "wave": 1,
+//                 "currencyValue": 10
+//             }, {
+//                 "type": "star",
+//                 "health": 100,
+//                 "playerDamageValue": 1,
+//                 "sprite": "assets/images/star.png",
+//                 "wave": 1,
+//                 "currencyValue": 10
+//             }, {
+//                 "type": "star",
+//                 "health": 100,
+//                 "playerDamageValue": 1,
+//                 "sprite": "assets/images/star.png",
+//                 "wave": 1,
+//                 "currencyValue": 10
+//             }, {
+//                 "type": "star",
+//                 "health": 100,
+//                 "playerDamageValue": 1,
+//                 "sprite": "assets/images/star.png",
+//                 "wave": 1,
+//                 "currencyValue": 10
+//             }, {
+//                 "type": "fireball",
+//                 "health": 200,
+//                 "playerDamageValue": 1,
+//                 "sprite": "assets/images/fireball_1.png",
+//                 "wave": 2,
+//                 "currencyValue": 20
+//             }, {
+//                 "type": "fireball",
+//                 "health": 200,
+//                 "playerDamageValue": 1,
+//                 "sprite": "assets/images/fireball_1.png",
+//                 "wave": 2,
+//                 "currencyValue": 20
+//             }, {
+//                 "type": "fireball",
+//                 "health": 200,
+//                 "playerDamageValue": 1,
+//                 "sprite": "assets/images/fireball_1.png",
+//                 "wave": 2,
+//                 "currencyValue": 20
+//             }, {
+//                 "type": "fireball",
+//                 "health": 200,
+//                 "playerDamageValue": 1,
+//                 "sprite": "assets/images/fireball_1.png",
+//                 "wave": 2,
+//                 "currencyValue": 20
+//             }, {
+//                 "type": "fireball",
+//                 "health": 200,
+//                 "playerDamageValue": 1,
+//                 "sprite": "assets/images/fireball_1.png",
+//                 "wave": 2,
+//                 "currencyValue": 20
+//             }, {
+//                 "type": "fireball",
+//                 "health": 200,
+//                 "playerDamageValue": 1,
+//                 "sprite": "assets/images/fireball_1.png",
+//                 "wave": 2,
+//                 "currencyValue": 20
+//             }],
 
-var map, layer, selectedTile, winLoseText, pauseText
+//         "towers": [{
+//             "type": "tesla",
+//             "bullet": "bullet",
+//             "bulletDamage": 50,
+//             "fireRate": 2000,
+//             "cost": 100,
+//             "buildTime": 120,
+//             "bulletSprite": "assets/images/bullet.png",
+//             "sprite": "assets/images/Tesla-Orb-Anim.gif"
+//         }],
+//         "points": {
+//             "x": [0, 110, 220, 220, 220, 220, 330, 440, 550, 660, 770, 880, 990, 1100],
+//             "y": [700, 700, 700, 590, 480, 380, 380, 380, 380, 380, 380, 380, 380, 380]
+//         },
+//         "spawnRate": 20
+//     }
+// }
+
+
+
+var map, layer, selectedTile, winLoseText, pauseText, gameData
 var gameOver = false
 var gameClock = 0;
 var currentTileProperties = ''
 var numOfTowers = 1
-//gameState is where we'll locally keep the data that we pulled down from the database and manipulate it here.
+var gameState = {}
+
 var gameState = {
     spawnableEnemies: [], //spawnableEnemies is where the enemies from the database will be stored when they first get pulled down. Shifted out when spawned.
     activeEnemies: [], //activeEnemies are the enemies that have spawned and are still in play. Spliced out when killed or make it to the player.
     killedEnemies: [], //killedEnemies - enemies will be pushed here when killed.
     successfulEnemies: [], //successfulEnemies - enemies will be pushed here when they make it to the player and are no longer in play.
-    playerHealth: gameData.level.playerLevelHealth,
-    enemiesOutOfPlay: 0
+    playerHealth:0,
+    enemiesOutOfPlay: 0,
+    wallet: 0
 }
+//gameState is where we'll locally keep the data that we pulled down from the database and manipulate it here.
 
-var PhaserGame = function () {
+var PhaserGame = function (game) {
     this.bmd = null;
     this.path = [];
+
+
+    console.log(gameData)
 };
 PhaserGame.prototype = {
 
-    init: function () {
+    init: function (gameDataParam) {
+        gameData = gameDataParam
         this.game.renderer.renderSession.roundPixels = true; //currently not in use for linear interpolation. Might be necessary for other types.
     },
     //preload - function that preloads assets before the game starts.
     preload: function () {
+        gameState = {
+            spawnableEnemies: [], //spawnableEnemies is where the enemies from the database will be stored when they first get pulled down. Shifted out when spawned.
+            activeEnemies: [], //activeEnemies are the enemies that have spawned and are still in play. Spliced out when killed or make it to the player.
+            killedEnemies: [], //killedEnemies - enemies will be pushed here when killed.
+            successfulEnemies: [], //successfulEnemies - enemies will be pushed here when they make it to the player and are no longer in play.
+            playerHealth: gameData.level.playerLevelHealth,
+            enemiesOutOfPlay: 0,
+            wallet: gameData.level.startingCurrency
+        }
         for (let i = 0; i < gameData.level.towers.length; i++) {
             const tower = gameData.level.towers[i];
             game.load.image(tower.type, tower.sprite)
@@ -186,11 +304,6 @@ PhaserGame.prototype = {
         game.input.addMoveCallback(this.moveTileCursor, this); //runs this callback everytime you move the cursor.
 
         game.input.onDown.add(this.placeTower, this)
-        // game.add.sprite(0, 0, 'bullet')
-
-        // spawnableEnemiesGroup = game.add.group();
-        // spawnableEnemiesGroup.enableBody = true;
-        // spawnableEnemiesGroup.physicsBodyType = Phaser.Physics.ARCADE
 
         activeEnemiesGroup = game.add.group();
         activeEnemiesGroup.enableBody = true;
@@ -224,22 +337,18 @@ PhaserGame.prototype = {
 
         pauseButton.onDown.add(this.togglePause);
 
-
         this.generateEnemies()
         this.plot();
     },
     //Generates enemies and their sprites from gamedata and pushes them into the spawnableEnemies array.
     generateEnemies() {
-        // spawnableEnemiesGroup.forEach(function(enemy){
-        //     new Enemy(0,0)
-        //     gameState.spawnableEnemies.push(enemy)
-        // })
         for (let i = 0; i < gameData.level.enemies.length; i++) {
             const enemy = gameData.level.enemies[i];
-            enemy.spawnTime = gameData.level.spawnRate * (i + 1)
+            enemy.spawnTime = gameData.level.spawnRate * (i + 1) + (enemy.wave * 600)
             enemy.gameObject = this.add.sprite(0, 0, enemy.type)
             enemy.gameObject.originalIndex = i
             enemy.gameObject.health = enemy.health
+            enemy.gameObject.currencyValue = enemy.currencyValue
             enemy.gameObject.anchor.set(1, 1)
             gameState.spawnableEnemies.push(enemy)
         }
@@ -251,15 +360,21 @@ PhaserGame.prototype = {
 
         var tile = map.getTile(x, y, layer);
         //if else if else - checks to see if the tile already has a tower, and if the tile index(id/type) can be built on.
-        if (tile.properties.hasTower) {
-            console.log('Already have a tower bro!')
-        } else if (tile.index != gameData.level.buildableTileId) { //This is hardcoded for the current tileset. Stretch goal: 
-            console.log("no go bro")
+        if (gameState.wallet >= gameData.level.towers[0].cost) {
+            //if else if else - checks to see if the tile already has a tower, and if the tile index(id/type) can be built on.
+            if (tile.properties.hasTower) {
+                console.log('Already have a tower bro!')
+            } else if (tile.index != gameData.level.buildableTileId) { //This is hardcoded for the current tileset. Stretch goal: 
+                console.log("no go bro")
+            } else {
+                tile.properties.hasTower = true
+                new Tower(tile.x, tile.y, gameData.level.towers[0].type)
+                numOfTowers++
+                gameState.wallet -= gameData.level.towers[0].cost
+                // game.add.sprite(tile.x * 32, tile.y * 32, gameData.level.towers[0].type)
+            }
         } else {
-            tile.properties.hasTower = true
-            new Tower(tile.x, tile.y, gameData.level.towers[0].type)
-            numOfTowers++
-            // game.add.sprite(tile.x * 32, tile.y * 32, gameData.level.towers[0].type)
+            console.log("Not enough Minerals!")
         }
         currentTileProperties = JSON.stringify(tile.properties)
     },
@@ -302,7 +417,8 @@ PhaserGame.prototype = {
             winLoseText.visible = true;
             // console.log(winLoseText)
         }
-
+        if (gameClock % 300 == 0)
+            gameState.wallet += gameData.level.passiveCurrency;
     },
     togglePause() {
         game.paused = !game.paused
@@ -314,7 +430,7 @@ PhaserGame.prototype = {
         }
     },
     render() {
-        game.debug.text("Tile Properties: " + currentTileProperties, 500, 50)
+        game.debug.text("Monies: " + gameState.wallet, 500, 50)
     },
     //function that runs these functions
     handleEnemies() {
@@ -334,6 +450,7 @@ PhaserGame.prototype = {
             gameState.killedEnemies.push(shotEnemy)
             // gameState.killedEnemies.push(gameState.activeEnemies.splice(shotEnemy.originalIndex, 1)[0])
             shotEnemy.kill()
+            gameState.wallet += shotEnemy.currencyValue
             gameState.enemiesOutOfPlay++;
             console.log(gameState.enemiesOutOfPlay)
             console.log(gameData.level.enemies.length)
@@ -388,4 +505,4 @@ PhaserGame.prototype = {
     }
 };
 
-game.state.add('Game', PhaserGame, true);
+// game.state.add('Game', PhaserGame, true);
