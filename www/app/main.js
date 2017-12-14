@@ -1,7 +1,7 @@
 var game;
 
 var game = new Phaser.Game(1024, 768, Phaser.AUTO, 'game-area');
-
+var baseUrl = 'http://localhost:3000/api/'
 var gameDataParam = {
     "level": {
         "levelNumber": 1,
@@ -220,6 +220,13 @@ var gameDataParam = {
         "spawnRate": 20
     }
 }
+
+// var userLevel = app.controllers.authController.getUserLevel();
+
+
+// $.get(baseUrl + 'gamedata')
+// .then(res =>)
+
 
 
 
