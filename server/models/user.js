@@ -9,7 +9,7 @@ var schema = new mongoose.Schema({
     email: { type: String, required: true, dropDups: true },
     password: { type: String, required: true },
     created: { type: Number, required: true, default: Date.now() },
-    progress: { type: Object }
+    currentLevel: { type: Number, default: 1 }
     // in this schema we will need some parameters that will allow us to keep track of how they peformed or what level they have progressed to
 })
 
