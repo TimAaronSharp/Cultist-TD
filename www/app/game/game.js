@@ -324,7 +324,7 @@ PhaserGame.prototype = {
         teslaAoe = game.add.group();
         teslaAoe.enableBody = true;
         teslaAoe.physicsBodyType = Phaser.Physics.ARCADE
-        teslaAoe.setAll('body.setCircle', 48)
+        // teslaAoe.setAll('body.setCircle', 500)
         teslaAoe.setAll('anchor.x', 0.5)
         teslaAoe.setAll('anchor.y', 0.5)
         game.physics.enable(teslaAoe, Phaser.Physics.ARCADE)
@@ -351,6 +351,8 @@ PhaserGame.prototype = {
         oneButton.onDown.add(this.changeActiveTowerType, this, null, 0);
         twoButton.onDown.add(this.changeActiveTowerType, this, null, 1);
         threeButton.onDown.add(this.changeActiveTowerType, this, null, 2);
+        
+        // game.add.sprite(220, 590, 'teslaTower')
 
         this.generateEnemies()
         this.plot();
@@ -398,7 +400,7 @@ PhaserGame.prototype = {
                 new Tower(tile.x, tile.y, gameData.level.towers[activeTowerType].type, gameData.level.towers[activeTowerType].bulletType)
                 numOfTowers++
                 gameState.wallet -= gameData.level.towers[activeTowerType].cost
-                // game.add.sprite(tile.x * 32, tile.y * 32, gameData.level.towers[0].type)
+
             }
         } else {
             console.log("Not enough Minerals!")
@@ -465,13 +467,19 @@ PhaserGame.prototype = {
         this.moveEnemies()
     },
     bulletOverlap() {
-        game.physics.arcade.overlap(bullets, activeEnemiesGroup, this.bulletOverlapHandler, null, this)
+        game.physics.arcade.overlap(pellets, activeEnemiesGroup, this.bulletOverlapHandler, null, this)
+        game.physics.arcade.overlap(teslaAoe, activeEnemiesGroup, this.bulletOverlapHandler, null, this)
 
     },
     bulletOverlapHandler(bullet, shotEnemy) {
         // console.log(bullets, thisEnemy)
-        bullet.kill()
+        // console.log(bullet)
+        if (bullet.key != 'teslaTowerBullet') {
+            bullet.kill()
+        }
         shotEnemy.health -= gameData.level.towers[activeTowerType].bulletDamage;
+        console.log("Enemy " + shotEnemy.originalIndex, shotEnemy.health)
+
         // console.log(shotEnemy.health)
         if (shotEnemy.health <= 0) {
             gameState.killedEnemies.push(shotEnemy)

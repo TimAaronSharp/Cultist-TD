@@ -53,7 +53,7 @@ function AuthService() {
     this.authenticate = function authenticate(drawLogin, drawLogout) {
         auth('authenticate')
             .then(res => {
-                debugger
+        
                 console.log('authenicate', res.data.data)
                 currentUser = res.data.data
                 console.log("hi hi hi ", currentUser)

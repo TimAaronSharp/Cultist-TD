@@ -74,7 +74,7 @@ var gameDataParam = {
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
                 "wave": 0,
-                "currencyValue": 10
+                "currencyValue": 10,
             }, {
                 "type": "star",
                 "health": 100,
@@ -207,9 +207,10 @@ var gameDataParam = {
             "type": "teslaTower",
             "bullet": "teslaTowerBullet",
             "bulletType": "aoe",
-            "bulletDamage": 50,
-            "fireRate": 2000,
-            "cost": 100,
+            "bulletDamage": 0.25,
+            "fireRate": 10800,
+            "towerRange": 1024,
+            "cost": 175,
             "buildTime": 120,
             "bulletSprite": "assets/images/fireball_1.png",
             "sprite": "assets/images/Tesla-Orb-Anim.gif"
@@ -218,9 +219,10 @@ var gameDataParam = {
             "type": "bulletTower",
             "bullet": "bulletTowerBullet",
             "bulletType": "pellet",
-            "bulletDamage": 25,
-            "fireRate": 500,
-            "cost": 50,
+            "bulletDamage": 50,
+            "fireRate": 120,
+            "towerRange": 200,
+            "cost": 100,
             "buildTime": 120,
             "bulletSprite": "assets/images/bullet.png",
             "sprite": "assets/images/bulletTower.png"
