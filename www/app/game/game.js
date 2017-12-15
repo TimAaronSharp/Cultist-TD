@@ -227,6 +227,7 @@ var gameOver = false
 var gameClock = 0;
 var currentTileProperties = ''
 var numOfTowers = 1
+var activeTowerType = 0
 var gameState = {}
 
 var gameState = {
@@ -234,7 +235,7 @@ var gameState = {
     activeEnemies: [], //activeEnemies are the enemies that have spawned and are still in play. Spliced out when killed or make it to the player.
     killedEnemies: [], //killedEnemies - enemies will be pushed here when killed.
     successfulEnemies: [], //successfulEnemies - enemies will be pushed here when they make it to the player and are no longer in play.
-    playerHealth:0,
+    playerHealth: 0,
     enemiesOutOfPlay: 0,
     wallet: 0
 }
@@ -269,7 +270,7 @@ PhaserGame.prototype = {
             game.load.image(tower.type, tower.sprite)
             game.load.image(tower.bullet, tower.bulletSprite)
         }
-        game.load.image(gameData.level.towers[0].bullet, gameData.level.towers[0].bulletSprite)
+        // game.load.image(gameData.level.towers[0].bullet, gameData.level.towers[0].bulletSprite)
         // game.load.image('bullet', 'assets/images/bullet.png')
         game.load.tilemap(gameData.level.mapKey, null, gameData.level.map, Phaser.Tilemap.TILED_JSON);
         game.load.image(gameData.level.tilesetImageKey, gameData.level.tilesetImage);
@@ -334,11 +335,16 @@ PhaserGame.prototype = {
 
         //buttons
         pauseButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
+        testbutton = game.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_1)
 
         pauseButton.onDown.add(this.togglePause);
+        testbutton.onDown.add(this.testbuttan);
 
         this.generateEnemies()
         this.plot();
+    },
+    testbuttan() {
+        console.log("Bur Kek")
     },
     //Generates enemies and their sprites from gamedata and pushes them into the spawnableEnemies array.
     generateEnemies() {
@@ -346,7 +352,7 @@ PhaserGame.prototype = {
             const enemy = gameData.level.enemies[i];
             enemy.spawnTime = gameData.level.spawnRate * (i + 1) + (enemy.wave * 600)
             enemy.gameObject = this.add.sprite(0, 0, enemy.type)
-            var walk = enemy.gameObject.animations.add('walk') 
+            var walk = enemy.gameObject.animations.add('walk')
             enemy.gameObject.animations.play('walk', 30, true);
             enemy.gameObject.originalIndex = i
             enemy.gameObject.health = enemy.health
@@ -362,7 +368,7 @@ PhaserGame.prototype = {
 
         var tile = map.getTile(x, y, layer);
         //if else if else - checks to see if the tile already has a tower, and if the tile index(id/type) can be built on.
-        if (gameState.wallet >= gameData.level.towers[0].cost) {
+        if (gameState.wallet >= gameData.level.towers[activeTowerType].cost) {
             //if else if else - checks to see if the tile already has a tower, and if the tile index(id/type) can be built on.
             if (tile.properties.hasTower) {
                 console.log('Already have a tower bro!')
@@ -370,9 +376,9 @@ PhaserGame.prototype = {
                 console.log("no go bro")
             } else {
                 tile.properties.hasTower = true
-                new Tower(tile.x, tile.y, gameData.level.towers[0].type)
+                new Tower(tile.x, tile.y, gameData.level.towers[activeTowerType].type)
                 numOfTowers++
-                gameState.wallet -= gameData.level.towers[0].cost
+                gameState.wallet -= gameData.level.towers[activeTowerType].cost
                 // game.add.sprite(tile.x * 32, tile.y * 32, gameData.level.towers[0].type)
             }
         } else {
@@ -446,7 +452,7 @@ PhaserGame.prototype = {
     bulletOverlapHandler(bullet, shotEnemy) {
         // console.log(bullets, thisEnemy)
         bullet.kill()
-        shotEnemy.health -= gameData.level.towers[0].bulletDamage;
+        shotEnemy.health -= gameData.level.towers[activeTowerType].bulletDamage;
         // console.log(shotEnemy.health)
         if (shotEnemy.health <= 0) {
             gameState.killedEnemies.push(shotEnemy)
