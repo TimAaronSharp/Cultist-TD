@@ -1,4 +1,4 @@
-var Tower = function (tileX, tileY, type, bulletType) {
+var Tower = function (tileX, tileY, type, bulletType, bulletDamage) {
     this.tower = game.add.sprite(tileX * 32, tileY * 32, gameData.level.towers[activeTowerType].type)
     this.tower.tileX = tileX
     this.tower.tileY = tileY
@@ -6,6 +6,7 @@ var Tower = function (tileX, tileY, type, bulletType) {
     this.tower.fireRate = gameData.level.towers[activeTowerType].fireRate
     this.tower.prevShot = gameClock
     this.tower.bulletType = bulletType
+    this.tower.bulletDamage = bulletDamage
     this.tower.towerRange = gameData.level.towers[activeTowerType].towerRange
     this.tower.towerInstance = numOfTowers
     this.tower.target = null
@@ -45,6 +46,7 @@ var Tower = function (tileX, tileY, type, bulletType) {
                 pellets.createMultiple(1, gameData.level.towers[activeTowerType].bullet)
 
                 var pellet = pellets.getFirstExists(false);
+                pellet.bulletDamage = tower.bulletDamage
                 console.log('Tower ' + tower.towerInstance + " shot " + enemy.name + "! KABOOOOOOOM!!!")
                 tower.prevShot = gameClock + tower.fireRate
                 pellet.reset(tower.x, tower.y);
@@ -58,6 +60,7 @@ var Tower = function (tileX, tileY, type, bulletType) {
             if (gameClock >= tower.prevShot) {
                 teslaAoe.createMultiple(1, gameData.level.towers[activeTowerType].bullet)
                 var teslaShot = teslaAoe.getFirstExists(false)
+                teslaShot.bulletDamage = tower.bulletDamage
                 teslaShot.body.setCircle(48);
                 tower.prevShot = gameClock + tower.fireRate
                 teslaShot.reset(tower.x, tower.y)

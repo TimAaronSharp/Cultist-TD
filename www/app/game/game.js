@@ -397,7 +397,7 @@ PhaserGame.prototype = {
                 console.log("no go bro")
             } else {
                 tile.properties.hasTower = true
-                new Tower(tile.x, tile.y, gameData.level.towers[activeTowerType].type, gameData.level.towers[activeTowerType].bulletType)
+                new Tower(tile.x, tile.y, gameData.level.towers[activeTowerType].type, gameData.level.towers[activeTowerType].bulletType, gameData.level.towers[activeTowerType].bulletDamage)
                 numOfTowers++
                 gameState.wallet -= gameData.level.towers[activeTowerType].cost
 
@@ -477,7 +477,7 @@ PhaserGame.prototype = {
         if (bullet.key != 'teslaTowerBullet') {
             bullet.kill()
         }
-        shotEnemy.health -= gameData.level.towers[activeTowerType].bulletDamage;
+        shotEnemy.health -= bullet.bulletDamage;
         console.log("Enemy " + shotEnemy.originalIndex, shotEnemy.health)
 
         // console.log(shotEnemy.health)
