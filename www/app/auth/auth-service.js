@@ -7,7 +7,21 @@ function AuthService() {
         withCredentials: true
     })
 
-    var user = {}
+    var currentUser = {}
+    ///////////////////////////////////////////////////
+
+    // console.log(app)
+
+
+    // var currentLevel = app.controllers.authController.getUserLevel();
+    // console.log("ZOMFG DID IT WORK?! " , currentLevel)
+
+    // $.get(baseUrl + 'gamedata')
+    // .then(res =>)
+
+
+
+    ////////////////////////////////////////////////////
 
     function logError() {
         console.log('your request failed')
@@ -17,7 +31,9 @@ function AuthService() {
         auth.post('login', user)
             .then(res => {
                 console.log('login', res.data)
+                currentUser = res.data.data
                 cb(res)
+                getGameData()
             })
             .catch(logError)
     }
@@ -27,8 +43,9 @@ function AuthService() {
     this.registration = function registration(form, cb) {
         auth.post('register', form)
             .then(res => {
+                currentUser = res.data.data
                 cb(res)
-                
+                getGameData()
             })
             .catch(logError)
     }
@@ -36,9 +53,13 @@ function AuthService() {
     this.authenticate = function authenticate(drawLogin, drawLogout) {
         auth('authenticate')
             .then(res => {
+                debugger
                 console.log('authenicate', res.data.data)
+                currentUser = res.data.data
+                console.log("hi hi hi ", currentUser)
                 if (res.data.data.username) {
                     drawLogout(res)
+                    getGameData()
                 } else {
                     drawLogin(res)
                 }
@@ -46,14 +67,24 @@ function AuthService() {
             .catch(logError)
     }
 
-
     this.logout = function logout(cb) {
         auth.delete('logout')
             .then(res => {
                 user = {}
                 console.log('logout: ', res)
                 cb(res)
+                currentUser = {}
+                getGameData()
             })
             .catch(logError)
+    }
+
+    this.getUserLevel = function getUserLevel() {
+        if (!currentUser.currentLevel) {
+            return 0
+        } else {
+            return currentUser.currentLevel
+        }
+        console.log("hey there buddy ", currentUser)
     }
 }

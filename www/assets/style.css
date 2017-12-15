@@ -10,3 +10,10 @@
 body{
     background-color: #000000;
 }
+.game-wrapper{
+    margin:auto;
+}
+/* canvas {   
+    display : block;   
+    margin : auto;
+} */

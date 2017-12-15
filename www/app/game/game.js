@@ -245,7 +245,7 @@ var PhaserGame = function (game) {
     this.path = [];
 
 
-    console.log(gameData)
+    //console.log(gameData)
 };
 PhaserGame.prototype = {
 
@@ -277,7 +277,7 @@ PhaserGame.prototype = {
         for (let i = 0; i < gameData.level.enemies.length; i++) {
             const enemy = gameData.level.enemies[i];
 
-            game.load.image(enemy.type, enemy.sprite)
+            game.load.spritesheet(enemy.type, enemy.sprite, 32, 36, 12)
         }
     },
 
@@ -290,7 +290,7 @@ PhaserGame.prototype = {
         this.bmd = this.add.bitmapData(this.game.width, this.game.height);
         this.bmd.addToWorld();
 
-        this.stage.backgroundColor = '#787878';
+        this.stage.backgroundColor = '#000000';
         map = game.add.tilemap(gameData.level.mapKey);
         map.addTilesetImage(gameData.level.tilesetImageName, gameData.level.tilesetImageKey);
         layer = map.createLayer(gameData.level.tilemapLayer);
@@ -346,6 +346,8 @@ PhaserGame.prototype = {
             const enemy = gameData.level.enemies[i];
             enemy.spawnTime = gameData.level.spawnRate * (i + 1) + (enemy.wave * 600)
             enemy.gameObject = this.add.sprite(0, 0, enemy.type)
+            var walk = enemy.gameObject.animations.add('walk') 
+            enemy.gameObject.animations.play('walk', 30, true);
             enemy.gameObject.originalIndex = i
             enemy.gameObject.health = enemy.health
             enemy.gameObject.currencyValue = enemy.currencyValue

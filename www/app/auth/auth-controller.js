@@ -1,11 +1,11 @@
 function AuthController() {
     var authService = new AuthService()
-    
+
     function toggle() {
         var x = document.getElementById('reg');
         if (x.style.display === 'none') {
             x.style.display = 'block';
-        } else{
+        } else {
             x.style.display = 'none';
         }
     }
@@ -150,11 +150,13 @@ function AuthController() {
         }
     }
 
+    this.getUserLevel = function getUserLevel() {
+        return authService.getUserLevel()
+    }
+
     this.logout = function logout() {
         authService.logout(drawLogin)
 
     }
-
     authService.authenticate(drawLogin, drawLogout)
-
 }

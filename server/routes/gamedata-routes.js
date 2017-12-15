@@ -12,8 +12,8 @@ router.get('/api/gamedata', (req, res, next) => {
         })
 })
 
-router.get('/api/gamedata/:id', (req, res, next) => {
-    Gamedata.findOne({ levelNumber: req.level.levelNumber })
+router.get('/api/gamedata/:levelNumber', (req, res, next) => {
+    Gamedata.findOne({ levelNumber: req.params.levelNumber })
         .then(gamedata => {
             res.send(gamedata)
         })
@@ -32,8 +32,8 @@ router.post('/api/gamedata', (req, res, next) => {
         })
 })
 
-router.delete('/api/gamedata/:id', (req, res, next) => {
-    Gamedata.findOneAndRemove({ levelNumber: req.level.levelNumber })
+router.delete('/api/gamedata/:levelNumber', (req, res, next) => {
+    Gamedata.findOneAndRemove({ levelNumber: req.params.levelNumber })
         .then(() => {
             res.send({ message: "Level gone" })
         })
