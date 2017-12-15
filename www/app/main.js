@@ -206,6 +206,7 @@ var gameDataParam = {
         "towers": [{
             "type": "teslaTower",
             "bullet": "teslaTowerBullet",
+            "bulletType": "aoe",
             "bulletDamage": 50,
             "fireRate": 2000,
             "cost": 100,
@@ -216,6 +217,7 @@ var gameDataParam = {
         {
             "type": "bulletTower",
             "bullet": "bulletTowerBullet",
+            "bulletType": "pellet",
             "bulletDamage": 25,
             "fireRate": 500,
             "cost": 50,

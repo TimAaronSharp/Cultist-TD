@@ -314,12 +314,20 @@ PhaserGame.prototype = {
         towers = game.add.group();
 
         //lookup how to kill sprites when they leave visible world bounds
-        bullets = game.add.group();
-        bullets.enableBody = true;
-        bullets.physicsBodyType = Phaser.Physics.ARCADE
-        bullets.setAll('anchor.x', 0.5)
-        bullets.setAll('anchor.y', 0.5)
-        game.physics.enable(bullets, Phaser.Physics.ARCADE)
+        pellets = game.add.group();
+        pellets.enableBody = true;
+        pellets.physicsBodyType = Phaser.Physics.ARCADE
+        pellets.setAll('anchor.x', 0.5)
+        pellets.setAll('anchor.y', 0.5)
+        game.physics.enable(pellets, Phaser.Physics.ARCADE)
+
+        teslaAoe = game.add.group();
+        teslaAoe.enableBody = true;
+        teslaAoe.physicsBodyType = Phaser.Physics.ARCADE
+        teslaAoe.setAll('body.setCircle', 48)
+        teslaAoe.setAll('anchor.x', 0.5)
+        teslaAoe.setAll('anchor.y', 0.5)
+        game.physics.enable(teslaAoe, Phaser.Physics.ARCADE)
 
         //text
 
@@ -335,16 +343,27 @@ PhaserGame.prototype = {
 
         //buttons
         pauseButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
-        testbutton = game.input.keyboard.addKey(Phaser.Keyboard.NUMPAD_1)
+        oneButton = game.input.keyboard.addKey(Phaser.Keyboard.ONE)
+        twoButton = game.input.keyboard.addKey(Phaser.Keyboard.TWO)
+        threeButton = game.input.keyboard.addKey(Phaser.Keyboard.THREE)
 
         pauseButton.onDown.add(this.togglePause);
-        testbutton.onDown.add(this.testbuttan);
+        oneButton.onDown.add(this.changeActiveTowerType, this, null, 0);
+        twoButton.onDown.add(this.changeActiveTowerType, this, null, 1);
+        threeButton.onDown.add(this.changeActiveTowerType, this, null, 2);
 
         this.generateEnemies()
         this.plot();
     },
-    testbuttan() {
-        console.log("Bur Kek")
+    changeActiveTowerType(key, num) {
+        console.log(num)
+        // console.log("Bur Kek")
+        if (num > gameData.level.towers.length - 1) {
+            // activeTowerType = gameData.level.towers[activeTowerType]
+            console.log("Tower number too high bro")
+        } else {
+            activeTowerType = num;
+        }
     },
     //Generates enemies and their sprites from gamedata and pushes them into the spawnableEnemies array.
     generateEnemies() {
@@ -376,7 +395,7 @@ PhaserGame.prototype = {
                 console.log("no go bro")
             } else {
                 tile.properties.hasTower = true
-                new Tower(tile.x, tile.y, gameData.level.towers[activeTowerType].type)
+                new Tower(tile.x, tile.y, gameData.level.towers[activeTowerType].type, gameData.level.towers[activeTowerType].bulletType)
                 numOfTowers++
                 gameState.wallet -= gameData.level.towers[activeTowerType].cost
                 // game.add.sprite(tile.x * 32, tile.y * 32, gameData.level.towers[0].type)

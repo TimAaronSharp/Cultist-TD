@@ -1,4 +1,4 @@
-var Tower = function (tileX, tileY, type) {
+var Tower = function (tileX, tileY, type, bulletType) {
     this.tower = game.add.sprite(tileX * 32, tileY * 32, gameData.level.towers[activeTowerType].type)
     this.tower.tileX = tileX
     this.tower.tileY = tileY
