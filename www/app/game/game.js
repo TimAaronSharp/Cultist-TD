@@ -1,58 +1,65 @@
-var map, layer, selectedTile, winLoseText, pauseText, gameData
-var gameOver = false
-var gameClock = 0;
-var currentTileProperties = ''
-var numOfTowers = 1
-var activeTowerType = 0
-var gameState = {}
+//REMEMBER TO DELETE THE GAMEDATA ON THE DB AND POST THE NEW ONE
 
-var gameState = {
-    spawnableEnemies: [], //spawnableEnemies is where the enemies from the database will be stored when they first get pulled down. Shifted out when spawned.
-    activeEnemies: [], //activeEnemies are the enemies that have spawned and are still in play. Spliced out when killed or make it to the player.
-    killedEnemies: [], //killedEnemies - enemies will be pushed here when killed.
-    successfulEnemies: [], //successfulEnemies - enemies will be pushed here when they make it to the player and are no longer in play.
-    playerHealth: 0,
-    enemiesOutOfPlay: 0,
-    wallet: 0
-}
 //gameState is where we'll locally keep the data that we pulled down from the database and manipulate it here.
 
-var PhaserGame = function (game) {
-    this.bmd = null;
-    this.path = [];
 
+var PhaserGame = function (game) {
+    this.bmd = null
+    this.path = []
+    this.map
+    this.layer
+    this.selectedTile
+    this.towerNumberBox
+    this.winLoseText
+    this.pauseText
+    this.gameClock = 0
+    this.gameData
+    this.gameOver = false
+    this.currentTileProperties = ''
+    this.numOfTowers = 1
+    this.activeTowerType = 0
+    this.gameState = {
+        spawnableEnemies: [], //spawnableEnemies is where the enemies from the database will be stored when they first get pulled down. Shifted out when spawned.
+        activeEnemies: [], //activeEnemies are the enemies that have spawned and are still in play. Spliced out when killed or make it to the player.
+        killedEnemies: [], //killedEnemies - enemies will be pushed here when killed.
+        successfulEnemies: [], //successfulEnemies - enemies will be pushed here when they make it to the player and are no longer in play.
+
+        playerHealth: 0,
+        enemiesOutOfPlay: 0,
+        wallet: 0
+    }
 
     //console.log(gameData)
 };
 PhaserGame.prototype = {
 
     init: function (gameDataParam) {
-        gameData = gameDataParam
+        this.gameData = gameDataParam
         this.game.renderer.renderSession.roundPixels = true; //currently not in use for linear interpolation. Might be necessary for other types.
     },
     //preload - function that preloads assets before the game starts.
     preload: function () {
-        gameState = {
+        this.gameState = {
             spawnableEnemies: [], //spawnableEnemies is where the enemies from the database will be stored when they first get pulled down. Shifted out when spawned.
             activeEnemies: [], //activeEnemies are the enemies that have spawned and are still in play. Spliced out when killed or make it to the player.
             killedEnemies: [], //killedEnemies - enemies will be pushed here when killed.
             successfulEnemies: [], //successfulEnemies - enemies will be pushed here when they make it to the player and are no longer in play.
-            playerHealth: gameData.level.playerLevelHealth,
+            playerHealth: this.gameData.level.playerLevelHealth,
             enemiesOutOfPlay: 0,
-            wallet: gameData.level.startingCurrency
+            wallet: this.gameData.level.startingCurrency
         }
-        for (let i = 0; i < gameData.level.towers.length; i++) {
-            const tower = gameData.level.towers[i];
+        for (let i = 0; i < this.gameData.level.towers.length; i++) {
+            const tower = this.gameData.level.towers[i];
             game.load.image(tower.type, tower.sprite)
             game.load.image(tower.bullet, tower.bulletSprite)
         }
         // game.load.image(gameData.level.towers[0].bullet, gameData.level.towers[0].bulletSprite)
         // game.load.image('bullet', 'assets/images/bullet.png')
-        game.load.tilemap(gameData.level.mapKey, null, gameData.level.map, Phaser.Tilemap.TILED_JSON);
-        game.load.image(gameData.level.tilesetImageKey, gameData.level.tilesetImage);
+        game.load.tilemap(this.gameData.level.mapKey, null, this.gameData.level.map, Phaser.Tilemap.TILED_JSON);
+        game.load.image(this.gameData.level.tilesetImageKey, this.gameData.level.tilesetImage);
 
-        for (let i = 0; i < gameData.level.enemies.length; i++) {
-            const enemy = gameData.level.enemies[i];
+        for (let i = 0; i < this.gameData.level.enemies.length; i++) {
+            const enemy = this.gameData.level.enemies[i];
 
             game.load.spritesheet(enemy.type, enemy.sprite, 32, 36, 12)
         }
@@ -68,17 +75,22 @@ PhaserGame.prototype = {
         this.bmd.addToWorld();
 
         this.stage.backgroundColor = '#000000';
-        map = game.add.tilemap(gameData.level.mapKey);
-        map.addTilesetImage(gameData.level.tilesetImageName, gameData.level.tilesetImageKey);
-        layer = map.createLayer(gameData.level.tilemapLayer);
-        layer.resizeWorld();
+        this.map = game.add.tilemap(this.gameData.level.mapKey);
+        this.map.addTilesetImage(this.gameData.level.tilesetImageName, this.gameData.level.tilesetImageKey);
+        this.layer = this.map.createLayer(this.gameData.level.tilemapLayer);
+        this.layer.resizeWorld();
 
         //create selected tile box graphic
-        selectedTile = game.add.graphics(); //creates an empty graphics object.
-        selectedTile.lineStyle(2, 0xffffff, 1); //sets line style - width, color, opacity.
-        selectedTile.drawRect(0, 0, 32, 32); //draws a 32px rectangle with the above line style.
+        this.selectedTile = game.add.graphics(); //creates an empty graphics object.
+        this.selectedTile.lineStyle(2, 0xffffff, 1); //sets line style - width, color, opacity.
+        this.selectedTile.drawRect(0, 0, 32, 32); //draws a 32px rectangle with the above line style.
+
+
+
 
         game.input.addMoveCallback(this.moveTileCursor, this); //runs this callback everytime you move the cursor.
+
+        this.drawInterface()
 
         game.input.onDown.add(this.placeTower, this)
 
@@ -100,22 +112,25 @@ PhaserGame.prototype = {
         teslaAoe = game.add.group();
         teslaAoe.enableBody = true;
         teslaAoe.physicsBodyType = Phaser.Physics.ARCADE
+        teslaAoe.forEach(game.debug.body, game.debug, 0x000000);
         // teslaAoe.setAll('body.setCircle', 500)
-        teslaAoe.setAll('anchor.x', 0.5)
-        teslaAoe.setAll('anchor.y', 0.5)
+        // teslaAoe.setAll('anchor.x', 0.5)
+        // teslaAoe.setAll('anchor.y', 0.5)
         game.physics.enable(teslaAoe, Phaser.Physics.ARCADE)
 
         //text
 
         // winLose
-        winLoseText = game.add.text(game.world.centerX, game.world.centerY, ' ', { font: '100px Arial', fill: '#ffffff' });
-        winLoseText.anchor.setTo(0.5, 0.5);
-        winLoseText.visible = false;
+        this.winLoseText = game.add.text(game.world.centerX, game.world.centerY, ' ', { font: '100px Arial', fill: '#ffffff' });
+        this.winLoseText.anchor.setTo(0.5, 0.5);
+        this.winLoseText.visible = false;
 
         //pause
-        pauseText = game.add.text(game.world.centerX, game.world.centerY, ' ', { font: '50px Arial', fill: '#ffffff' });
-        pauseText.anchor.setTo(0.5, 0.5);
-        pauseText.visible = false;
+        this.pauseText = game.add.text(game.world.centerX, game.world.centerY, ' ', { font: '50px Arial', fill: '#ffffff' });
+        this.pauseText.anchor.setTo(0.5, 0.5);
+        this.pauseText.visible = false;
+
+
 
         //buttons
         pauseButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
@@ -127,27 +142,26 @@ PhaserGame.prototype = {
         oneButton.onDown.add(this.changeActiveTowerType, this, null, 0);
         twoButton.onDown.add(this.changeActiveTowerType, this, null, 1);
         threeButton.onDown.add(this.changeActiveTowerType, this, null, 2);
-        
+
         // game.add.sprite(220, 590, 'teslaTower')
 
         this.generateEnemies()
         this.plot();
     },
     changeActiveTowerType(key, num) {
-        console.log(num)
         // console.log("Bur Kek")
-        if (num > gameData.level.towers.length - 1) {
-            // activeTowerType = gameData.level.towers[activeTowerType]
+        if (num > this.gameData.level.towers.length - 1) {
             console.log("Tower number too high bro")
         } else {
-            activeTowerType = num;
+            this.activeTowerType = num;
+            this.towerNumberBox.x = (25 + num) * 32
         }
     },
     //Generates enemies and their sprites from gamedata and pushes them into the spawnableEnemies array.
     generateEnemies() {
-        for (let i = 0; i < gameData.level.enemies.length; i++) {
-            const enemy = gameData.level.enemies[i];
-            enemy.spawnTime = gameData.level.spawnRate * (i + 1) + (enemy.wave * 600)
+        for (let i = 0; i < this.gameData.level.enemies.length; i++) {
+            const enemy = this.gameData.level.enemies[i];
+            enemy.spawnTime = this.gameData.level.spawnRate * (i + 1) + (enemy.wave * 600)
             enemy.gameObject = this.add.sprite(0, 0, enemy.type)
             var walk = enemy.gameObject.animations.add('walk')
             enemy.gameObject.animations.play('walk', 30, true);
@@ -155,37 +169,63 @@ PhaserGame.prototype = {
             enemy.gameObject.health = enemy.health
             enemy.gameObject.currencyValue = enemy.currencyValue
             enemy.gameObject.anchor.set(1, 1)
-            gameState.spawnableEnemies.push(enemy)
+            this.gameState.spawnableEnemies.push(enemy)
         }
+    },
+    drawInterface() {
+
+        for (let i = 0; i < this.gameData.level.towers.length; i++) {
+            const towerSelectTile = this.gameData.level.towers[i];
+
+            // var tile = this.map.getTile((25 + i), 1, this.layer);
+            game.add.sprite(((25 + i) * 32), (0 * 32), towerSelectTile.type)
+            // if(activeTowerType)
+
+            this.towerSelectText = game.add.text(((25 + i) * 32), 17, ' ', { font: '13px Arial', fill: '#cccccc' });
+            this.towerSelectText.anchor.setTo(0, 0);
+            this.towerSelectText.visible = true;
+
+            this.towerSelectText.text = i + 1
+
+        }
+        debugger
+        this.towerNumberBox = game.add.graphics(); //creates an empty graphics object.
+        this.towerNumberBox.lineStyle(2, 0xffffff, 1); //sets line style - width, color, opacity.
+        this.towerNumberBox.beginFill(0x00ff00, 0.2)
+        this.towerNumberBox.drawRect(0, 0, 32, 32); //draws a 32px rectangle with the above line style.
+        this.towerNumberBox.endFill()
+        this.towerNumberBox.x = (25 + this.activeTowerType) * 32
+
     },
     //gets tile coordinate you are pointing at and attempts to place tower. Will use to check where you can build towers.
     placeTower() {
-        var x = layer.getTileX(game.input.activePointer.worldX);
-        var y = layer.getTileY(game.input.activePointer.worldY);
+        var towerData = this.gameData.level.towers[this.activeTowerType]
+        var x = this.layer.getTileX(game.input.activePointer.worldX);
+        var y = this.layer.getTileY(game.input.activePointer.worldY);
 
-        var tile = map.getTile(x, y, layer);
+        var tile = this.map.getTile(x, y, this.layer);
         //if else if else - checks to see if the tile already has a tower, and if the tile index(id/type) can be built on.
-        if (gameState.wallet >= gameData.level.towers[activeTowerType].cost) {
+        if (this.gameState.wallet >= this.gameData.level.towers[this.activeTowerType].cost) {
             //if else if else - checks to see if the tile already has a tower, and if the tile index(id/type) can be built on.
             if (tile.properties.hasTower) {
                 console.log('Already have a tower bro!')
-            } else if (tile.index != gameData.level.buildableTileId) { //This is hardcoded for the current tileset. Stretch goal: 
+            } else if (tile.index != this.gameData.level.buildableTileId) { //This is hardcoded for the current tileset. Stretch goal: 
                 console.log("no go bro")
             } else {
                 tile.properties.hasTower = true
-                new Tower(tile.x, tile.y, gameData.level.towers[activeTowerType].type, gameData.level.towers[activeTowerType].bulletType, gameData.level.towers[activeTowerType].bulletDamage)
-                numOfTowers++
-                gameState.wallet -= gameData.level.towers[activeTowerType].cost
+                new Tower({ tileX: tile.x, tileY: tile.y, towerData: towerData, gameData: this.gameData, gameClock: this.gameClock, numOfTowers: this.numOfTowers, activeTowerType: this.activeTowerType, gameState: this.gameState })
+                this.numOfTowers++
+                this.gameState.wallet -= this.gameData.level.towers[this.activeTowerType].cost
 
             }
         } else {
             console.log("Not enough Minerals!")
         }
-        currentTileProperties = JSON.stringify(tile.properties)
+        this.currentTileProperties = JSON.stringify(tile.properties)
     },
     moveTileCursor() {
-        selectedTile.x = layer.getTileX(game.input.activePointer.worldX) * 32;
-        selectedTile.y = layer.getTileY(game.input.activePointer.worldY) * 32;
+        this.selectedTile.x = this.layer.getTileX(game.input.activePointer.worldX) * 32;
+        this.selectedTile.y = this.layer.getTileY(game.input.activePointer.worldY) * 32;
     },
     //plot - function that plots out the routes between the points defined in the "points" array.
     plot: function () {
@@ -196,8 +236,8 @@ PhaserGame.prototype = {
         for (let i = 0; i <= 1; i += x) {
 
             //Does the math and draws out the routes between the points. First param is the input array of values to interpolate between. Second param is the percentage of interpolation, between 0 and 1. Each time it is run it returns the interpolated value of the point in the array at the percentage(i). Not sure if I understand completely, may have to study it more.
-            var px = this.math.linearInterpolation(gameData.level.points.x, i);
-            var py = this.math.linearInterpolation(gameData.level.points.y, i);
+            var px = this.math.linearInterpolation(this.gameData.level.points.x, i);
+            var py = this.math.linearInterpolation(this.gameData.level.points.y, i);
 
             this.path.push({ x: px, y: py })
             //draws the path between the points.
@@ -206,36 +246,37 @@ PhaserGame.prototype = {
         }
 
         //draws red rectangles at the x:y points for better visibility (can't be seen if map is loaded).
-        for (var p = 0; p < gameData.level.points.x.length; p++) {
-            this.bmd.rect(gameData.level.points.x[p] - 3, gameData.level.points.y[p] - 3, 6, 6, 'rgba(255, 0, 0, 1)');
+        for (var p = 0; p < this.gameData.level.points.x.length; p++) {
+            this.bmd.rect(this.gameData.level.points.x[p] - 3, this.gameData.level.points.y[p] - 3, 6, 6, 'rgba(255, 0, 0, 1)');
         }
     },
     update: function () {
-        gameClock++;
+        this.gameClock++;
         this.handleEnemies()
         this.bulletOverlap()
         towers.forEach(function (tower) {
             tower.aquireTarget(tower)
         });
-        if (gameState.enemiesOutOfPlay == gameData.level.enemies.length && !gameOver) {
-            winLoseText.text = "A winner is YOU!"
-            winLoseText.visible = true;
-            // console.log(winLoseText)
+        if (this.gameState.enemiesOutOfPlay == this.gameData.level.enemies.length && !this.gameOver) {
+            this.winLoseText.text = "A winner is YOU!"
+            this.winLoseText.visible = true;
         }
-        if (gameClock % 300 == 0)
-            gameState.wallet += gameData.level.passiveCurrency;
+        if (this.gameClock % 300 == 0)
+            this.gameState.wallet += this.gameData.level.passiveCurrency;
     },
     togglePause() {
         game.paused = !game.paused
         if (game.paused) {
-            pauseText.text = "Press SPACE to resume"
-            pauseText.visible = true;
+            this.pauseText.text = "Press SPACE to resume"
+            this.pauseText.visible = true;
         } else {
-            pauseText.visible = false;
+            this.pauseText.visible = false;
         }
     },
     render() {
-        game.debug.text("Monies: " + gameState.wallet, 500, 50)
+        game.debug.text("Monies: " + this.gameState.wallet, 4, 16)
+        teslaAoe.forEach(game.debug.body, game.debug, false, 'rgba(0,0,0, 0.5)', true);
+
     },
     //function that runs these functions
     handleEnemies() {
@@ -256,36 +297,36 @@ PhaserGame.prototype = {
         shotEnemy.health -= bullet.bulletDamage;
         console.log("Enemy " + shotEnemy.originalIndex, shotEnemy.health)
 
-        // console.log(shotEnemy.health)
+        console.log(shotEnemy.health)
         if (shotEnemy.health <= 0) {
-            gameState.killedEnemies.push(shotEnemy)
+            this.gameState.killedEnemies.push(shotEnemy)
             // gameState.killedEnemies.push(gameState.activeEnemies.splice(shotEnemy.originalIndex, 1)[0])
             shotEnemy.kill()
-            gameState.wallet += shotEnemy.currencyValue
-            gameState.enemiesOutOfPlay++;
-            console.log(gameState.enemiesOutOfPlay)
-            console.log(gameData.level.enemies.length)
+            this.gameState.wallet += shotEnemy.currencyValue
+            this.gameState.enemiesOutOfPlay++;
+            console.log(this.gameState.enemiesOutOfPlay)
+            console.log(this.gameData.level.enemies.length)
         }
     },
     //checkEnemySpawn - checks if there is still an enemy in the spawnableEnemies array and checks the current game time vs the spawn time for the enemy.
     checkEnemySpawn() {
-        var nextEnemy = gameState.spawnableEnemies[0]
+        var nextEnemy = this.gameState.spawnableEnemies[0]
         // console.log('UPDATE:', game.time.now, gameState.spawnableEnemies[0])
-        if (nextEnemy && gameClock >= nextEnemy.spawnTime) {
+        if (nextEnemy && this.gameClock >= nextEnemy.spawnTime) {
             this.spawnEnemy(nextEnemy)
         }
     },
     spawnEnemy(enemy) {
 
         enemy.i = 0
-        gameState.spawnableEnemies.shift()
-        gameState.activeEnemies.push(enemy)
+        this.gameState.spawnableEnemies.shift()
+        this.gameState.activeEnemies.push(enemy)
         activeEnemiesGroup.add(enemy.gameObject) //currently testing game object group. Delete if not utilized.
         // console.log(activeEnemiesGroup)
     },
     moveEnemies() {
-        for (let i = 0; i < gameState.activeEnemies.length; i++) {
-            const enemy = gameState.activeEnemies[i];
+        for (let i = 0; i < this.gameState.activeEnemies.length; i++) {
+            const enemy = this.gameState.activeEnemies[i];
             enemy.gameObject.x = this.path[enemy.i].x
             enemy.gameObject.y = this.path[enemy.i].y
             enemy.i++
@@ -297,21 +338,21 @@ PhaserGame.prototype = {
     },
     enemyHitPlayer(enemy) {
         if (enemy.gameObject.alive) {
-            gameState.playerHealth -= enemy.playerDamageValue
-            console.log("Player health: " + gameState.playerHealth)
-            gameState.enemiesOutOfPlay++;
-            console.log(gameState.enemiesOutOfPlay)
+            this.gameState.playerHealth -= enemy.playerDamageValue
+            console.log("Player health: " + this.gameState.playerHealth)
+            this.gameState.enemiesOutOfPlay++;
+            console.log(this.gameState.enemiesOutOfPlay)
         }
-        gameState.successfulEnemies.push(gameState.activeEnemies.splice(gameState.activeEnemies.indexOf(enemy), 1)[0])
+        this.gameState.successfulEnemies.push(this.gameState.activeEnemies.splice(this.gameState.activeEnemies.indexOf(enemy), 1)[0])
         //deduct player healh
         enemy.gameObject.kill()
-        console.log(gameState.enemiesOutOfPlay)
-        console.log(gameData.level.enemies.length)
-        if (gameState.playerHealth <= 0) {
-            gameOver = true
-            console.log(gameOver)
-            winLoseText.text = "Game Over";
-            winLoseText.visible = true;
+        console.log(this.gameState.enemiesOutOfPlay)
+        console.log(this.gameData.level.enemies.length)
+        if (this.gameState.playerHealth <= 0) {
+            this.gameOver = true
+            console.log(this.gameOver)
+            this.winLoseText.text = "Game Over";
+            this.winLoseText.visible = true;
         }
     }
 };

@@ -1,19 +1,20 @@
-var Tower = function (tileX, tileY, type, bulletType, bulletDamage) {
-    this.tower = game.add.sprite(tileX * 32, tileY * 32, gameData.level.towers[activeTowerType].type)
-    this.tower.tileX = tileX
-    this.tower.tileY = tileY
-    this.tower.type = type
-    this.tower.fireRate = gameData.level.towers[activeTowerType].fireRate
-    this.tower.prevShot = gameClock
-    this.tower.bulletType = bulletType
-    this.tower.bulletDamage = bulletDamage
-    this.tower.towerRange = gameData.level.towers[activeTowerType].towerRange
-    this.tower.towerInstance = numOfTowers
+var Tower = function (payload) {
+
+    this.tower = game.add.sprite(payload.tileX * 32, payload.tileY * 32, payload.towerData.type)
+    this.tower.tileX = payload.tileX
+    this.tower.tileY = payload.tileY
+    this.tower.type = payload.towerData.type
+    this.tower.towerClock = payload.gameClock
+    this.tower.fireRate = payload.towerData.fireRate
+    this.tower.prevShot = payload.gameClock
+    this.tower.bulletType = payload.towerData.bulletType
+    this.tower.bulletDamage = payload.towerData.bulletDamage
+    this.tower.towerRange = payload.towerData.towerRange
+    this.tower.towerInstance = payload.numOfTowers
     this.tower.target = null
     this.tower.aquireTarget = function (tower) { //Phaser.Math.Distance
-
+        tower.towerClock++
         if (tower.target) {//Check if tower has target
-
             tower.fire(tower, tower.target)
 
             //if yes, check distance
@@ -23,8 +24,8 @@ var Tower = function (tileX, tileY, type, bulletType, bulletDamage) {
             }
             //if within distance, fire
         } else {//if outside of distance, aquire new target
-            for (let i = 0; i < gameState.activeEnemies.length; i++) { //while loop?
-                const enemy = gameState.activeEnemies[i].gameObject;
+            for (let i = 0; i < payload.gameState.activeEnemies.length; i++) { //while loop?
+                const enemy = payload.gameState.activeEnemies[i].gameObject;
                 enemy.name = 'enemy ' + i
                 var range = Phaser.Math.distance(tower.x, tower.y, enemy.x, enemy.y)
 
@@ -40,15 +41,15 @@ var Tower = function (tileX, tileY, type, bulletType, bulletDamage) {
         }
     }
     this.tower.fire = function (tower, enemy) {
-        // console.log(tower.bulletType)
         if (tower.bulletType == "pellet") {
-            if (gameClock >= tower.prevShot) {
-                pellets.createMultiple(1, gameData.level.towers[activeTowerType].bullet)
+            // debugger
+            if (tower.towerClock >= tower.prevShot) {
+                pellets.createMultiple(1, payload.towerData.bullet)
 
                 var pellet = pellets.getFirstExists(false);
                 pellet.bulletDamage = tower.bulletDamage
                 console.log('Tower ' + tower.towerInstance + " shot " + enemy.name + "! KABOOOOOOOM!!!")
-                tower.prevShot = gameClock + tower.fireRate
+                tower.prevShot = tower.towerClock + tower.fireRate
                 pellet.reset(tower.x, tower.y);
                 // bullet.body.collideWorldBounds = true;
 
@@ -57,12 +58,15 @@ var Tower = function (tileX, tileY, type, bulletType, bulletDamage) {
         }
         if (tower.bulletType == "aoe") {
             //need to create the radius around the tower for enemies to overlap and take damage.
-            if (gameClock >= tower.prevShot) {
-                teslaAoe.createMultiple(1, gameData.level.towers[activeTowerType].bullet)
+            if (tower.towerClock >= tower.prevShot) {
+                teslaAoe.createMultiple(1, payload.towerData.bullet)
                 var teslaShot = teslaAoe.getFirstExists(false)
+                // teslaShot.anchor.set(0, -0.39)
                 teslaShot.bulletDamage = tower.bulletDamage
-                teslaShot.body.setCircle(48);
-                tower.prevShot = gameClock + tower.fireRate
+                
+                teslaShot.body.setCircle(80, -64, -64);
+
+                tower.prevShot = tower.towerClock + tower.fireRate
                 teslaShot.reset(tower.x, tower.y)
                 console.log('Tower ' + tower.towerInstance + " shot " + enemy.name + "! ZAAAAAAAAAAAAP!!!")
             }
@@ -79,3 +83,4 @@ var Tower = function (tileX, tileY, type, bulletType, bulletDamage) {
 
 // }
 
+// tileX, tileY, type, bulletType, bulletDamage, gameData, gameClock, numOfTowers, activeTowerType
