@@ -1,8 +1,8 @@
 var game = new Phaser.Game(1024, 768, Phaser.AUTO, 'game-area');
 var baseUrl = 'http://localhost:3000/api/'
 // var gameDataParam = {}
-
-var gameDataParam = {
+var gameDataParam = {}
+var gameDataParam2 = {
     "level": {
         "levelNumber": 1,
         "name": "The fall of rivendale",
@@ -74,7 +74,7 @@ var gameDataParam = {
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
                 "wave": 0,
-                "currencyValue": 10,
+                "currencyValue": 10
             }, {
                 "type": "star",
                 "health": 100,
@@ -202,7 +202,6 @@ var gameDataParam = {
                 "wave": 2,
                 "currencyValue": 20
             }],
-
         "towers": [{
             "type": "teslaTower",
             "bullet": "teslaTowerBullet",
@@ -214,8 +213,7 @@ var gameDataParam = {
             "buildTime": 120,
             "bulletSprite": "assets/images/Tesla-Orb-Anim.gif",
             "sprite": "assets/images/Tesla-Orb-Anim.gif"
-        },
-        {
+        }, {
             "type": "bulletTower",
             "bullet": "bulletTowerBullet",
             "bulletType": "pellet",
@@ -258,24 +256,25 @@ var gameDataParam = {
 
 function getGameData() {
 
-    // var currentUserLevel
+    var currentUserLevel
 
     game.state.add("Level-Start", LevelStart)
     game.state.add('Game', PhaserGame);
-    // currentUserLevel = app.controllers.authController.getUserLevel()
-    // if (currentUserLevel == 0) {
-    //     game.state.start('Level-Start', true, false, currentUserLevel)
-    // }
-    // else {
-    //     $.get(baseUrl + 'gameData/' + currentUserLevel)
+    currentUserLevel = app.controllers.authController.getUserLevel()
+    if (currentUserLevel == 0) {
+        game.state.start('Level-Start', true, false, currentUserLevel)
+    }
+    else {
+        $.get(baseUrl + 'gameData/' + currentUserLevel)
 
-    //         .then(res => {
-    //             console.log("hi-dee hi-dee hoooooooo " + res)
-    //             game.state.start('Level-Start', true, false, res)
-    //         })
-    // }
-    game.state.start('Level-Start', true, false, gameDataParam)
+            .then(res => {
+                console.log("hi-dee hi-dee hoooooooo " + res)
+                game.state.start('Level-Start', true, false, res, currentUserLevel)
+            })
+    }
+    // game.state.start('Level-Start', true, false, gameDataParam)
 }
+
 
 getGameData()
 

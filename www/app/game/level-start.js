@@ -6,8 +6,9 @@ var LevelStart = function () {
 
 }
 LevelStart.prototype = {
-    init: function (gameDataParam) {
+    init: function (gameDataParam, currentUserLevelParam) {
         gameData = gameDataParam
+        currentUserLevel = currentUserLevelParam
     },
     preload: function () {
         this.game.scale.pageAlignHorizontally = true; this.game.scale.pageAlignVertically = true; this.game.scale.refresh();
@@ -24,7 +25,7 @@ LevelStart.prototype = {
             levelStartText.text = "Please Login to Play!"
 
         } else {
-            levelStartText.text = "Click to Start Level!"
+            levelStartText.text = "Click to Start Level " + currentUserLevel + "!"
             game.input.onDown.add(this.startGame, this)
         }
     },

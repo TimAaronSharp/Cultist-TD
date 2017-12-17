@@ -85,15 +85,18 @@ PhaserGame.prototype = {
         this.selectedTile.lineStyle(2, 0xffffff, 1); //sets line style - width, color, opacity.
         this.selectedTile.drawRect(0, 0, 32, 32); //draws a 32px rectangle with the above line style.
 
-
-
-
         game.input.addMoveCallback(this.moveTileCursor, this); //runs this callback everytime you move the cursor.
-
-        this.drawInterface()
 
         game.input.onDown.add(this.placeTower, this)
 
+        this.drawInterface()
+        this.groupCreator()
+        this.textCreator()
+        this.buttonCreator()
+        this.generateEnemies()
+        this.plot();
+    },
+    groupCreator() {
         activeEnemiesGroup = game.add.group();
         activeEnemiesGroup.enableBody = true;
         activeEnemiesGroup.physicsBodyType = Phaser.Physics.ARCADE
@@ -113,13 +116,10 @@ PhaserGame.prototype = {
         teslaAoe.enableBody = true;
         teslaAoe.physicsBodyType = Phaser.Physics.ARCADE
         teslaAoe.forEach(game.debug.body, game.debug, 0x000000);
-        // teslaAoe.setAll('body.setCircle', 500)
-        // teslaAoe.setAll('anchor.x', 0.5)
-        // teslaAoe.setAll('anchor.y', 0.5)
+
         game.physics.enable(teslaAoe, Phaser.Physics.ARCADE)
-
-        //text
-
+    },
+    textCreator() {
         // winLose
         this.winLoseText = game.add.text(game.world.centerX, game.world.centerY, ' ', { font: '100px Arial', fill: '#ffffff' });
         this.winLoseText.anchor.setTo(0.5, 0.5);
@@ -129,10 +129,8 @@ PhaserGame.prototype = {
         this.pauseText = game.add.text(game.world.centerX, game.world.centerY, ' ', { font: '50px Arial', fill: '#ffffff' });
         this.pauseText.anchor.setTo(0.5, 0.5);
         this.pauseText.visible = false;
-
-
-
-        //buttons
+    },
+    buttonCreator() {
         pauseButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR)
         oneButton = game.input.keyboard.addKey(Phaser.Keyboard.ONE)
         twoButton = game.input.keyboard.addKey(Phaser.Keyboard.TWO)
@@ -142,11 +140,6 @@ PhaserGame.prototype = {
         oneButton.onDown.add(this.changeActiveTowerType, this, null, 0);
         twoButton.onDown.add(this.changeActiveTowerType, this, null, 1);
         threeButton.onDown.add(this.changeActiveTowerType, this, null, 2);
-
-        // game.add.sprite(220, 590, 'teslaTower')
-
-        this.generateEnemies()
-        this.plot();
     },
     changeActiveTowerType(key, num) {
         // console.log("Bur Kek")
@@ -188,7 +181,6 @@ PhaserGame.prototype = {
             this.towerSelectText.text = i + 1
 
         }
-        debugger
         this.towerNumberBox = game.add.graphics(); //creates an empty graphics object.
         this.towerNumberBox.lineStyle(2, 0xffffff, 1); //sets line style - width, color, opacity.
         this.towerNumberBox.beginFill(0x00ff00, 0.2)
@@ -260,9 +252,13 @@ PhaserGame.prototype = {
         if (this.gameState.enemiesOutOfPlay == this.gameData.level.enemies.length && !this.gameOver) {
             this.winLoseText.text = "A winner is YOU!"
             this.winLoseText.visible = true;
+            game.input.onDown(game.state.start('Level-Start'))
         }
         if (this.gameClock % 300 == 0)
             this.gameState.wallet += this.gameData.level.passiveCurrency;
+    },
+    updateUserLevel() {
+
     },
     togglePause() {
         game.paused = !game.paused
@@ -355,6 +351,7 @@ PhaserGame.prototype = {
             this.winLoseText.visible = true;
         }
     }
+
 };
 
 // game.state.add('Game', PhaserGame, true);
