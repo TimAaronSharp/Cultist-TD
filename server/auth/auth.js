@@ -82,7 +82,7 @@ router.get('/authenticate', (req, res) => {
 
 router.put('/users/:id', (req, res) => {
   console.log(req)
-  Users.findOneAndUpdate(req.session.uid, req.body)
+  Users.findOneAndUpdate({ _id: req.params.id }, req.body)
     .then(user => {
       return res.status(200).send({ message: "Successfully updated user's currentLevel" })
     }).catch(err => {

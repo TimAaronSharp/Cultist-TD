@@ -31,8 +31,9 @@ function AuthService() {
     this.login = function login(user, cb) {
         auth.post('login', user)
             .then(res => {
-                console.log('login', res.data)
+                // console.log('login', res.data)
                 currentUser = res.data.data
+                console.log("Login ", currentUser)
                 cb(res)
                 getGameData()
             })
@@ -45,6 +46,7 @@ function AuthService() {
         auth.post('register', form)
             .then(res => {
                 currentUser = res.data.data
+                console.log("Register ", currentUser)
                 cb(res)
                 getGameData()
             })
@@ -55,9 +57,9 @@ function AuthService() {
         auth('authenticate')
             .then(res => {
 
-                console.log('authenicate', res.data.data)
+                // console.log('authenticate', res.data.data)
                 currentUser = res.data.data
-                console.log("hi hi hi ", currentUser)
+                console.log("authenticate", currentUser)
                 if (res.data.data.username) {
                     drawLogout(res)
                     getGameData()
