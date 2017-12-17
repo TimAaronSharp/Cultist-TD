@@ -31,7 +31,7 @@ var Tower = function (payload) {
 
                 if (range < tower.towerRange && enemy.alive) {
                     tower.target = enemy
-                    console.log(tower.towerInstance + ' aquired target ' + enemy.name)
+                    // console.log(tower.towerInstance + ' aquired target ' + enemy.name)
                     break;
                     // this.tower.fire()
                 } else {
@@ -48,7 +48,7 @@ var Tower = function (payload) {
 
                 var pellet = pellets.getFirstExists(false);
                 pellet.bulletDamage = tower.bulletDamage
-                console.log('Tower ' + tower.towerInstance + " shot " + enemy.name + "! KABOOOOOOOM!!!")
+                // console.log('Tower ' + tower.towerInstance + " shot " + enemy.name + "! KABOOOOOOOM!!!")
                 tower.prevShot = tower.towerClock + tower.fireRate
                 pellet.reset(tower.x, tower.y);
                 // bullet.body.collideWorldBounds = true;
@@ -68,14 +68,14 @@ var Tower = function (payload) {
 
                 tower.prevShot = tower.towerClock + tower.fireRate
                 teslaShot.reset(tower.x, tower.y)
-                console.log('Tower ' + tower.towerInstance + " shot " + enemy.name + "! ZAAAAAAAAAAAAP!!!")
+                // console.log('Tower ' + tower.towerInstance + " shot " + enemy.name + "! ZAAAAAAAAAAAAP!!!")
             }
 
         }
 
     }
     towers.add(this.tower)
-    console.log(this.tower)
+    // console.log(this.tower)
 }
 
 // Tower.prototype.fire = function () {

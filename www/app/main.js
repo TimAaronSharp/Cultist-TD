@@ -269,7 +269,7 @@ function getGameData() {
 
             .then(res => {
                 console.log("hi-dee hi-dee hoooooooo " + res)
-                game.state.start('Level-Start', true, false, res, currentUserLevel)
+                game.state.start('Level-Start', true, true, res)
             })
     }
     // game.state.start('Level-Start', true, false, gameDataParam)

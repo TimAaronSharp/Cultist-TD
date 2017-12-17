@@ -8,6 +8,7 @@ function AuthService() {
     })
 
     var currentUser = {}
+    var lastLevel = 3;
     ///////////////////////////////////////////////////
 
     // console.log(app)
@@ -53,7 +54,7 @@ function AuthService() {
     this.authenticate = function authenticate(drawLogin, drawLogout) {
         auth('authenticate')
             .then(res => {
-        
+
                 console.log('authenicate', res.data.data)
                 currentUser = res.data.data
                 console.log("hi hi hi ", currentUser)
@@ -86,5 +87,26 @@ function AuthService() {
             return currentUser.currentLevel
         }
         console.log("hey there buddy ", currentUser)
+    }
+
+    this.updateUserLevel = function updateUserLevel() {
+        auth.put('users/' + currentUser._id, { currentLevel: currentUser.currentLevel + 1 })
+            .then(res => {
+                if (currentUser.currentLevel > lastLevel) {
+                    currentUser.currentLevel = lastLevel;
+                }
+                if (currentUser.currentLevel < lastLevel)
+                    currentUser.currentLevel++
+                else {
+                    currentUser.currentLevel = 1;
+                }
+                getGameData();
+            })
+
+        // currentUser.currentLevel = 
+    }
+
+    this.getFinalLevel = function getFinalLevel() {
+        return lastLevel
     }
 }

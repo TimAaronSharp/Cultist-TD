@@ -154,6 +154,14 @@ function AuthController() {
         return authService.getUserLevel()
     }
 
+    this.updateUserLevel = function updateUserLevel() {
+        authService.updateUserLevel();
+    }
+
+    this.getFinalLevel = function getFinalLevel() {
+        return authService.getFinalLevel()
+    }
+
     this.logout = function logout() {
         authService.logout(drawLogin)
 

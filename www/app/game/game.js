@@ -14,6 +14,7 @@ var PhaserGame = function (game) {
     this.pauseText
     this.gameClock = 0
     this.gameData
+    this.finalLevel
     this.gameOver = false
     this.currentTileProperties = ''
     this.numOfTowers = 1
@@ -68,6 +69,7 @@ PhaserGame.prototype = {
     //create - function that creates the game world and everything in it.
     create: function () {
         this.game.scale.pageAlignHorizontally = true; this.game.scale.pageAlignVertically = true; this.game.scale.refresh();
+        this.finalLevel = app.controllers.authController.getFinalLevel();
 
         game.physics.startSystem(Phaser.Physics.ARCADE) //starts the physics system.
         //bmd code allows for the plot to draw the plot points if you don't have the map loaded. Useful when making paths and for debugging.
@@ -125,6 +127,16 @@ PhaserGame.prototype = {
         this.winLoseText.anchor.setTo(0.5, 0.5);
         this.winLoseText.visible = false;
 
+        // click to try again
+        this.tryAgainText = game.add.text(game.world.centerX, game.world.centerY + 100, ' ', { font: '25px Arial', fill: '#ffffff' });
+        this.tryAgainText.anchor.setTo(0.5, 0.5);
+        this.tryAgainText.visible = false;
+
+        //click to start next level
+        this.startNextLevelText = game.add.text(game.world.centerX, game.world.centerY + 100, ' ', { font: '25px Arial', fill: '#ffffff' });
+        this.startNextLevelText.anchor.setTo(0.5, 0.5);
+        this.startNextLevelText.visible = false;
+
         //pause
         this.pauseText = game.add.text(game.world.centerX, game.world.centerY, ' ', { font: '50px Arial', fill: '#ffffff' });
         this.pauseText.anchor.setTo(0.5, 0.5);
@@ -142,7 +154,6 @@ PhaserGame.prototype = {
         threeButton.onDown.add(this.changeActiveTowerType, this, null, 2);
     },
     changeActiveTowerType(key, num) {
-        // console.log("Bur Kek")
         if (num > this.gameData.level.towers.length - 1) {
             console.log("Tower number too high bro")
         } else {
@@ -249,16 +260,45 @@ PhaserGame.prototype = {
         towers.forEach(function (tower) {
             tower.aquireTarget(tower)
         });
-        if (this.gameState.enemiesOutOfPlay == this.gameData.level.enemies.length && !this.gameOver) {
-            this.winLoseText.text = "A winner is YOU!"
-            this.winLoseText.visible = true;
-            game.input.onDown(game.state.start('Level-Start'))
-        }
+        this.winLoseCheck();
+        // game.input.onDown(game.state.start('Level-Start'))
         if (this.gameClock % 300 == 0)
             this.gameState.wallet += this.gameData.level.passiveCurrency;
     },
+    startNextLevel() {
+        game.state.start('Level-Start', true, false, this.gameData)
+    },
     updateUserLevel() {
+        app.controllers.authController.updateUserLevel()
+    },
+    winLoseCheck() {
+        if (this.gameState.enemiesOutOfPlay == this.gameData.level.enemies.length && !this.gameOver) {
+            if (this.gameData.levelNumber == this.finalLevel) {
+                this.winLoseText.text = "Congratulations!"
+                this.winLoseText.visible = true;
+                this.startNextLevelText.text = "You beat the game! Click to restart.";
+                this.startNextLevelText.visible = true;
+                game.input.onDown.add(this.updateUserLevel, this)
+            } else {
+                this.winLoseText.text = "A winner is YOU!"
+                this.winLoseText.visible = true;
+                this.startNextLevelText.text = "Click to start next level";
+                this.startNextLevelText.visible = true;
+                game.input.onDown.add(this.updateUserLevel, this)
+            }
+        }
 
+        if (this.gameState.playerHealth <= 0) {
+            this.gameOver = true
+            // console.log(this.gameOver)
+            this.winLoseText.text = "Game Over";
+            this.winLoseText.visible = true;
+            this.tryAgainText.text = "Click to try again";
+            this.tryAgainText.visible = true;
+            game.input.onDown.add(getGameData, this)
+            // getGameData();
+
+        }
     },
     togglePause() {
         game.paused = !game.paused
@@ -291,17 +331,17 @@ PhaserGame.prototype = {
             bullet.kill()
         }
         shotEnemy.health -= bullet.bulletDamage;
-        console.log("Enemy " + shotEnemy.originalIndex, shotEnemy.health)
+        // console.log("Enemy " + shotEnemy.originalIndex, shotEnemy.health)
 
-        console.log(shotEnemy.health)
+        // console.log(shotEnemy.health)
         if (shotEnemy.health <= 0) {
             this.gameState.killedEnemies.push(shotEnemy)
             // gameState.killedEnemies.push(gameState.activeEnemies.splice(shotEnemy.originalIndex, 1)[0])
             shotEnemy.kill()
             this.gameState.wallet += shotEnemy.currencyValue
             this.gameState.enemiesOutOfPlay++;
-            console.log(this.gameState.enemiesOutOfPlay)
-            console.log(this.gameData.level.enemies.length)
+            // console.log(this.gameState.enemiesOutOfPlay)
+            // console.log(this.gameData.level.enemies.length)
         }
     },
     //checkEnemySpawn - checks if there is still an enemy in the spawnableEnemies array and checks the current game time vs the spawn time for the enemy.
@@ -342,14 +382,9 @@ PhaserGame.prototype = {
         this.gameState.successfulEnemies.push(this.gameState.activeEnemies.splice(this.gameState.activeEnemies.indexOf(enemy), 1)[0])
         //deduct player healh
         enemy.gameObject.kill()
-        console.log(this.gameState.enemiesOutOfPlay)
-        console.log(this.gameData.level.enemies.length)
-        if (this.gameState.playerHealth <= 0) {
-            this.gameOver = true
-            console.log(this.gameOver)
-            this.winLoseText.text = "Game Over";
-            this.winLoseText.visible = true;
-        }
+        // console.log(this.gameState.enemiesOutOfPlay)
+        // console.log(this.gameData.level.enemies.length)
+        this.winLoseCheck();
     }
 
 };

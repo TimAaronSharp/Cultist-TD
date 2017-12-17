@@ -80,5 +80,17 @@ router.get('/authenticate', (req, res) => {
   })
 })
 
+router.put('/users/:id', (req, res) => {
+  console.log(req)
+  Users.findOneAndUpdate(req.session.uid, req.body)
+    .then(user => {
+      return res.status(200).send({ message: "Successfully updated user's currentLevel" })
+    }).catch(err => {
+      return res.status(400).send({
+        error: err
+      })
+    })
+})
+
 
 module.exports = router

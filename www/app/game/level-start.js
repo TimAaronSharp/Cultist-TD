@@ -6,9 +6,8 @@ var LevelStart = function () {
 
 }
 LevelStart.prototype = {
-    init: function (gameDataParam, currentUserLevelParam) {
+    init: function (gameDataParam) {
         gameData = gameDataParam
-        currentUserLevel = currentUserLevelParam
     },
     preload: function () {
         this.game.scale.pageAlignHorizontally = true; this.game.scale.pageAlignVertically = true; this.game.scale.refresh();
@@ -20,12 +19,12 @@ LevelStart.prototype = {
         levelStartText = game.add.text(game.world.centerX, game.world.centerY, ' ', { font: '50px Arial', fill: '#ffffff' });
         levelStartText.anchor.setTo(0.5, 0.5);
         levelStartText.visible = false;
-        setTimeout(()=>{levelStartText.visible = true;}, 500)
+        setTimeout(() => { levelStartText.visible = true; }, 500)
         if (gameData == 0) {
             levelStartText.text = "Please Login to Play!"
 
         } else {
-            levelStartText.text = "Click to Start Level " + currentUserLevel + "!"
+            levelStartText.text = "Click to Start Level " + gameData.levelNumber + "!"
             game.input.onDown.add(this.startGame, this)
         }
     },
