@@ -1,7 +1,7 @@
 function AuthController() {
     var authService = new AuthService()
 
-    function toggle() {
+    function changeup() {
         var x = document.getElementById('reg');
         if (x.style.display === 'none') {
             x.style.display = 'block';
@@ -19,79 +19,64 @@ function AuthController() {
         var template2 = ''
         template2 = `
         <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#loginModal">Login</button>
-        <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 style="color:red;">
-                            <span class="glyphicon glyphicon-lock"></span> Login</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form class="form" id="login" onsubmit="app.controllers.authController.login(event)">
-                            <div class="form-group">
-                                <label for="email">
-                                    <span class="glyphicon glyphicon-user"></span> Email</label>
-                                <input type="text" class="form-control" id="email" placeholder="woot1337h4xors@rockulikeahurricane.org">
+                <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 style="color:black;"> Login</h4>
                             </div>
-                            <div class="form-group">
-                                <label for="password">
-                                    <span class="glyphicon glyphicon-eye-open"></span> Password</label>
-                                <input type="password" class="form-control" id="password" placeholder="eyelessthan3horses">
+                            <div class="modal-body">
+                                <form class="form" id="login" onsubmit="app.controllers.authController.login(event)">
+                                    <div class="form-group">
+                                        <label for="email">
+                                            <span class="glyphicon glyphicon-user"></span> Email</label>
+                                        <input type="text" class="form-control" id="email" placeholder="woot1337h4xors@rockulikeahurricane.org">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="password">
+                                            <span class="glyphicon glyphicon-eye-open"></span> Password</label>
+                                        <input type="password" class="form-control" id="password" placeholder="eyelessthan3horses">
+                                    </div>
+                                    <button type="submit" class="btn btn-default btn-success btn-block" data-toggle="modal">
+                                        Login</button>
+                                </form>
                             </div>
-                            <button type="submit" class="btn btn-default btn-success btn-block" data-toggle="modal">
-                                Login</button>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-default btn-default pull-left" data-dismiss="modal" datat-target="#loginModal">
-                            <span class="glyphicon glyphicon-remove"></span> Cancel</button>
-                        <p>Not a member?
-                            <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#registerModal" data-dismiss="modal">Sign Up</button>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModal" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 style="color:red;">
-                            <span class="glyphicon glyphicon-lock"></span> Please Resgister</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form class="form" id="registration" onsubmit="app.controllers.authController.registration(event)">
-                            <div class="form-group">
-                                <label for="username">Username:</label>
-                                <input type="text" class="form-control" name="username" placeholder="newGamer" required>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-default btn-default pull-left" data-dismiss="modal" datat-target="#loginModal">
+                                    <span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                                <p>Not a member?
+                                    <button type="button" class="btn btn-default btn-lg" onclick="app.controllers.authController.changeup()">Sign Up</button>
+                                </p>
+                                <div id="reg">
+
+                                    <form class="form" id="registration" onsubmit="app.controllers.authController.registration(event)">
+                                        <div class="form-group">
+                                            <label for="username">Username:</label>
+                                            <input type="text" class="form-control" name="username" placeholder="newGamer" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">Email address:</label>
+                                            <input type="email" class="form-control" name="email" placeholder="newGamer@rockyoulikeahurricane.org" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="password">Password: </label>
+                                            <input type="password" class="form-control" name="password" placeholder="thec4keisalie" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="reEnterPassword">Re-enter Password: </label>
+                                            <input type="password" class="form-control" name="reEnterPassword" placeholder="enteritagain" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-default btn-success btn-block" data-toggle="modal">
+                                                Submit </button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="email">Email address:</label>
-                                <input type="email" class="form-control" name="email" placeholder="newGamer@rockyoulikeahurricane.org" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Password: </label>
-                                <input type="password" class="form-control" name="password" placeholder="thec4keisalie" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="reEnterPassword">Re-enter Password: </label>
-                                <input type="password" class="form-control" name="reEnterPassword" placeholder="enteritagain" required>
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-default btn-success btn-block" data-toggle="modal">
-                                    Submit </button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-default btn-default pull-left" data-dismiss="modal" data-target="registerModal">
-                            <span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
         `
         document.getElementById('login').innerHTML = template2
     }
