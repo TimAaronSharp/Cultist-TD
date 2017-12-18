@@ -167,8 +167,14 @@ PhaserGame.prototype = {
             const enemy = this.gameData.level.enemies[i];
             enemy.spawnTime = this.gameData.level.spawnRate * (i + 1) + (enemy.wave * 600)
             enemy.gameObject = this.add.sprite(0, 0, enemy.type)
-            var walk = enemy.gameObject.animations.add('walk')
-            enemy.gameObject.animations.play('walk', 30, true);
+            var walkUp = enemy.gameObject.animations.add('walkUp', [0, 1, 2, 1], 10, true);
+            var walkDown = enemy.gameObject.animations.add('walkDown', [6, 7, 8, 7], 10, true);
+            var walkLeft = enemy.gameObject.animations.add('walkLeft', [9, 10, 11, 10], 10, true);
+            var walkRight = enemy.gameObject.animations.add('walkRight', [3, 4, 5, 4], 10, true);
+            enemy.gameObject.lastX = enemy.gameObject.x
+            enemy.gameObject.lastY = enemy.gameObject.y
+            enemy.gameObject.currentDirection = ''
+            // enemy.gameObject.animations.play('walkRight');
             enemy.gameObject.originalIndex = i
             enemy.gameObject.health = enemy.health
             enemy.gameObject.currencyValue = enemy.currencyValue
@@ -363,9 +369,22 @@ PhaserGame.prototype = {
     moveEnemies() {
         for (let i = 0; i < this.gameState.activeEnemies.length; i++) {
             const enemy = this.gameState.activeEnemies[i];
+            enemy.gameObject.lastX = enemy.gameObject.x
+            enemy.gameObject.lastY = enemy.gameObject.y
             enemy.gameObject.x = this.path[enemy.i].x
             enemy.gameObject.y = this.path[enemy.i].y
             enemy.i++
+
+            if (enemy.gameObject.lastX < enemy.gameObject.x) {
+                enemy.gameObject.currentDirection = 'walkRight'
+            } else if (enemy.gameObject.lastX > enemy.gameObject.x) {
+                enemy.gameObject.currentDirection = 'walkLeft'
+            } else if (enemy.gameObject.lastY < enemy.gameObject.y) {
+                enemy.gameObject.currentDirection = 'walkDown'
+            } else if (enemy.gameObject.lastY > enemy.gameObject.y) {
+                enemy.gameObject.currentDirection = 'walkUp'
+            }
+            enemy.gameObject.animations.play(enemy.gameObject.currentDirection);
 
             if (enemy.i >= this.path.length - 1) { // double check this
                 this.enemyHitPlayer(enemy)
