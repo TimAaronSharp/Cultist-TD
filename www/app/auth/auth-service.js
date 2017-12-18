@@ -56,7 +56,7 @@ function AuthService() {
     this.authenticate = function authenticate(drawLogin, drawLogout) {
         auth('authenticate')
             .then(res => {
-
+                debugger
                 // console.log('authenticate', res.data.data)
                 currentUser = res.data.data
                 console.log("authenticate", currentUser)
@@ -83,8 +83,11 @@ function AuthService() {
     }
 
     this.getUserLevel = function getUserLevel() {
+        debugger
         if (!currentUser.currentLevel) {
             return 0
+        } else if (currentUser.currentLevel > finalLevel) {
+            return currentUser.currentLevel = finalLevel;
         } else {
             return currentUser.currentLevel
         }
