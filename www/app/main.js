@@ -3424,13 +3424,13 @@ function getGameData() {
         game.state.start('Level-Start', true, false, currentUserLevel)
     }
     else {
-        // $.get(baseUrl + 'gameData/' + currentUserLevel)
+        $.get(baseUrl + 'gameData/' + currentUserLevel)
 
-        //     .then(res => {
-        //         console.log("hi-dee hi-dee hoooooooo " + res)
-        //         game.state.start('Level-Start', true, true, res)
-        //     })
-        game.state.start('Level-Start', true, false, gameDataParam1)
+            .then(res => {
+                console.log("hi-dee hi-dee hoooooooo " + res)
+                game.state.start('Level-Start', true, true, res)
+            })
+        game.state.start('Level-Start', true, true, gameDataParam)
     }
 }
 
