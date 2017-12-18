@@ -8,7 +8,7 @@ function AuthService() {
     })
 
     var currentUser = {}
-    var lastLevel = 3;
+    var finalLevel = 3;
     ///////////////////////////////////////////////////
 
     // console.log(app)
@@ -92,16 +92,19 @@ function AuthService() {
     }
 
     this.updateUserLevel = function updateUserLevel() {
-        auth.put('users/' + currentUser._id, { currentLevel: currentUser.currentLevel + 1 })
+        debugger
+        if (currentUser.currentLevel > finalLevel) {
+            currentUser.currentLevel = finalLevel;
+        }
+        if (currentUser.currentLevel < finalLevel)
+            currentUser.currentLevel++
+        else {
+            currentUser.currentLevel = 1;
+        }
+
+        // currentUser.currentLevel++
+        auth.put('users/' + currentUser._id, { currentLevel: currentUser.currentLevel })
             .then(res => {
-                if (currentUser.currentLevel > lastLevel) {
-                    currentUser.currentLevel = lastLevel;
-                }
-                if (currentUser.currentLevel < lastLevel)
-                    currentUser.currentLevel++
-                else {
-                    currentUser.currentLevel = 1;
-                }
                 getGameData();
             })
 
@@ -109,6 +112,6 @@ function AuthService() {
     }
 
     this.getFinalLevel = function getFinalLevel() {
-        return lastLevel
+        return finalLevel
     }
 }
