@@ -52,7 +52,8 @@ PhaserGame.prototype = {
         for (let i = 0; i < this.gameData.level.towers.length; i++) {
             const tower = this.gameData.level.towers[i];
             game.load.image(tower.type, tower.sprite)
-            game.load.image(tower.bullet, tower.bulletSprite)
+            game.load.image(tower.bullet, tower.bulletSprite);
+            game.load.audio(tower.fireSoundKey, tower.fireSound);
         }
         // game.load.image(gameData.level.towers[0].bullet, gameData.level.towers[0].bulletSprite)
         // game.load.image('bullet', 'assets/images/bullet.png')
@@ -63,6 +64,8 @@ PhaserGame.prototype = {
             const enemy = this.gameData.level.enemies[i];
 
             game.load.spritesheet(enemy.type, enemy.sprite, 32, 36, 12)
+            game.load.audio(enemy.hurtSoundKey, enemy.hurtSound);
+            game.load.audio(enemy.deathSoundKey, enemy.deathSound);
         }
     },
 
@@ -167,6 +170,8 @@ PhaserGame.prototype = {
             const enemy = this.gameData.level.enemies[i];
             enemy.spawnTime = this.gameData.level.spawnRate * (i + 1) + (enemy.wave * 600)
             enemy.gameObject = this.add.sprite(0, 0, enemy.type)
+            enemy.gameObject.hurtSound = game.add.audio(enemy.hurtSoundKey)
+            enemy.gameObject.deathSound = game.add.audio(enemy.deathSoundKey)
             var walkUp = enemy.gameObject.animations.add('walkUp', [0, 1, 2, 1], 10, true);
             var walkDown = enemy.gameObject.animations.add('walkDown', [6, 7, 8, 7], 10, true);
             var walkLeft = enemy.gameObject.animations.add('walkLeft', [9, 10, 11, 10], 10, true);
@@ -337,6 +342,7 @@ PhaserGame.prototype = {
             bullet.kill()
         }
         shotEnemy.health -= bullet.bulletDamage;
+        shotEnemy.hurtSound.play();
         // console.log("Enemy " + shotEnemy.originalIndex, shotEnemy.health)
 
         // console.log(shotEnemy.health)
@@ -344,6 +350,7 @@ PhaserGame.prototype = {
             this.gameState.killedEnemies.push(shotEnemy)
             // gameState.killedEnemies.push(gameState.activeEnemies.splice(shotEnemy.originalIndex, 1)[0])
             shotEnemy.kill()
+            shotEnemy.deathSound.play();
             this.gameState.wallet += shotEnemy.currencyValue
             this.gameState.enemiesOutOfPlay++;
             // console.log(this.gameState.enemiesOutOfPlay)

@@ -2,7 +2,7 @@ var game = new Phaser.Game(1024, 768, Phaser.AUTO, 'game-area');
 var baseUrl = 'http://localhost:3000/api/'
 // var gameDataParam = {}
 var gameDataParam = {}
-var gameDataParam2 = {
+var gameDataParam1 = {
     "level": {
         "levelNumber": 1,
         "name": "The fall of rivendale",
@@ -840,6 +840,10 @@ var gameDataParam2 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/coin.wav",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 0,
                 "currencyValue": 10
             },
@@ -848,6 +852,10 @@ var gameDataParam2 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/coin.wav",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 0,
                 "currencyValue": 10
             },
@@ -856,6 +864,10 @@ var gameDataParam2 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/coin.wav",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 0,
                 "currencyValue": 10
             },
@@ -864,6 +876,10 @@ var gameDataParam2 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/coin.wav",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 0,
                 "currencyValue": 10
             },
@@ -872,6 +888,10 @@ var gameDataParam2 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/coin.wav",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 0,
                 "currencyValue": 10
             },
@@ -880,6 +900,10 @@ var gameDataParam2 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/coin.wav",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 0,
                 "currencyValue": 10
             },
@@ -888,6 +912,10 @@ var gameDataParam2 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/coin.wav",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 1,
                 "currencyValue": 10
             },
@@ -896,6 +924,10 @@ var gameDataParam2 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/coin.wav",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 1,
                 "currencyValue": 10
             },
@@ -904,6 +936,10 @@ var gameDataParam2 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/coin.wav",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 1,
                 "currencyValue": 10
             },
@@ -912,6 +948,10 @@ var gameDataParam2 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/coin.wav",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 1,
                 "currencyValue": 10
             },
@@ -920,6 +960,10 @@ var gameDataParam2 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/coin.wav",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 1,
                 "currencyValue": 10
             },
@@ -928,6 +972,10 @@ var gameDataParam2 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/coin.wav",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 1,
                 "currencyValue": 10
             },
@@ -936,6 +984,10 @@ var gameDataParam2 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/coin.wav",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 1,
                 "currencyValue": 10
             },
@@ -944,6 +996,10 @@ var gameDataParam2 = {
                 "health": 150,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/warrior_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/coin.wav",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 2,
                 "currencyValue": 20
             },
@@ -952,6 +1008,10 @@ var gameDataParam2 = {
                 "health": 150,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/warrior_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/coin.wav",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 2,
                 "currencyValue": 20
             },
@@ -960,6 +1020,10 @@ var gameDataParam2 = {
                 "health": 150,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/warrior_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/coin.wav",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 2,
                 "currencyValue": 20
             },
@@ -968,6 +1032,10 @@ var gameDataParam2 = {
                 "health": 150,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/warrior_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/coin.wav",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 2,
                 "currencyValue": 20
             },
@@ -976,6 +1044,10 @@ var gameDataParam2 = {
                 "health": 150,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/warrior_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/coin.wav",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 2,
                 "currencyValue": 20
             },
@@ -984,6 +1056,10 @@ var gameDataParam2 = {
                 "health": 150,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/warrior_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/coin.wav",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 2,
                 "currencyValue": 20
             }
@@ -996,6 +1072,8 @@ var gameDataParam2 = {
                 "bulletDamage": 0.25,
                 "fireRate": 10800,
                 "towerRange": 1024,
+                "fireSoundKey": "teslaFireSound",
+                "fireSound": "assets/sounds/bullet2.wav",
                 "cost": 25,
                 "buildTime": 120,
                 "bulletSprite": "assets/images/Tesla-Orb-Anim.gif",
@@ -1008,6 +1086,8 @@ var gameDataParam2 = {
                 "bulletDamage": 50,
                 "fireRate": 120,
                 "towerRange": 200,
+                "fireSoundKey": "bulletFireSound",
+                "fireSound": "assets/sounds/bullet.wav",
                 "cost": 100,
                 "buildTime": 120,
                 "bulletSprite": "assets/images/bullet.png",
@@ -1052,9 +1132,10 @@ var gameDataParam2 = {
     },
     "levelNumber": 1,
 }
-var gameDataParam3 = {
+//gameDataParam 2 and 3 not up to date. Copy over them with param1 and change menu tiles so you can see the difference
+var gameDataParam2 = {
     "level": {
-        "levelNumber": 2,
+        "levelNumber": 1,
         "name": "The fall of rivendale",
         "startingCurrency": 400,
         "passiveCurrency": 10,
@@ -1077,7 +1158,7 @@ var gameDataParam3 = {
                         0,
                         0,
                         0,
-                        0,
+                        3,
                         0,
                         0,
                         0,
@@ -1890,6 +1971,10 @@ var gameDataParam3 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 0,
                 "currencyValue": 10
             },
@@ -1898,6 +1983,10 @@ var gameDataParam3 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 0,
                 "currencyValue": 10
             },
@@ -1906,6 +1995,10 @@ var gameDataParam3 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 0,
                 "currencyValue": 10
             },
@@ -1914,6 +2007,10 @@ var gameDataParam3 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 0,
                 "currencyValue": 10
             },
@@ -1922,6 +2019,10 @@ var gameDataParam3 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 0,
                 "currencyValue": 10
             },
@@ -1930,6 +2031,10 @@ var gameDataParam3 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 0,
                 "currencyValue": 10
             },
@@ -1938,7 +2043,11 @@ var gameDataParam3 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
-                "wave": 1,
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
+                "wave": 0,
                 "currencyValue": 10
             },
             {
@@ -1946,7 +2055,11 @@ var gameDataParam3 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
-                "wave": 1,
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
+                "wave": 0,
                 "currencyValue": 10
             },
             {
@@ -1954,7 +2067,11 @@ var gameDataParam3 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
-                "wave": 1,
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
+                "wave": 0,
                 "currencyValue": 10
             },
             {
@@ -1962,7 +2079,11 @@ var gameDataParam3 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
-                "wave": 1,
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
+                "wave": 0,
                 "currencyValue": 10
             },
             {
@@ -1970,7 +2091,11 @@ var gameDataParam3 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
-                "wave": 1,
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
+                "wave": 0,
                 "currencyValue": 10
             },
             {
@@ -1978,7 +2103,11 @@ var gameDataParam3 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
-                "wave": 1,
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
+                "wave": 0,
                 "currencyValue": 10
             },
             {
@@ -1986,7 +2115,11 @@ var gameDataParam3 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
-                "wave": 1,
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
+                "wave": 0,
                 "currencyValue": 10
             },
             {
@@ -1994,6 +2127,10 @@ var gameDataParam3 = {
                 "health": 150,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/warrior_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 2,
                 "currencyValue": 20
             },
@@ -2002,6 +2139,10 @@ var gameDataParam3 = {
                 "health": 150,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/warrior_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 2,
                 "currencyValue": 20
             },
@@ -2010,6 +2151,10 @@ var gameDataParam3 = {
                 "health": 150,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/warrior_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 2,
                 "currencyValue": 20
             },
@@ -2018,6 +2163,10 @@ var gameDataParam3 = {
                 "health": 150,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/warrior_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 2,
                 "currencyValue": 20
             },
@@ -2026,6 +2175,10 @@ var gameDataParam3 = {
                 "health": 150,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/warrior_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 2,
                 "currencyValue": 20
             },
@@ -2034,6 +2187,10 @@ var gameDataParam3 = {
                 "health": 150,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/warrior_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 2,
                 "currencyValue": 20
             }
@@ -2046,6 +2203,8 @@ var gameDataParam3 = {
                 "bulletDamage": 0.25,
                 "fireRate": 10800,
                 "towerRange": 1024,
+                "fireSoundKey": "teslaFireSound",
+                "fireSound": "assets/sounds/buzz.flac",
                 "cost": 25,
                 "buildTime": 120,
                 "bulletSprite": "assets/images/Tesla-Orb-Anim.gif",
@@ -2058,6 +2217,8 @@ var gameDataParam3 = {
                 "bulletDamage": 50,
                 "fireRate": 120,
                 "towerRange": 200,
+                "fireSoundKey": "bulletFireSound",
+                "fireSound": "assets/sounds/bullet.wav",
                 "cost": 100,
                 "buildTime": 120,
                 "bulletSprite": "assets/images/bullet.png",
@@ -2102,9 +2263,9 @@ var gameDataParam3 = {
     },
     "levelNumber": 2,
 }
-var gameDataParam4 = {
+var gameDataParam3 = {
     "level": {
-        "levelNumber": 3,
+        "levelNumber": 1,
         "name": "The fall of rivendale",
         "startingCurrency": 400,
         "passiveCurrency": 10,
@@ -2124,10 +2285,10 @@ var gameDataParam4 = {
                         0,
                         0,
                         0,
+                        3,
                         0,
                         0,
-                        0,
-                        0,
+                        3,
                         0,
                         0,
                         0,
@@ -2940,6 +3101,10 @@ var gameDataParam4 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 0,
                 "currencyValue": 10
             },
@@ -2948,6 +3113,10 @@ var gameDataParam4 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 0,
                 "currencyValue": 10
             },
@@ -2956,6 +3125,10 @@ var gameDataParam4 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 0,
                 "currencyValue": 10
             },
@@ -2964,6 +3137,10 @@ var gameDataParam4 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 0,
                 "currencyValue": 10
             },
@@ -2972,6 +3149,10 @@ var gameDataParam4 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 0,
                 "currencyValue": 10
             },
@@ -2980,6 +3161,10 @@ var gameDataParam4 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 0,
                 "currencyValue": 10
             },
@@ -2988,7 +3173,11 @@ var gameDataParam4 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
-                "wave": 1,
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
+                "wave": 0,
                 "currencyValue": 10
             },
             {
@@ -2996,7 +3185,11 @@ var gameDataParam4 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
-                "wave": 1,
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
+                "wave": 0,
                 "currencyValue": 10
             },
             {
@@ -3004,7 +3197,11 @@ var gameDataParam4 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
-                "wave": 1,
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
+                "wave": 0,
                 "currencyValue": 10
             },
             {
@@ -3012,7 +3209,11 @@ var gameDataParam4 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
-                "wave": 1,
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
+                "wave": 0,
                 "currencyValue": 10
             },
             {
@@ -3020,7 +3221,11 @@ var gameDataParam4 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
-                "wave": 1,
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
+                "wave": 0,
                 "currencyValue": 10
             },
             {
@@ -3028,7 +3233,11 @@ var gameDataParam4 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
-                "wave": 1,
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
+                "wave": 0,
                 "currencyValue": 10
             },
             {
@@ -3036,7 +3245,11 @@ var gameDataParam4 = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
-                "wave": 1,
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
+                "wave": 0,
                 "currencyValue": 10
             },
             {
@@ -3044,6 +3257,10 @@ var gameDataParam4 = {
                 "health": 150,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/warrior_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 2,
                 "currencyValue": 20
             },
@@ -3052,6 +3269,10 @@ var gameDataParam4 = {
                 "health": 150,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/warrior_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 2,
                 "currencyValue": 20
             },
@@ -3060,6 +3281,10 @@ var gameDataParam4 = {
                 "health": 150,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/warrior_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 2,
                 "currencyValue": 20
             },
@@ -3068,6 +3293,10 @@ var gameDataParam4 = {
                 "health": 150,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/warrior_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 2,
                 "currencyValue": 20
             },
@@ -3076,6 +3305,10 @@ var gameDataParam4 = {
                 "health": 150,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/warrior_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 2,
                 "currencyValue": 20
             },
@@ -3084,6 +3317,10 @@ var gameDataParam4 = {
                 "health": 150,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/warrior_m.png",
+                "hurtSoundKey": "enemyHurt",
+                "hurtSound": "assets/sounds/enemyHurt.flac",
+                "deathSoundKey": "enemyDeath",
+                "deathSound": "assets/sounds/enemyDeath.wav",
                 "wave": 2,
                 "currencyValue": 20
             }
@@ -3096,6 +3333,8 @@ var gameDataParam4 = {
                 "bulletDamage": 0.25,
                 "fireRate": 10800,
                 "towerRange": 1024,
+                "fireSoundKey": "teslaFireSound",
+                "fireSound": "assets/sounds/buzz.flac",
                 "cost": 25,
                 "buildTime": 120,
                 "bulletSprite": "assets/images/Tesla-Orb-Anim.gif",
@@ -3108,6 +3347,8 @@ var gameDataParam4 = {
                 "bulletDamage": 50,
                 "fireRate": 120,
                 "towerRange": 200,
+                "fireSoundKey": "bulletFireSound",
+                "fireSound": "assets/sounds/bullet.wav",
                 "cost": 100,
                 "buildTime": 120,
                 "bulletSprite": "assets/images/bullet.png",
@@ -3150,7 +3391,7 @@ var gameDataParam4 = {
         },
         "spawnRate": 20
     },
-    "levelNumber": 3
+    "levelNumber": 3,
 }
 // game.stage.scale.pageAlignHorizontally = true;
 // game.stage.scale.pageAlignVertically = true;
@@ -3183,14 +3424,14 @@ function getGameData() {
         game.state.start('Level-Start', true, false, currentUserLevel)
     }
     else {
-        $.get(baseUrl + 'gameData/' + currentUserLevel)
+        // $.get(baseUrl + 'gameData/' + currentUserLevel)
 
-            .then(res => {
-                console.log("hi-dee hi-dee hoooooooo " + res)
-                game.state.start('Level-Start', true, true, res)
-            })
+        //     .then(res => {
+        //         console.log("hi-dee hi-dee hoooooooo " + res)
+        //         game.state.start('Level-Start', true, true, res)
+        //     })
+        game.state.start('Level-Start', true, false, gameDataParam1)
     }
-    // game.state.start('Level-Start', true, false, gameDataParam)
 }
 
 
