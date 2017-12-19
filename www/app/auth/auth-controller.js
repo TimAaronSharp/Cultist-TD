@@ -1,15 +1,6 @@
 function AuthController() {
     var authService = new AuthService()
 
-    function changeup() {
-        var x = document.getElementById('reg');
-        if (x.style.display === 'none') {
-            x.style.display = 'block';
-        } else {
-            x.style.display = 'none';
-        }
-    }
-
     function drawLogin(res) {
         var template = ''
         template = `
@@ -94,6 +85,15 @@ function AuthController() {
         document.getElementById('login').innerHTML = template2
     }
 
+    this.changeup = function changeup() {
+        var x = document.getElementById('reg');
+        if (x.style.display === 'block') {
+            x.style.display = 'none';
+        } else {
+            x.style.display = 'block';
+        }
+    }
+
     this.login = function login(event) {
         event.preventDefault()
         var loginData = {
@@ -120,18 +120,14 @@ function AuthController() {
                 password: event.target.password.value
             }
             authService.registration(registerData, drawLogout)
-            $('#registration').submit(function (e) {
-                e.preventDefault();
-                $('#registerModal').modal('toggle');
-                return false;
-
-            });
             $('#login').submit(function (e) {
                 e.preventDefault();
                 $('#loginModal').modal('toggle');
                 return false;
-
             });
+            $('.modal-backdrop').remove()
+
+            
         }
     }
 

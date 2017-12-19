@@ -9,9 +9,16 @@
 
 body{
     background-color: #000000;
+    font-family: 'Orbitron', sans-serif;
+    
 }
+
 .game-wrapper{
     margin:auto;
+}
+
+#reg {
+    display: none;
 }
 /* canvas {   
     display : block;   
