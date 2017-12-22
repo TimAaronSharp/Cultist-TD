@@ -1,5 +1,5 @@
 var mongoose = require('mongoose')
-// var connectionString = 'mongodb://primary:tester@ds044667.mlab.com:44667/cultisttd' <---- Go make a new DB!!!
+var connectionString = 'mongodb://cultist:admin@ds048368.mlab.com:48368/cultist'
 var connection = mongoose.connection
 
 mongoose.connect(connectionString, {
