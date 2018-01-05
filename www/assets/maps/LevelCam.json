@@ -16,7 +16,20 @@
  "renderorder":"left-down",
  "tiledversion":"1.0.3",
  "tileheight":32,
- "tilesets":[],
+ "tilesets":[
+        {
+         "columns":7,
+         "firstgid":1,
+         "image":"cave.png",
+         "imageheight":336,
+         "imagewidth":256,
+         "margin":0,
+         "name":"cave",
+         "spacing":1,
+         "tilecount":70,
+         "tileheight":32,
+         "tilewidth":32
+        }],
  "tilewidth":32,
  "type":"map",
  "version":1,
