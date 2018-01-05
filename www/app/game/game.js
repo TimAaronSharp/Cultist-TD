@@ -63,7 +63,7 @@ PhaserGame.prototype = {
 
         // game.load.image(this.gameData.level.tilesetImageKey, this.gameData.level.tilesetImage);
         for (let i = 0; i < this.gameData.level.map.tilesets.length; i++) {
-            var tileset = gameData.level.tileset[i]
+            var tileset = this.gameData.level.map.tilesets[i]
             game.load.image(tileset.name, tileset.image);
         }
 
@@ -96,27 +96,27 @@ PhaserGame.prototype = {
             // this.map.addTilesetImage(tileset.name, tilesetImageKey);
             
         }
-
-        this.groundLayer = this.map.createLayer(this.gameData.level.map.layers[0].name);
+        debugger
+        this.bottomLayer = this.map.createLayer(this.gameData.level.map.layers[0].name);
         this.midLayer = this.map.createLayer(this.gameData.level.map.layers[1].name);
-        this.topLayer = this.map.createLayer(this.gameData.level.map.layers[2].name);
         
-        this.groundLayer.resizeWorld();
-
+        this.bottomLayer.resizeWorld();
+        
         //create selected tile box graphic
         this.selectedTile = game.add.graphics(); //creates an empty graphics object.
         this.selectedTile.lineStyle(2, 0xffffff, 1); //sets line style - width, color, opacity.
         this.selectedTile.drawRect(0, 0, 32, 32); //draws a 32px rectangle with the above line style.
-
+        
         game.input.addMoveCallback(this.moveTileCursor, this); //runs this callback everytime you move the cursor.
-
+        
         game.input.onDown.add(this.placeTower, this)
-
+        
         this.drawInterface()
         this.groupCreator()
         this.textCreator()
         this.buttonCreator()
         this.generateEnemies()
+        this.topLayer = this.map.createLayer(this.gameData.level.map.layers[2].name); //created after enemies so they can walk under them, ie trees/clouds.
         this.plot();
     },
     groupCreator() {
@@ -232,16 +232,18 @@ PhaserGame.prototype = {
     //gets tile coordinate you are pointing at and attempts to place tower. Will use to check where you can build towers.
     placeTower() {
         var towerData = this.gameData.level.towers[this.activeTowerType]
-        var x = this.groundLayer.getTileX(game.input.activePointer.worldX);
-        var y = this.groundLayer.getTileY(game.input.activePointer.worldY);
+        var x = this.bottomLayer.getTileX(game.input.activePointer.worldX);
+        var y = this.bottomLayer.getTileY(game.input.activePointer.worldY);
+        var localBuildableTileId = this.gameData.level.buildableTileId
 
-        var tile = this.map.getTile(x, y, this.groundLayer);
+        var tile = this.map.getTile(x, y, this.bottomLayer);
         //if else if else - checks to see if the tile already has a tower, and if the tile index(id/type) can be built on.
         if (this.gameState.wallet >= this.gameData.level.towers[this.activeTowerType].cost) {
             //if else if else - checks to see if the tile already has a tower, and if the tile index(id/type) can be built on.
+            debugger
             if (tile.properties.hasTower) {
                 console.log('Already have a tower bro!')
-            } else if (tile.index != this.gameData.level.buildableTileId) { //This is hardcoded for the current tileset. Stretch goal: 
+            } else if (!localBuildableTileId.includes(tile.index, -1)) { //This is hardcoded for the current tileset. Stretch goal: 
                 console.log("no go bro")
             } else {
                 tile.properties.hasTower = true
@@ -256,8 +258,8 @@ PhaserGame.prototype = {
         this.currentTileProperties = JSON.stringify(tile.properties)
     },
     moveTileCursor() {
-        this.selectedTile.x = this.groundLayer.getTileX(game.input.activePointer.worldX) * 32;
-        this.selectedTile.y = this.groundLayer.getTileY(game.input.activePointer.worldY) * 32;
+        this.selectedTile.x = this.bottomLayer.getTileX(game.input.activePointer.worldX) * 32;
+        this.selectedTile.y = this.bottomLayer.getTileY(game.input.activePointer.worldY) * 32;
     },
     //plot - function that plots out the routes between the points defined in the "points" array.
     plot: function () {
