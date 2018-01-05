@@ -1,20 +1,25 @@
 .banner{
-    font-family: 'Orbitron', sans-serif;
+    font-family: 'Press Start 2P', cursive;
     color: white;
     background-color: #000000;
 }
 .form{
-    font-family: 'Inconsolata', monospace;
+    font-family: 'Amatic SC', cursive;
 }
 
 body{
     background-color: #000000;
-    font-family: 'Orbitron', sans-serif;
-    
+    font-family: 'Press Start 2P', cursive;
+    /* font-size: 5px; */
 }
 
 .game-wrapper{
     margin:auto;
+}
+
+.storyModal {
+    font-family: 'Press Start 2P', cursive;
+    /* font-size: 5px; */
 }
 
 #reg {

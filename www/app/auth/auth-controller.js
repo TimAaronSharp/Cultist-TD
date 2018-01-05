@@ -4,7 +4,7 @@ function AuthController() {
     function drawLogin(res) {
         var template = ''
         template = `
-            <h4> ${res.data.message} </h4>
+            <h6> ${res.data.message} </h6>
         `
         document.getElementById('welcome').innerHTML = template
         var template2 = ''
@@ -75,7 +75,7 @@ function AuthController() {
     function drawLogout(res) {
         var template = ''
         template = `
-            <h4> Welcome ${res.data.data.username} </h4>
+            <h6> Welcome ${res.data.data.username} </h6>
         `
         document.getElementById('welcome').innerHTML = template
         var template2 = ''

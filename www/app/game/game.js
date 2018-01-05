@@ -126,22 +126,22 @@ PhaserGame.prototype = {
     },
     textCreator() {
         // winLose
-        this.winLoseText = game.add.text(game.world.centerX, game.world.centerY, ' ', { font: '100px Arial', fill: '#ffffff' });
+        this.winLoseText = game.add.text(game.world.centerX, game.world.centerY, ' ', { font: '100px Press Start 2P', fill: '#ffffff' });
         this.winLoseText.anchor.setTo(0.5, 0.5);
         this.winLoseText.visible = false;
 
         // click to try again
-        this.tryAgainText = game.add.text(game.world.centerX, game.world.centerY + 100, ' ', { font: '25px Arial', fill: '#ffffff' });
+        this.tryAgainText = game.add.text(game.world.centerX, game.world.centerY + 100, ' ', { font: '25px Press Start 2P', fill: '#ffffff' });
         this.tryAgainText.anchor.setTo(0.5, 0.5);
         this.tryAgainText.visible = false;
 
         //click to start next level
-        this.startNextLevelText = game.add.text(game.world.centerX, game.world.centerY + 100, ' ', { font: '25px Arial', fill: '#ffffff' });
+        this.startNextLevelText = game.add.text(game.world.centerX, game.world.centerY + 100, ' ', { font: '25px Press Start 2P', fill: '#ffffff' });
         this.startNextLevelText.anchor.setTo(0.5, 0.5);
         this.startNextLevelText.visible = false;
 
         //pause
-        this.pauseText = game.add.text(game.world.centerX, game.world.centerY, ' ', { font: '50px Arial', fill: '#ffffff' });
+        this.pauseText = game.add.text(game.world.centerX, game.world.centerY, ' ', { font: '50px Press Start 2P', fill: '#ffffff' });
         this.pauseText.anchor.setTo(0.5, 0.5);
         this.pauseText.visible = false;
     },

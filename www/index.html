@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Cultist TD</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Inconsolata|Orbitron" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Creepster|Press+Start+2P|Rock+Salt" rel="stylesheet">
     <link rel="stylesheet" href="assets/style.css">
 
 </head>
@@ -17,16 +17,16 @@
         <div class="row banner text-center">
             <div class="col-md-2" id="welcome"></div>
             <div class="col-md-8">
-                <h1>World of Lovecraft</h1>
+                <h3>World of Lovecraft</h3>
             </div>
             <div class="col-md-2" id="login">
-                <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#loginModal">Login</button>
+                <button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#loginModal">Login</button>
                 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal" data-backdrop="false" aria-hidden="true">&times;</button>
-                                <h4 style="color:black;"> Login</h4>
+                                <h5 style="color:black;"> Login</h5>
                             </div>
                             <div class="modal-body">
                                 <form class="form" id="login" onsubmit="app.controllers.authController.login(event)">
@@ -82,7 +82,27 @@
 
             </div>
         </div>
-
+        <div class="row story">
+            <div class="col-md-4"></div>
+            <div class="col-md-4 storymodal text-center">
+                <button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#storyModal">Learn More</button>
+                <div class="modal fade" id="storyModal" tabindex="-1" role="dialog" aria-labelledby="storyModal" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class"close" data-dismiss="modal" data-backdrop="false" aria-hidden="true">Close</button>
+                            </div>
+                            <div class="modal-body text-left">
+                                <h5>    The time of Cthulhu's coming is near. Soon, all Old Gods will wake from their slumbers and reclaim the world that is rightfully theirs. It is inevitable. This place belongs to them. Humans are rats that have taken up residence in a vacant house. Our weak forms will burn in the fires to come and our ash given to the wind. Destruction is nigh and the Earth's glory in rebirth will be magnificent. For centuries our group, the Devoted Few, have worked in secret to assure Cthulhu's awakening when the stars align. We must hasten our preparations for his return.
+                                </h5>
+                                <h5>    There are those who would stop us from our dark rites. They have heard our soft whispers and indeed know, "In his house at R'lyeh, dead Cthulhu waitins dreaming." The world is now aware of our existence and would see us fail in our aspirations. Stop the approaching groups from reaching our sanctum. Collect their souls to feed our sinister machinations. Our Lord, Cthulhu, the High Priest of the Old Gods hungers.</h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
 
 
 
