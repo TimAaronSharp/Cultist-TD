@@ -7,7 +7,9 @@ var PhaserGame = function (game) {
     this.bmd = null
     this.path = []
     this.map
-    this.layer
+    this.bottomLayer
+    this.midLayer
+    this.topLayer
     this.selectedTile
     this.towerNumberBox
     this.winLoseText
@@ -58,7 +60,12 @@ PhaserGame.prototype = {
         // game.load.image(gameData.level.towers[0].bullet, gameData.level.towers[0].bulletSprite)
         // game.load.image('bullet', 'assets/images/bullet.png')
         game.load.tilemap(this.gameData.level.mapKey, null, this.gameData.level.map, Phaser.Tilemap.TILED_JSON);
-        game.load.image(this.gameData.level.tilesetImageKey, this.gameData.level.tilesetImage);
+
+        // game.load.image(this.gameData.level.tilesetImageKey, this.gameData.level.tilesetImage);
+        for (let i = 0; i < this.gameData.level.map.tilesets.length; i++) {
+            var tileset = gameData.level.tileset[i]
+            game.load.image(tileset.name, tileset.image);
+        }
 
         for (let i = 0; i < this.gameData.level.enemies.length; i++) {
             const enemy = this.gameData.level.enemies[i];
@@ -81,9 +88,20 @@ PhaserGame.prototype = {
 
         this.stage.backgroundColor = '#000000';
         this.map = game.add.tilemap(this.gameData.level.mapKey);
-        this.map.addTilesetImage(this.gameData.level.tilesetImageName, this.gameData.level.tilesetImageKey);
-        this.layer = this.map.createLayer(this.gameData.level.tilemapLayer);
-        this.layer.resizeWorld();
+
+        for (let i = 0; i < gameData.level.map.tilesets.length; i++) {
+            var tileset = gameData.level.map.tilesets[i];
+
+            this.map.addTilesetImage(tileset.name, tileset.name);
+            // this.map.addTilesetImage(tileset.name, tilesetImageKey);
+            
+        }
+
+        this.groundLayer = this.map.createLayer(this.gameData.level.map.layers[0].name);
+        this.midLayer = this.map.createLayer(this.gameData.level.map.layers[1].name);
+        this.topLayer = this.map.createLayer(this.gameData.level.map.layers[2].name);
+        
+        this.groundLayer.resizeWorld();
 
         //create selected tile box graphic
         this.selectedTile = game.add.graphics(); //creates an empty graphics object.
@@ -214,10 +232,10 @@ PhaserGame.prototype = {
     //gets tile coordinate you are pointing at and attempts to place tower. Will use to check where you can build towers.
     placeTower() {
         var towerData = this.gameData.level.towers[this.activeTowerType]
-        var x = this.layer.getTileX(game.input.activePointer.worldX);
-        var y = this.layer.getTileY(game.input.activePointer.worldY);
+        var x = this.groundLayer.getTileX(game.input.activePointer.worldX);
+        var y = this.groundLayer.getTileY(game.input.activePointer.worldY);
 
-        var tile = this.map.getTile(x, y, this.layer);
+        var tile = this.map.getTile(x, y, this.groundLayer);
         //if else if else - checks to see if the tile already has a tower, and if the tile index(id/type) can be built on.
         if (this.gameState.wallet >= this.gameData.level.towers[this.activeTowerType].cost) {
             //if else if else - checks to see if the tile already has a tower, and if the tile index(id/type) can be built on.
@@ -238,8 +256,8 @@ PhaserGame.prototype = {
         this.currentTileProperties = JSON.stringify(tile.properties)
     },
     moveTileCursor() {
-        this.selectedTile.x = this.layer.getTileX(game.input.activePointer.worldX) * 32;
-        this.selectedTile.y = this.layer.getTileY(game.input.activePointer.worldY) * 32;
+        this.selectedTile.x = this.groundLayer.getTileX(game.input.activePointer.worldX) * 32;
+        this.selectedTile.y = this.groundLayer.getTileY(game.input.activePointer.worldY) * 32;
     },
     //plot - function that plots out the routes between the points defined in the "points" array.
     plot: function () {
