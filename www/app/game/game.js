@@ -94,29 +94,28 @@ PhaserGame.prototype = {
 
             this.map.addTilesetImage(tileset.name, tileset.name);
             // this.map.addTilesetImage(tileset.name, tilesetImageKey);
-            
+
         }
-        debugger
         this.bottomLayer = this.map.createLayer(this.gameData.level.map.layers[0].name);
         this.midLayer = this.map.createLayer(this.gameData.level.map.layers[1].name);
-        
+
         this.bottomLayer.resizeWorld();
-        
+
         //create selected tile box graphic
         this.selectedTile = game.add.graphics(); //creates an empty graphics object.
         this.selectedTile.lineStyle(2, 0xffffff, 1); //sets line style - width, color, opacity.
         this.selectedTile.drawRect(0, 0, 32, 32); //draws a 32px rectangle with the above line style.
-        
+
         game.input.addMoveCallback(this.moveTileCursor, this); //runs this callback everytime you move the cursor.
-        
+
         game.input.onDown.add(this.placeTower, this)
-        
+
         this.drawInterface()
         this.groupCreator()
-        this.textCreator()
         this.buttonCreator()
         this.generateEnemies()
         this.topLayer = this.map.createLayer(this.gameData.level.map.layers[2].name); //created after enemies so they can walk under them, ie trees/clouds.
+        this.textCreator()
         this.plot();
     },
     groupCreator() {
@@ -234,16 +233,18 @@ PhaserGame.prototype = {
         var towerData = this.gameData.level.towers[this.activeTowerType]
         var x = this.bottomLayer.getTileX(game.input.activePointer.worldX);
         var y = this.bottomLayer.getTileY(game.input.activePointer.worldY);
-        var localBuildableTileId = this.gameData.level.buildableTileId
 
         var tile = this.map.getTile(x, y, this.bottomLayer);
+        var midTile = this.map.getTile(x, y, this.midLayer);
+        console.log(midTile.index);
         //if else if else - checks to see if the tile already has a tower, and if the tile index(id/type) can be built on.
         if (this.gameState.wallet >= this.gameData.level.towers[this.activeTowerType].cost) {
             //if else if else - checks to see if the tile already has a tower, and if the tile index(id/type) can be built on.
-            debugger
             if (tile.properties.hasTower) {
                 console.log('Already have a tower bro!')
-            } else if (!localBuildableTileId.includes(tile.index, -1)) { //This is hardcoded for the current tileset. Stretch goal: 
+            } else if (!this.gameData.level.buildableTileId.includes(tile.index)) {
+                console.log("no go bro")
+            } else if (midTile.index != 0) {
                 console.log("no go bro")
             } else {
                 tile.properties.hasTower = true
