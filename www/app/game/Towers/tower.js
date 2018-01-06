@@ -10,6 +10,7 @@ var Tower = function (payload) {
     this.tower.bulletType = payload.towerData.bulletType
     this.tower.bulletDamage = payload.towerData.bulletDamage
     this.tower.fireSound = game.add.audio(payload.towerData.fireSoundKey)
+    this.tower.bulletImpactSound = game.add.audio(payload.towerData.bulletImpactSoundKey)
     this.tower.towerRange = payload.towerData.towerRange
     this.tower.towerInstance = payload.numOfTowers
     this.tower.target = null
@@ -46,8 +47,10 @@ var Tower = function (payload) {
             // debugger
             if (tower.towerClock >= tower.prevShot) {
                 pellets.createMultiple(1, payload.towerData.bullet)
+                
 
                 var pellet = pellets.getFirstExists(false);
+                pellet.bulletImpactSound = game.add.audio(tower.bulletImpactSoundKey)
                 pellet.bulletDamage = tower.bulletDamage
                 // console.log('Tower ' + tower.towerInstance + " shot " + enemy.name + "! KABOOOOOOOM!!!")
                 tower.prevShot = tower.towerClock + tower.fireRate
@@ -63,6 +66,7 @@ var Tower = function (payload) {
             if (tower.towerClock >= tower.prevShot) {
                 teslaAoe.createMultiple(1, payload.towerData.bullet)
                 var teslaShot = teslaAoe.getFirstExists(false)
+                teslaShot.bulletImpactSound = game.add.audio(tower.bulletImpactSoundKey)
                 // teslaShot.anchor.set(0, -0.39)
                 teslaShot.bulletDamage = tower.bulletDamage
 
