@@ -1,31 +1,56 @@
 .banner{
     font-family: 'Press Start 2P', cursive;
     color: white;
-    background-color: #000000;
+    background-color: #8b0000;
+    background-image: url(https://www.transparenttextures.com/patterns/3px-tile.png);
 }
 .form{
-    font-family: 'Amatic SC', cursive;
+    font-family: 'Inconsolata', monospace;
 }
 
-body{
-    background-color: #000000;
+.container-fluid{
+    background-color: #8b0000;
     font-family: 'Press Start 2P', cursive;
-    /* font-size: 5px; */
+    background-image: url(https://www.transparenttextures.com/patterns/3px-tile.png);
+    height: 100vh;
+    
 }
 
 .game-wrapper{
-    margin:auto;
+    display : block;   
+    margin : auto;
+    /* background-image: url(https://www.transparenttextures.com/patterns/3px-tile.png); */
+    
 }
 
-.storyModal {
+.btn-success{
+    background: #8b0000;
+}
+
+.story-header{
+    font-family: 'Creepster', cursive;
+}
+
+.story-body{
+    font-family: 'Creepster', cursive;
+}
+
+.story {
     font-family: 'Press Start 2P', cursive;
-    /* font-size: 5px; */
+    padding-bottom: 2.5%
+    /* background-image: url(https://www.transparenttextures.com/patterns/3px-tile.png); */
+    
 }
 
 #reg {
     display: none;
 }
-/* canvas {   
+.game {   
+    display : block;   
+    margin : auto;
+}
+/* 
+canvas{
     display : block;   
     margin : auto;
 } */

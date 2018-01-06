@@ -1,6 +1,6 @@
 let session = require('express-session');
 let MongoDBStore = require('connect-mongodb-session')(session);
-var connectionString = 'mongodb://primary:tester@ds044667.mlab.com:44667/cultisttd'
+var connectionString = 'mongodb://admin:tester@ds143907.mlab.com:43907/cultistdb'
 
 let store = new MongoDBStore(
 	{
@@ -15,9 +15,9 @@ store.on('error', function (error) {
 
 module.exports = session({
 	secret: 'I drink your milkshake!',
-	// cookie: {
-	// 	maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week 
-	// },
+	cookie: {
+		maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week 
+	},
 	store: store,
 	resave: false,
 	saveUninitialized: false

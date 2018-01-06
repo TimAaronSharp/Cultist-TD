@@ -4,13 +4,13 @@ function AuthController() {
     function drawLogin(res) {
         var template = ''
         template = `
-            <h6> ${res.data.message} </h6>
+            <h5> ${res.data.message} </h5>
         `
         document.getElementById('welcome').innerHTML = template
         var template2 = ''
         template2 = `
         <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#loginModal">Login</button>
-                <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
+                <div class="modal fade login" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -75,7 +75,7 @@ function AuthController() {
     function drawLogout(res) {
         var template = ''
         template = `
-            <h6> Welcome ${res.data.data.username} </h6>
+            <h4> Welcome ${res.data.data.username} </h4>
         `
         document.getElementById('welcome').innerHTML = template
         var template2 = ''
@@ -103,11 +103,13 @@ function AuthController() {
         authService.login(loginData, drawLogout)
         $('#login').submit(function (e) {
             e.preventDefault();
-            $('#loginModal').modal('toggle');
+            $('.login').modal('hide');
             return false;
         });
 
     }
+
+    
 
     this.registration = function registration(event) {
         event.preventDefault()
@@ -122,12 +124,12 @@ function AuthController() {
             authService.registration(registerData, drawLogout)
             $('#login').submit(function (e) {
                 e.preventDefault();
-                $('#loginModal').modal('toggle');
+                $('.login').modal('hide');
                 return false;
             });
-            $('.modal-backdrop').remove()
+            // $('.modal-backdrop').remove()
 
-            
+
         }
     }
 
