@@ -10,13 +10,14 @@ LevelStart.prototype = {
         gameData = gameDataParam
     },
     preload: function () {
-        this.game.scale.pageAlignHorizontally = true; this.game.scale.pageAlignVertically = true; this.game.scale.refresh();
+        this.game.scale.pageAlignHorizontally = true; this.game.scale.pageAlignVertically = true;this.game.scale.refresh();
 
 
     },
     create: function () {
+        
         this.stage.backgroundColor = '#000000'
-        levelStartText = game.add.text(game.world.centerX, game.world.centerY, ' ', { font: '50px Arial', fill: '#ffffff' });
+        levelStartText = game.add.text(game.world.centerX, game.world.centerY, ' ', { font: '25px Press Start 2P', fill: '#ffffff' });
         levelStartText.anchor.setTo(0.5, 0.5);
         levelStartText.visible = false;
         setTimeout(() => { levelStartText.visible = true; }, 500)
