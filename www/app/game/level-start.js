@@ -17,7 +17,11 @@ LevelStart.prototype = {
     create: function () {
         
         this.stage.backgroundColor = '#000000'
+<<<<<<< HEAD
         levelStartText = game.add.text(game.world.centerX, game.world.centerY, ' ', { font: '25px Press Start 2P', fill: '#ffffff' });
+=======
+        levelStartText = game.add.text(game.world.centerX, game.world.centerY, ' ', { font: '25px Press Start 2P', fill: '#ffffff'  });
+>>>>>>> 8e8f0af2a905f2048f96ee3fd0edd838eed0d635
         levelStartText.anchor.setTo(0.5, 0.5);
         levelStartText.visible = false;
         setTimeout(() => { levelStartText.visible = true; }, 500)

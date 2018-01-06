@@ -8,7 +8,7 @@ function AuthService() {
     })
 
     var currentUser = {}
-    var finalLevel = 3;
+    var finalLevel = 1;
     ///////////////////////////////////////////////////
 
     // console.log(app)
