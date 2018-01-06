@@ -244,7 +244,7 @@ PhaserGame.prototype = {
                 console.log('Already have a tower bro!')
             } else if (!this.gameData.level.buildableTileId.includes(tile.index)) {
                 console.log("no go bro")
-            } else if (midTile.index != 0) {
+            } else if (midTile.index != 442) {
                 console.log("no go bro")
             } else {
                 tile.properties.hasTower = true
@@ -361,9 +361,13 @@ PhaserGame.prototype = {
         // console.log(bullet)
         if (bullet.key != 'teslaTowerBullet') {
             bullet.kill()
+            shotEnemy.hurtSound.play();
         }
         shotEnemy.health -= bullet.bulletDamage;
-        shotEnemy.hurtSound.play();
+        if (bullet.key == "teslaTowerBullet" && this.gameClock % 30 == 0) {
+            shotEnemy.hurtSound.play();
+        }
+
         // console.log("Enemy " + shotEnemy.originalIndex, shotEnemy.health)
 
         // console.log(shotEnemy.health)
