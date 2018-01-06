@@ -12,7 +12,7 @@
     background-color: #8b0000;
     font-family: 'Press Start 2P', cursive;
     background-image: url(https://www.transparenttextures.com/patterns/3px-tile.png);
-    height: 100vh;
+    min-height: 100vh;
     
 }
 

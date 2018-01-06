@@ -143,7 +143,7 @@ PhaserGame.prototype = {
     },
     textCreator() {
         // winLose
-        this.winLoseText = game.add.text(game.world.centerX, game.world.centerY, ' ', { font: '100px Press Start 2P', fill: '#ffffff' });
+        this.winLoseText = game.add.text(game.world.centerX, game.world.centerY, ' ', { font: '75px Press Start 2P', fill: '#ffffff' });
         this.winLoseText.anchor.setTo(0.5, 0.5);
         this.winLoseText.visible = false;
 
@@ -158,7 +158,7 @@ PhaserGame.prototype = {
         this.startNextLevelText.visible = false;
 
         //pause
-        this.pauseText = game.add.text(game.world.centerX, game.world.centerY, ' ', { font: '50px Press Start 2P', fill: '#ffffff' });
+        this.pauseText = game.add.text(game.world.centerX, game.world.centerY, ' ', { font: '40px Press Start 2P', fill: '#ffffff' });
         this.pauseText.anchor.setTo(0.5, 0.5);
         this.pauseText.visible = false;
     },
@@ -168,7 +168,7 @@ PhaserGame.prototype = {
         twoButton = game.input.keyboard.addKey(Phaser.Keyboard.TWO)
         threeButton = game.input.keyboard.addKey(Phaser.Keyboard.THREE)
 
-        pauseButton.onDown.add(this.togglePause);
+        pauseButton.onDown.add(this.togglePause, this, null, this.pauseText);
         oneButton.onDown.add(this.changeActiveTowerType, this, null, 0);
         twoButton.onDown.add(this.changeActiveTowerType, this, null, 1);
         threeButton.onDown.add(this.changeActiveTowerType, this, null, 2);
@@ -332,7 +332,8 @@ PhaserGame.prototype = {
 
         }
     },
-    togglePause() {
+    togglePause(testString) {
+        console.log(this.pauseText);
         game.paused = !game.paused
         if (game.paused) {
             this.pauseText.text = "Press SPACE to resume"

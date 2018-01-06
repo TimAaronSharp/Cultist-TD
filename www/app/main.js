@@ -1,7 +1,8 @@
 var game = new Phaser.Game(1024, 768, Phaser.AUTO, 'game-area');
 var baseUrl = 'http://localhost:3000/api/'
 // var gameDataParam = {}
-var gameDataParam = {
+var gameDataParam = {}
+var gameDataParamTest = {
     "level": {
         "buildableTileId": [44, 45, 65, 66],
         "mapKey": "level1",
