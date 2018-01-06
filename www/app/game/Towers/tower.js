@@ -9,6 +9,7 @@ var Tower = function (payload) {
     this.tower.prevShot = payload.gameClock
     this.tower.bulletType = payload.towerData.bulletType
     this.tower.bulletDamage = payload.towerData.bulletDamage
+    this.tower.fireSound = game.add.audio(payload.towerData.fireSoundKey)
     this.tower.towerRange = payload.towerData.towerRange
     this.tower.towerInstance = payload.numOfTowers
     this.tower.target = null
@@ -51,6 +52,7 @@ var Tower = function (payload) {
                 // console.log('Tower ' + tower.towerInstance + " shot " + enemy.name + "! KABOOOOOOOM!!!")
                 tower.prevShot = tower.towerClock + tower.fireRate
                 pellet.reset(tower.x, tower.y);
+                tower.fireSound.play();
                 // bullet.body.collideWorldBounds = true;
 
                 game.physics.arcade.moveToObject(pellet, enemy, 500)
@@ -63,11 +65,12 @@ var Tower = function (payload) {
                 var teslaShot = teslaAoe.getFirstExists(false)
                 // teslaShot.anchor.set(0, -0.39)
                 teslaShot.bulletDamage = tower.bulletDamage
-                
+
                 teslaShot.body.setCircle(80, -64, -64);
 
                 tower.prevShot = tower.towerClock + tower.fireRate
                 teslaShot.reset(tower.x, tower.y)
+                tower.fireSound.play();
                 // console.log('Tower ' + tower.towerInstance + " shot " + enemy.name + "! ZAAAAAAAAAAAAP!!!")
             }
 

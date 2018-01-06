@@ -56,6 +56,7 @@ PhaserGame.prototype = {
             game.load.image(tower.type, tower.sprite)
             game.load.image(tower.bullet, tower.bulletSprite);
             game.load.audio(tower.fireSoundKey, tower.fireSound);
+            game.load.audio(tower.buildSoundKey, tower.buildSound);
         }
         // game.load.image(gameData.level.towers[0].bullet, gameData.level.towers[0].bulletSprite)
         // game.load.image('bullet', 'assets/images/bullet.png')
@@ -143,7 +144,7 @@ PhaserGame.prototype = {
     },
     textCreator() {
         // winLose
-        this.winLoseText = game.add.text(game.world.centerX, game.world.centerY, ' ', { font: '75px Press Start 2P', fill: '#ffffff' });
+        this.winLoseText = game.add.text(game.world.centerX, game.world.centerY, ' ', { font: '50px Press Start 2P', fill: '#ffffff' });
         this.winLoseText.anchor.setTo(0.5, 0.5);
         this.winLoseText.visible = false;
 
@@ -247,6 +248,8 @@ PhaserGame.prototype = {
             } else if (midTile.index != 442) {
                 console.log("no go bro")
             } else {
+                var towerPlacementSound = game.add.audio(towerData.buildSoundKey)
+                towerPlacementSound.play();
                 tile.properties.hasTower = true
                 new Tower({ tileX: tile.x, tileY: tile.y, towerData: towerData, gameData: this.gameData, gameClock: this.gameClock, numOfTowers: this.numOfTowers, activeTowerType: this.activeTowerType, gameState: this.gameState })
                 this.numOfTowers++
