@@ -1,56 +1,55 @@
 .banner{
     font-family: 'Press Start 2P', cursive;
     color: white;
-    background-color: #8b0000;
-    background-image: url(https://www.transparenttextures.com/patterns/3px-tile.png);
+    background-color: rgb(61, 61, 61);
+    background-image: url(https://www.transparenttextures.com/patterns/light-wool.png);
 }
 .form{
-    font-family: 'Inconsolata', monospace;
+    font-family: 'IM Fell English SC', serif;
 }
 
 .container-fluid{
-    background-color: #8b0000;
+    background-color: rgb(61, 61, 61);
     font-family: 'Press Start 2P', cursive;
-    background-image: url(https://www.transparenttextures.com/patterns/3px-tile.png);
+    background-image: url(https://www.transparenttextures.com/patterns/light-wool.png);
     min-height: 100vh;
     
 }
 
-.game-wrapper{
-    display : block;   
-    margin : auto;
-    /* background-image: url(https://www.transparenttextures.com/patterns/3px-tile.png); */
+
+.btn-success{
+    background: rgb(61, 61, 61);
+}
+
+.form {
+    background-color: rgb(189, 189, 189);
     
 }
 
-.btn-success{
-    background: #8b0000;
+.logininfo {
+    background-color: rgb(189, 189, 189);
 }
 
-.story-header{
-    font-family: 'Creepster', cursive;
-}
-
-.story-body{
-    font-family: 'Creepster', cursive;
-}
 
 .story {
     font-family: 'Press Start 2P', cursive;
     padding-bottom: 2.5%
-    /* background-image: url(https://www.transparenttextures.com/patterns/3px-tile.png); */
-    
+}
+
+
+.story-body{
+    background-image: url(http://www.myfreetextures.com/wp-content/uploads/2013/07/old-brown-vintage-parchment-paper-texture.jpg);
+    background-size: cover;
+    font-family: 'IM Fell English SC', serif;
+
+}
+
+.story-header {
+    background-image: url(http://www.myfreetextures.com/wp-content/uploads/2013/07/old-brown-vintage-parchment-paper-texture.jpg);
+    background-size: cover;
+    font-family: 'IM Fell English SC', serif;
 }
 
 #reg {
     display: none;
 }
-.game {   
-    display : block;   
-    margin : auto;
-}
-/* 
-canvas{
-    display : block;   
-    margin : auto;
-} */

@@ -8,6 +8,7 @@
     <title>Cultist TD</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Inconsolata|Creepster|Press+Start+2P|Rock+Salt" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=IM+Fell+English+SC" rel="stylesheet">
     <link rel="stylesheet" href="assets/style.css">
 
 </head>
@@ -25,12 +26,12 @@
                 <button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#loginModal">Login</button>
                 <div class="modal fade login" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
                     <div class="modal-dialog">
-                        <div class="modal-content form">
-                            <div class="modal-header form">
+                        <div class="modal-content logininfo form">
+                            <div class="login-header form">
                                 <button type="button" class="close" data-dismiss="modal" data-backdrop="false" aria-hidden="true">&times;</button>
                                 <h4 style="color:black;"> Login</h4>
                             </div>
-                            <div class="modal-body form">
+                            <div class="login-body form">
                                 <form class="form" id="login" onsubmit="app.controllers.authController.login(event)">
                                     <div class="form-group">
                                         <label for="email">
@@ -46,7 +47,7 @@
                                         Login</button>
                                 </form>
                             </div>
-                            <div class="modal-footer form">
+                            <div class="login-footer form">
                                 <button type="submit" class="btn btn-default btn-md pull-left" data-dismiss="modal" datat-target="#loginModal">
                                     <span class="glyphicon glyphicon-remove"></span> Cancel</button>
                                 <p>Not a member?
@@ -90,9 +91,9 @@
                 <button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#storyModal">Learn More</button>
                 <div class="modal fade" id="storyModal" tabindex="-1" role="dialog" aria-labelledby="storyModal" aria-hidden="true">
                     <div class="modal-dialog">
-                        <div class="modal-content">
+                        <div class="modal-content story-stuff">
                             <div class="modal-header story-header">
-                                <button type="button" class"close" data-dismiss="modal" data-backdrop="false" aria-hidden="true">Close</button>
+                                <button type="button" class"closebutton" data-dismiss="modal" data-backdrop="false" aria-hidden="true">Close</button>
                             </div>
                             <div class="modal-body story-body text-left">
                                 <h3>    The time of Cthulhu's coming is near. Soon, all Old Gods will wake from their slumbers and reclaim the world that is rightfully theirs. It is inevitable. This place belongs to them. Humans are rats that have taken up residence in a vacant house. Our weak forms will burn in the fires to come and our ash given to the wind. Destruction is nigh and the Earth's glory in rebirth will be magnificent. For centuries our group, the Devoted Few, have worked in secret to assure Cthulhu's awakening when the stars align. We must hasten our preparations for his return.
