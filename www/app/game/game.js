@@ -56,6 +56,8 @@ PhaserGame.prototype = {
             game.load.image(tower.type, tower.sprite)
             game.load.image(tower.bullet, tower.bulletSprite);
             game.load.audio(tower.fireSoundKey, tower.fireSound);
+            game.load.audio(tower.buildSoundKey, tower.buildSound);
+            game.load.audio(tower.bulletImpactSoundKey, tower.bulletImpactSound);
         }
         // game.load.image(gameData.level.towers[0].bullet, gameData.level.towers[0].bulletSprite)
         // game.load.image('bullet', 'assets/images/bullet.png')
@@ -101,11 +103,6 @@ PhaserGame.prototype = {
 
         this.bottomLayer.resizeWorld();
 
-        //create selected tile box graphic
-        this.selectedTile = game.add.graphics(); //creates an empty graphics object.
-        this.selectedTile.lineStyle(2, 0xffffff, 1); //sets line style - width, color, opacity.
-        this.selectedTile.drawRect(0, 0, 32, 32); //draws a 32px rectangle with the above line style.
-
         game.input.addMoveCallback(this.moveTileCursor, this); //runs this callback everytime you move the cursor.
 
         game.input.onDown.add(this.placeTower, this)
@@ -115,6 +112,12 @@ PhaserGame.prototype = {
         this.buttonCreator()
         this.generateEnemies()
         this.topLayer = this.map.createLayer(this.gameData.level.map.layers[2].name); //created after enemies so they can walk under them, ie trees/clouds.
+
+        //create selected tile box graphic
+        this.selectedTile = game.add.graphics(); //creates an empty graphics object.
+        this.selectedTile.lineStyle(2, 0xffffff, 1); //sets line style - width, color, opacity.
+        this.selectedTile.drawRect(0, 0, 32, 32); //draws a 32px rectangle with the above line style.
+
         this.textCreator()
         this.plot();
     },
@@ -132,18 +135,20 @@ PhaserGame.prototype = {
         pellets.physicsBodyType = Phaser.Physics.ARCADE
         pellets.setAll('anchor.x', 0.5)
         pellets.setAll('anchor.y', 0.5)
+        // pellets.bulletImpactSound = game.add.audio(this.gameData.level.towers.bulletImpactSoundKey)
         game.physics.enable(pellets, Phaser.Physics.ARCADE)
 
         teslaAoe = game.add.group();
         teslaAoe.enableBody = true;
         teslaAoe.physicsBodyType = Phaser.Physics.ARCADE
         teslaAoe.forEach(game.debug.body, game.debug, 0x000000);
+        // teslaAoe.bulletImpactSound = game.add.audio(this.gameData.level.towers.bulletImpactSoundKey)
 
         game.physics.enable(teslaAoe, Phaser.Physics.ARCADE)
     },
     textCreator() {
         // winLose
-        this.winLoseText = game.add.text(game.world.centerX, game.world.centerY, ' ', { font: '75px Press Start 2P', fill: '#ffffff' });
+        this.winLoseText = game.add.text(game.world.centerX, game.world.centerY, ' ', { font: '50px Press Start 2P', fill: '#ffffff' });
         this.winLoseText.anchor.setTo(0.5, 0.5);
         this.winLoseText.visible = false;
 
@@ -247,6 +252,8 @@ PhaserGame.prototype = {
             } else if (midTile.index != 442) {
                 console.log("no go bro")
             } else {
+                var towerPlacementSound = game.add.audio(towerData.buildSoundKey)
+                towerPlacementSound.play();
                 tile.properties.hasTower = true
                 new Tower({ tileX: tile.x, tileY: tile.y, towerData: towerData, gameData: this.gameData, gameClock: this.gameClock, numOfTowers: this.numOfTowers, activeTowerType: this.activeTowerType, gameState: this.gameState })
                 this.numOfTowers++
@@ -363,10 +370,15 @@ PhaserGame.prototype = {
         if (bullet.key != 'teslaTowerBullet') {
             bullet.kill()
             shotEnemy.hurtSound.play();
+            console.log(bullet)
+            bullet.bulletImpactSound = game.add.audio(bullet.bulletImpactSoundKey)
+            bullet.bulletImpactSound.play()
         }
         shotEnemy.health -= bullet.bulletDamage;
         if (bullet.key == "teslaTowerBullet" && this.gameClock % 30 == 0) {
             shotEnemy.hurtSound.play();
+            bullet.bulletImpactSound = game.add.audio(bullet.bulletImpactSoundKey)
+            bullet.bulletImpactSound.play()
         }
 
         // console.log("Enemy " + shotEnemy.originalIndex, shotEnemy.health)
