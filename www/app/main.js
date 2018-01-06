@@ -3874,19 +3874,19 @@ function getGameData() {
 
     game.state.add("Level-Start", LevelStart)
     game.state.add('Game', PhaserGame);
-    // currentUserLevel = app.controllers.authController.getUserLevel()
-    // if (currentUserLevel == 0) {
-    //     game.state.start('Level-Start', true, false, currentUserLevel)
-    // }
-    // else {
-    //     $.get(baseUrl + 'gameData/' + currentUserLevel)
+    currentUserLevel = app.controllers.authController.getUserLevel()
+    if (currentUserLevel == 0) {
+        game.state.start('Level-Start', true, false, currentUserLevel)
+    }
+    else {
+        $.get(baseUrl + 'gameData/' + currentUserLevel)
 
-    //         .then(res => {
-    //             console.log("hi-dee hi-dee hoooooooo " + res)
-    //             game.state.start('Level-Start', true, true, res)
-    //         })
-    game.state.start('Level-Start', true, true, gameDataParam)
-    //     }
+            .then(res => {
+                console.log("hi-dee hi-dee hoooooooo " + res)
+                game.state.start('Level-Start', true, true, res)
+            })
+        game.state.start('Level-Start', true, true, gameDataParam)
+    }
 }
 
 
