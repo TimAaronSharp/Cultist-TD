@@ -3869,10 +3869,6 @@ var gameDataParam3 = {
 // game.state.add("WelcomeScreen", WelcomeScreen, true)
 
 function getGameData() {
-<<<<<<< HEAD
-
-=======
->>>>>>> 8e8f0af2a905f2048f96ee3fd0edd838eed0d635
     var currentUserLevel
 
     game.state.add("Level-Start", LevelStart)
