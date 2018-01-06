@@ -241,7 +241,7 @@ PhaserGame.prototype = {
 
         var tile = this.map.getTile(x, y, this.bottomLayer);
         var midTile = this.map.getTile(x, y, this.midLayer);
-        console.log(midTile.index);
+        // console.log(midTile.index);
         //if else if else - checks to see if the tile already has a tower, and if the tile index(id/type) can be built on.
         if (this.gameState.wallet >= this.gameData.level.towers[this.activeTowerType].cost) {
             //if else if else - checks to see if the tile already has a tower, and if the tile index(id/type) can be built on.
@@ -370,7 +370,6 @@ PhaserGame.prototype = {
         if (bullet.key != 'teslaTowerBullet') {
             bullet.kill()
             shotEnemy.hurtSound.play();
-            console.log(bullet)
             bullet.bulletImpactSound = game.add.audio(bullet.bulletImpactSoundKey)
             bullet.bulletImpactSound.play()
         }
@@ -439,9 +438,9 @@ PhaserGame.prototype = {
     enemyHitPlayer(enemy) {
         if (enemy.gameObject.alive) {
             this.gameState.playerHealth -= enemy.playerDamageValue
-            console.log("Player health: " + this.gameState.playerHealth)
+            // console.log("Player health: " + this.gameState.playerHealth)
             this.gameState.enemiesOutOfPlay++;
-            console.log(this.gameState.enemiesOutOfPlay)
+            // console.log(this.gameState.enemiesOutOfPlay)
         }
         this.gameState.successfulEnemies.push(this.gameState.activeEnemies.splice(this.gameState.activeEnemies.indexOf(enemy), 1)[0])
         //deduct player healh
