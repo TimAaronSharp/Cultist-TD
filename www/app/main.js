@@ -3883,7 +3883,7 @@ function getGameData() {
         $.get(baseUrl + 'gameData/' + currentUserLevel)
 
             .then(res => {
-                console.log("hi-dee hi-dee hoooooooo " + res)
+                // console.log("hi-dee hi-dee hoooooooo " + res)
                 game.state.start('Level-Start', true, true, res)
             })
         game.state.start('Level-Start', true, true, gameDataParam)
