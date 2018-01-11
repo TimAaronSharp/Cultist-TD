@@ -23,7 +23,6 @@ var Enemy = function (payload) {
     this.playerDamageValue = payload.enemy.playerDamageValue
     this.gameObject.currencyValue = payload.enemy.currencyValue
     this.gameObject.anchor.set(payload.enemy.spriteAnchors.x, payload.enemy.spriteAnchors.y)
-    // gameState.spawnableEnemies.push(this.enemy)
 }
 
-// CHANGE NEEDED REFERENCES FROM ENEMY TO PAYLOAD.SOMETHING...
+//Convert enemy data to a dictionary of enemy types, add wave data (dictionary? array?) with an array of what enemies spawn in the wave, their order and their type. (and maybe account for spawntime)
