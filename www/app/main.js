@@ -2471,6 +2471,10 @@ var gameDataParamTest = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "spriteAnchors": {
+                    "x": 1,
+                    "y": 1
+                },
                 "animations": {
                     "walkUp": {
                         "frames": [0, 1, 2, 1],
@@ -2505,6 +2509,10 @@ var gameDataParamTest = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "spriteAnchors": {
+                    "x": 1,
+                    "y": 1
+                },
                 "animations": {
                     "walkUp": {
                         "frames": [0, 1, 2, 1],
@@ -2539,6 +2547,10 @@ var gameDataParamTest = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "spriteAnchors": {
+                    "x": 1,
+                    "y": 1
+                },
                 "animations": {
                     "walkUp": {
                         "frames": [0, 1, 2, 1],
@@ -2573,6 +2585,10 @@ var gameDataParamTest = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "spriteAnchors": {
+                    "x": 1,
+                    "y": 1
+                },
                 "animations": {
                     "walkUp": {
                         "frames": [0, 1, 2, 1],
@@ -2607,6 +2623,10 @@ var gameDataParamTest = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "spriteAnchors": {
+                    "x": 1,
+                    "y": 1
+                },
                 "animations": {
                     "walkUp": {
                         "frames": [0, 1, 2, 1],
@@ -2641,6 +2661,10 @@ var gameDataParamTest = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "spriteAnchors": {
+                    "x": 1,
+                    "y": 1
+                },
                 "animations": {
                     "walkUp": {
                         "frames": [0, 1, 2, 1],
@@ -2675,6 +2699,10 @@ var gameDataParamTest = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "spriteAnchors": {
+                    "x": 1,
+                    "y": 1
+                },
                 "animations": {
                     "walkUp": {
                         "frames": [0, 1, 2, 1],
@@ -2709,6 +2737,10 @@ var gameDataParamTest = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "spriteAnchors": {
+                    "x": 1,
+                    "y": 1
+                },
                 "animations": {
                     "walkUp": {
                         "frames": [0, 1, 2, 1],
@@ -2743,6 +2775,10 @@ var gameDataParamTest = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "spriteAnchors": {
+                    "x": 1,
+                    "y": 1
+                },
                 "animations": {
                     "walkUp": {
                         "frames": [0, 1, 2, 1],
@@ -2777,6 +2813,10 @@ var gameDataParamTest = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "spriteAnchors": {
+                    "x": 1,
+                    "y": 1
+                },
                 "animations": {
                     "walkUp": {
                         "frames": [0, 1, 2, 1],
@@ -2811,6 +2851,10 @@ var gameDataParamTest = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "spriteAnchors": {
+                    "x": 1,
+                    "y": 1
+                },
                 "animations": {
                     "walkUp": {
                         "frames": [0, 1, 2, 1],
@@ -2845,6 +2889,10 @@ var gameDataParamTest = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "spriteAnchors": {
+                    "x": 1,
+                    "y": 1
+                },
                 "animations": {
                     "walkUp": {
                         "frames": [0, 1, 2, 1],
@@ -2879,6 +2927,10 @@ var gameDataParamTest = {
                 "health": 100,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/ninja_m.png",
+                "spriteAnchors": {
+                    "x": 1,
+                    "y": 1
+                },
                 "animations": {
                     "walkUp": {
                         "frames": [0, 1, 2, 1],
@@ -2913,6 +2965,10 @@ var gameDataParamTest = {
                 "health": 150,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/warrior_m.png",
+                "spriteAnchors": {
+                    "x": 1,
+                    "y": 1
+                },
                 "animations": {
                     "walkUp": {
                         "frames": [0, 1, 2, 1],
@@ -2947,6 +3003,10 @@ var gameDataParamTest = {
                 "health": 150,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/warrior_m.png",
+                "spriteAnchors": {
+                    "x": 1,
+                    "y": 1
+                },
                 "animations": {
                     "walkUp": {
                         "frames": [0, 1, 2, 1],
@@ -2981,6 +3041,10 @@ var gameDataParamTest = {
                 "health": 150,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/warrior_m.png",
+                "spriteAnchors": {
+                    "x": 1,
+                    "y": 1
+                },
                 "animations": {
                     "walkUp": {
                         "frames": [0, 1, 2, 1],
@@ -3015,6 +3079,10 @@ var gameDataParamTest = {
                 "health": 150,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/warrior_m.png",
+                "spriteAnchors": {
+                    "x": 1,
+                    "y": 1
+                },
                 "animations": {
                     "walkUp": {
                         "frames": [0, 1, 2, 1],
@@ -3049,6 +3117,10 @@ var gameDataParamTest = {
                 "health": 150,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/warrior_m.png",
+                "spriteAnchors": {
+                    "x": 1,
+                    "y": 1
+                },
                 "animations": {
                     "walkUp": {
                         "frames": [0, 1, 2, 1],
@@ -3083,6 +3155,10 @@ var gameDataParamTest = {
                 "health": 150,
                 "playerDamageValue": 1,
                 "sprite": "assets/images/warrior_m.png",
+                "spriteAnchors": {
+                    "x": 1,
+                    "y": 1
+                },
                 "animations": {
                     "walkUp": {
                         "frames": [0, 1, 2, 1],

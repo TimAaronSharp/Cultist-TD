@@ -190,23 +190,25 @@ PhaserGame.prototype = {
     generateEnemies() {
         for (let i = 0; i < this.gameData.level.enemies.length; i++) {
             const enemy = this.gameData.level.enemies[i];
-            enemy.spawnTime = this.gameData.level.spawnRate * (i + 1) + (enemy.wave * 600)
-            enemy.gameObject = this.add.sprite(0, 0, enemy.type)
-            enemy.gameObject.hurtSound = game.add.audio(enemy.hurtSoundKey)
-            enemy.gameObject.deathSound = game.add.audio(enemy.deathSoundKey)
-            var walkUp = enemy.gameObject.animations.add('walkUp', enemy.animations.walkUp.frames, enemy.animations.walkUp.frameRate, enemy.animations.walkUp.loop);
-            var walkDown = enemy.gameObject.animations.add('walkDown', enemy.animations.walkDown.frames, enemy.animations.walkDown.frameRate, enemy.animations.walkDown.loop);
-            var walkLeft = enemy.gameObject.animations.add('walkLeft', enemy.animations.walkLeft.frames, enemy.animations.walkLeft.frameRate, enemy.animations.walkLeft.loop);
-            var walkRight = enemy.gameObject.animations.add('walkRight', enemy.animations.walkRight.frames, enemy.animations.walkRight.frameRate, enemy.animations.walkRight.loop);
-            enemy.gameObject.lastX = enemy.gameObject.x
-            enemy.gameObject.lastY = enemy.gameObject.y
-            enemy.gameObject.currentDirection = ''
-            // enemy.gameObject.animations.play('walkRight');
-            enemy.gameObject.originalIndex = i
-            enemy.gameObject.health = enemy.health
-            enemy.gameObject.currencyValue = enemy.currencyValue
-            enemy.gameObject.anchor.set(1, 1)
-            this.gameState.spawnableEnemies.push(enemy)
+            // enemy.spawnTime = this.gameData.level.spawnRate * (i + 1) + (enemy.wave * 600)
+            // enemy.gameObject = this.add.sprite(0, 0, enemy.type)
+            // enemy.gameObject.hurtSound = game.add.audio(enemy.hurtSoundKey)
+            // enemy.gameObject.deathSound = game.add.audio(enemy.deathSoundKey)
+            // enemy.gameObject.animations.add('walkUp', enemy.animations.walkUp.frames, enemy.animations.walkUp.frameRate, enemy.animations.walkUp.loop);
+            // enemy.gameObject.animations.add('walkDown', enemy.animations.walkDown.frames, enemy.animations.walkDown.frameRate, enemy.animations.walkDown.loop);
+            // enemy.gameObject.animations.add('walkLeft', enemy.animations.walkLeft.frames, enemy.animations.walkLeft.frameRate, enemy.animations.walkLeft.loop);
+            // enemy.gameObject.animations.add('walkRight', enemy.animations.walkRight.frames, enemy.animations.walkRight.frameRate, enemy.animations.walkRight.loop);
+            // enemy.gameObject.lastX = enemy.gameObject.x
+            // enemy.gameObject.lastY = enemy.gameObject.y
+            // enemy.gameObject.currentDirection = ''
+            // // enemy.gameObject.animations.play('walkRight');
+            // enemy.gameObject.originalIndex = i
+            // enemy.gameObject.health = enemy.health
+            // enemy.gameObject.currencyValue = enemy.currencyValue
+            // enemy.gameObject.anchor.set(enemy.spriteAnchors.x, enemy.spriteAnchors.y)
+            // this.gameState.spawnableEnemies.push(enemy)
+            var nextEnemy = new Enemy({ enemy: enemy, spawnRate: this.gameData.level.spawnRate, originalIndex: i, game: this });
+            this.gameState.spawnableEnemies.push(nextEnemy);
         }
     },
     drawInterface() {
@@ -438,7 +440,8 @@ PhaserGame.prototype = {
     enemyHitPlayer(enemy) {
         if (enemy.gameObject.alive) {
             this.gameState.playerHealth -= enemy.playerDamageValue
-            // console.log("Player health: " + this.gameState.playerHealth)
+            debugger
+            console.log("Player health: " + this.gameState.playerHealth)
             this.gameState.enemiesOutOfPlay++;
             // console.log(this.gameState.enemiesOutOfPlay)
         }
