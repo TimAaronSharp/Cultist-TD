@@ -354,13 +354,13 @@ PhaserGame.prototype = {
         // console.log(bullet)
         if (bullet.key != 'teslaTowerBullet') {
             bullet.kill()
-            shotEnemy.hurtSound.play();
+            // shotEnemy.hurtSound.play();
             bullet.bulletImpactSound = game.add.audio(bullet.bulletImpactSoundKey)
             bullet.bulletImpactSound.play()
         }
         shotEnemy.health -= bullet.bulletDamage;
         if (bullet.key == "teslaTowerBullet" && this.gameClock % 30 == 0) {
-            shotEnemy.hurtSound.play();
+            // shotEnemy.hurtSound.play();
             bullet.bulletImpactSound = game.add.audio(bullet.bulletImpactSoundKey)
             bullet.bulletImpactSound.play()
         }

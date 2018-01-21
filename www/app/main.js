@@ -1,6 +1,6 @@
 var game = new Phaser.Game(1024, 768, Phaser.AUTO, 'game-area');
 var baseUrl = 'http://localhost:3000/api/'
-// var gameDataParam = {}
+
 var gameDataParam = {}
 var gameDataParamTest = {
     "level": {
@@ -2500,7 +2500,7 @@ var gameDataParamTest = {
                 "hurtSoundKey": "enemyHurt",
                 "hurtSound": "assets/sounds/hurt.m4a",
                 "deathSoundKey": "enemyDeath",
-                "deathSound": "assets/sounds/enemyDeath.m4a",
+                "deathSound": "assets/sounds/Hdead.m4a",
                 "wave": 0,
                 "currencyValue": 10
             },
@@ -2538,7 +2538,7 @@ var gameDataParamTest = {
                 "hurtSoundKey": "enemyHurt",
                 "hurtSound": "assets/sounds/hurt.m4a",
                 "deathSoundKey": "enemyDeath",
-                "deathSound": "assets/sounds/enemyDeath.m4a",
+                "deathSound": "assets/sounds/Hdead.m4a",
                 "wave": 0,
                 "currencyValue": 10
             },
@@ -2576,7 +2576,7 @@ var gameDataParamTest = {
                 "hurtSoundKey": "enemyHurt",
                 "hurtSound": "assets/sounds/hurt.m4a",
                 "deathSoundKey": "enemyDeath",
-                "deathSound": "assets/sounds/enemyDeath.m4a",
+                "deathSound": "assets/sounds/Hdead.m4a",
                 "wave": 0,
                 "currencyValue": 10
             },
@@ -2614,7 +2614,7 @@ var gameDataParamTest = {
                 "hurtSoundKey": "enemyHurt",
                 "hurtSound": "assets/sounds/hurt.m4a",
                 "deathSoundKey": "enemyDeath",
-                "deathSound": "assets/sounds/enemyDeath.m4a",
+                "deathSound": "assets/sounds/Hdead.m4a",
                 "wave": 0,
                 "currencyValue": 10
             },
@@ -2652,7 +2652,7 @@ var gameDataParamTest = {
                 "hurtSoundKey": "enemyHurt",
                 "hurtSound": "assets/sounds/hurt.m4a",
                 "deathSoundKey": "enemyDeath",
-                "deathSound": "assets/sounds/enemyDeath.m4a",
+                "deathSound": "assets/sounds/Hdead.m4a",
                 "wave": 0,
                 "currencyValue": 10
             },
@@ -2690,7 +2690,7 @@ var gameDataParamTest = {
                 "hurtSoundKey": "enemyHurt",
                 "hurtSound": "assets/sounds/hurt.m4a",
                 "deathSoundKey": "enemyDeath",
-                "deathSound": "assets/sounds/enemyDeath.m4a",
+                "deathSound": "assets/sounds/Hdead.m4a",
                 "wave": 0,
                 "currencyValue": 10
             },
@@ -2728,7 +2728,7 @@ var gameDataParamTest = {
                 "hurtSoundKey": "enemyHurt",
                 "hurtSound": "assets/sounds/hurt.m4a",
                 "deathSoundKey": "enemyDeath",
-                "deathSound": "assets/sounds/enemyDeath.m4a",
+                "deathSound": "assets/sounds/Hdead.m4a",
                 "wave": 1,
                 "currencyValue": 10
             },
@@ -2766,7 +2766,7 @@ var gameDataParamTest = {
                 "hurtSoundKey": "enemyHurt",
                 "hurtSound": "assets/sounds/hurt.m4a",
                 "deathSoundKey": "enemyDeath",
-                "deathSound": "assets/sounds/enemyDeath.m4a",
+                "deathSound": "assets/sounds/Hdead.m4a",
                 "wave": 1,
                 "currencyValue": 10
             },
@@ -2804,7 +2804,7 @@ var gameDataParamTest = {
                 "hurtSoundKey": "enemyHurt",
                 "hurtSound": "assets/sounds/hurt.m4a",
                 "deathSoundKey": "enemyDeath",
-                "deathSound": "assets/sounds/enemyDeath.m4a",
+                "deathSound": "assets/sounds/Hdead.m4a",
                 "wave": 1,
                 "currencyValue": 10
             },
@@ -2842,7 +2842,7 @@ var gameDataParamTest = {
                 "hurtSoundKey": "enemyHurt",
                 "hurtSound": "assets/sounds/hurt.m4a",
                 "deathSoundKey": "enemyDeath",
-                "deathSound": "assets/sounds/enemyDeath.m4a",
+                "deathSound": "assets/sounds/Hdead.m4a",
                 "wave": 1,
                 "currencyValue": 10
             },
@@ -2880,7 +2880,7 @@ var gameDataParamTest = {
                 "hurtSoundKey": "enemyHurt",
                 "hurtSound": "assets/sounds/hurt.m4a",
                 "deathSoundKey": "enemyDeath",
-                "deathSound": "assets/sounds/enemyDeath.m4a",
+                "deathSound": "assets/sounds/Hdead.m4a",
                 "wave": 1,
                 "currencyValue": 10
             },
@@ -2918,7 +2918,7 @@ var gameDataParamTest = {
                 "hurtSoundKey": "enemyHurt",
                 "hurtSound": "assets/sounds/hurt.m4a",
                 "deathSoundKey": "enemyDeath",
-                "deathSound": "assets/sounds/enemyDeath.m4a",
+                "deathSound": "assets/sounds/Hdead.m4a",
                 "wave": 1,
                 "currencyValue": 10
             },
@@ -2956,7 +2956,7 @@ var gameDataParamTest = {
                 "hurtSoundKey": "enemyHurt",
                 "hurtSound": "assets/sounds/hurt.m4a",
                 "deathSoundKey": "enemyDeath",
-                "deathSound": "assets/sounds/enemyDeath.m4a",
+                "deathSound": "assets/sounds/Hdead.m4a",
                 "wave": 1,
                 "currencyValue": 10
             },
@@ -2994,7 +2994,7 @@ var gameDataParamTest = {
                 "hurtSoundKey": "enemyHurt",
                 "hurtSound": "assets/sounds/hurt.m4a",
                 "deathSoundKey": "enemyDeath",
-                "deathSound": "assets/sounds/enemyDeath.m4a",
+                "deathSound": "assets/sounds/Hdead.m4a",
                 "wave": 2,
                 "currencyValue": 20
             },
@@ -3032,7 +3032,7 @@ var gameDataParamTest = {
                 "hurtSoundKey": "enemyHurt",
                 "hurtSound": "assets/sounds/hurt.m4a",
                 "deathSoundKey": "enemyDeath",
-                "deathSound": "assets/sounds/enemyDeath.m4a",
+                "deathSound": "assets/sounds/Hdead.m4a",
                 "wave": 2,
                 "currencyValue": 20
             },
@@ -3070,7 +3070,7 @@ var gameDataParamTest = {
                 "hurtSoundKey": "enemyHurt",
                 "hurtSound": "assets/sounds/hurt.m4a",
                 "deathSoundKey": "enemyDeath",
-                "deathSound": "assets/sounds/enemyDeath.m4a",
+                "deathSound": "assets/sounds/Hdead.m4a",
                 "wave": 2,
                 "currencyValue": 20
             },
@@ -3108,7 +3108,7 @@ var gameDataParamTest = {
                 "hurtSoundKey": "enemyHurt",
                 "hurtSound": "assets/sounds/hurt.m4a",
                 "deathSoundKey": "enemyDeath",
-                "deathSound": "assets/sounds/enemyDeath.m4a",
+                "deathSound": "assets/sounds/Hdead.m4a",
                 "wave": 2,
                 "currencyValue": 20
             },
@@ -3146,7 +3146,7 @@ var gameDataParamTest = {
                 "hurtSoundKey": "enemyHurt",
                 "hurtSound": "assets/sounds/hurt.m4a",
                 "deathSoundKey": "enemyDeath",
-                "deathSound": "assets/sounds/enemyDeath.m4a",
+                "deathSound": "assets/sounds/Hdead.m4a",
                 "wave": 2,
                 "currencyValue": 20
             },
@@ -3184,7 +3184,7 @@ var gameDataParamTest = {
                 "hurtSoundKey": "enemyHurt",
                 "hurtSound": "assets/sounds/hurt.m4a",
                 "deathSoundKey": "enemyDeath",
-                "deathSound": "assets/sounds/enemyDeath.m4a",
+                "deathSound": "assets/sounds/Hdead.m4a",
                 "wave": 2,
                 "currencyValue": 20
             }
@@ -3198,15 +3198,15 @@ var gameDataParamTest = {
                 "fireRate": 10800,
                 "towerRange": 1024,
                 "fireSoundKey": "teslaFireSound",
-                "fireSound": "assets/sounds/bullet2.wav",
-                "bulletImpactSound": "assets/sounds/bulletImpact.m4a",
-                "bulletImpactSoundKey": "bulletImpact",
+                "fireSound": "assets/sounds/teslaFire.m4a",
+                "bulletImpactSound": "assets/sounds/teslaImpact.m4a",
+                "bulletImpactSoundKey": "teslaImpact",
                 "cost": 25,
                 "buildTime": 120,
                 "bulletSprite": "assets/images/Tesla-Orb-Anim.gif",
                 "sprite": "assets/images/Tesla-Orb-Anim.gif",
-                "buildSound": "assets/sounds/TowerPlacementPlaceholder.mp3",
-                "buildSoundKey": "teslBuildSound"
+                "buildSound": "assets/sounds/towerPlacement.m4a",
+                "buildSoundKey": "teslaBuildSound"
             },
             {
                 "type": "bulletTower",
@@ -3216,14 +3216,14 @@ var gameDataParamTest = {
                 "fireRate": 120,
                 "towerRange": 200,
                 "fireSoundKey": "bulletFireSound",
-                "fireSound": "assets/sounds/bullet.wav",
+                "fireSound": "assets/sounds/bulletFire.m4a",
                 "bulletImpactSound": "assets/sounds/bulletImpact.m4a",
                 "bulletImpactSoundKey": "bulletImpact",
                 "cost": 100,
                 "buildTime": 120,
                 "bulletSprite": "assets/images/bullet.png",
                 "sprite": "assets/images/bulletTower.png",
-                "buildSound": "assets/sounds/TowerPlacementPlaceholder.mp3",
+                "buildSound": "assets/sounds/towerPlacement.m4a",
                 "buildSoundKey": "bulletBuildSound"
             }
         ],
