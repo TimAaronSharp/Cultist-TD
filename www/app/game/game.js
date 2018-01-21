@@ -423,7 +423,6 @@ PhaserGame.prototype = {
     enemyHitPlayer(enemy) {
         if (enemy.gameObject.alive) {
             this.gameState.playerHealth -= enemy.playerDamageValue
-            debugger
             console.log("Player health: " + this.gameState.playerHealth)
             this.gameState.enemiesOutOfPlay++;
             // console.log(this.gameState.enemiesOutOfPlay)
