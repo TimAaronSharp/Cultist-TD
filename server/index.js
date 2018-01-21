@@ -43,6 +43,6 @@ function logger(req, res, next) {
 }
 
 
-server.listen(port, function () {
+server.listen(process.env.PORT || port, function () {
     console.log('Trying to get it done on: ', port)
 })
