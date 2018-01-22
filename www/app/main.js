@@ -904,8 +904,8 @@ var gameDataParamTest = {
                 "bulletImpactSoundKey": "teslaImpact",
                 "cost": 25,
                 "buildTime": 120,
-                "bulletSprite": "assets/images/Tesla-Orb-Anim.gif",
-                "sprite": "assets/images/Tesla-Orb-Anim.gif",
+                "bulletSprite": "assets/images/teslaTower.png",
+                "sprite": "assets/images/teslaTower.png",
                 "buildSound": "assets/sounds/towerPlacement.m4a",
                 "buildSoundKey": "teslaBuildSound"
             },
