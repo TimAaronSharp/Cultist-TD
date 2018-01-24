@@ -1,0 +1,12 @@
+{ "columns":19,
+ "image":"..\/..\/..\/..\/..\/..\/Users\/Chan\/Desktop\/tiles.bmp",
+ "imageheight":132,
+ "imagewidth":330,
+ "margin":0,
+ "name":"level2-tileset",
+ "spacing":1,
+ "tilecount":133,
+ "tileheight":16,
+ "tilewidth":16,
+ "type":"tileset"
+}

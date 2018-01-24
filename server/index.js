@@ -20,7 +20,7 @@ app.use(bp.json())
 app.use(bp.urlencoded({ extended: true }))
 app.use('*', logger)
 app.use('*', cors(corsOptions))
-app.use(express.static(__dirname + '/../www'))
+app.use(express.static(__dirname + '/www'))
 
 app.use('/', Auth)
 ///register routes

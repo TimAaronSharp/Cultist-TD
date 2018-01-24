@@ -1,0 +1,55 @@
+.banner{
+    font-family: 'Press Start 2P', cursive;
+    color: white;
+    background-color: rgb(61, 61, 61);
+    background-image: url(https://www.transparenttextures.com/patterns/light-wool.png);
+}
+.form{
+    font-family: 'IM Fell English SC', serif;
+}
+
+.container-fluid{
+    background-color: rgb(61, 61, 61);
+    font-family: 'Press Start 2P', cursive;
+    background-image: url(https://www.transparenttextures.com/patterns/light-wool.png);
+    min-height: 100vh;
+    
+}
+
+
+.btn-success{
+    background: rgb(61, 61, 61);
+}
+
+.form {
+    background-color: rgb(189, 189, 189);
+    
+}
+
+.logininfo {
+    background-color: rgb(189, 189, 189);
+}
+
+
+.story {
+    font-family: 'Press Start 2P', cursive;
+    padding-bottom: 2.5%
+}
+
+
+.story-body{
+    background-image: url(http://www.myfreetextures.com/wp-content/uploads/2013/07/old-brown-vintage-parchment-paper-texture.jpg);
+    background-size: cover;
+    font-family: 'IM Fell English SC', serif;
+
+}
+
+.story-header {
+    background-image: url(http://www.myfreetextures.com/wp-content/uploads/2013/07/old-brown-vintage-parchment-paper-texture.jpg);
+    background-size: cover;
+    font-family: 'IM Fell English SC', serif;
+}
+
+#reg {
+    display: none;
+}

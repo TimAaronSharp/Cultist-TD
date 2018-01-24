@@ -2,6 +2,7 @@ var game = new Phaser.Game(1024, 768, Phaser.AUTO, 'game-area');
 // var baseUrl = 'http://localhost:3000/api/'
 var baseUrl = window.location.host.includes('localhost') ? '//localhost:3000/api/' : '//cultist-td.herokuapp.com/api/'
 
+
 var gameDataParam = {}
 var gameDataParamTest = {}
 
