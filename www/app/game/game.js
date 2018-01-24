@@ -268,14 +268,14 @@ PhaserGame.prototype = {
 
             this.path.push({ x: px, y: py })
             //draws the path between the points.
-            this.bmd.rect(px, py, 1, 1, 'rgba(255, 255, 255, 1)');
+            // this.bmd.rect(px, py, 1, 1, 'rgba(255, 255, 255, 1)');
 
         }
 
         //draws red rectangles at the x:y points for better visibility (can't be seen if map is loaded).
-        for (var p = 0; p < this.gameData.level.points.x.length; p++) {
-            this.bmd.rect(this.gameData.level.points.x[p] - 3, this.gameData.level.points.y[p] - 3, 6, 6, 'rgba(255, 0, 0, 1)');
-        }
+        // for (var p = 0; p < this.gameData.level.points.x.length; p++) {
+        //     this.bmd.rect(this.gameData.level.points.x[p] - 3, this.gameData.level.points.y[p] - 3, 6, 6, 'rgba(255, 0, 0, 1)');
+        // }
     },
     update: function () {
         this.gameClock++;
